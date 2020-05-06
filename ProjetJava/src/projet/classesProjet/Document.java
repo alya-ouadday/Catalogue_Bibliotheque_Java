@@ -12,18 +12,16 @@ public abstract class Document {
 	private String title; 
 	private String publisher; 
 	private String date;
-	private boolean inSerie;
 	private String authorName;
 	private String authorSurname;
 	private String type;
 	private int nbCopies;
 	
-	public Document(String ean,String title, String publisher, String date, boolean inSerie, String authorName, String authorSurname, String type, int nbCopies) {
+	public Document(String ean,String title, String publisher, String date, String authorName, String authorSurname, String type, int nbCopies) {
 		this.ean= ean; 
 		this.title= title; 
 		this.publisher = publisher; 
 		this.date = date;
-		this.inSerie = inSerie;
 		this.authorName = authorName;
 		this.authorSurname = authorSurname;
 		this.type = type;

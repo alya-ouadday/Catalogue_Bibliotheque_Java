@@ -7,17 +7,22 @@ package projet.classesProjet;
  * @author alyab
  *
  */
-public class JeuDeSocieteInSerie extends JeuDeSociete{
+public class JeuDeSocieteInSerie extends JeuDeSociete implements InSerie{
 
 	/**
 	 * 
 	 */
-	Serie serie; 
-	public JeuDeSocieteInSerie(String ean,String title, String publisher, String date, boolean inSerie,
+	private Serie serie; 
+	public JeuDeSocieteInSerie(String ean,String title, String publisher, String date,
 			String authorName, String authorSurname, String type, int nbCopies, Serie serie) {
-		super(ean,title,publisher,date,inSerie,authorName, authorSurname, type,nbCopies); 
+		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies); 
 		this.serie = serie; 
 		
+	}
+	@Override
+	public Serie getSerie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
