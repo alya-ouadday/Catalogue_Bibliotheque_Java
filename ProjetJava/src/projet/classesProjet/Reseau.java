@@ -37,9 +37,12 @@ public class Reseau implements Consultable {
 	
 	
 	public void addBiblio(Bibliotheque bibliotheque) {
+		listeBiblio.add(bibliotheque); 
 		
 	}
 	public void addDocument(Document document) {
+		
+		
 		
 	}
 	public void consulterDocuments() {
