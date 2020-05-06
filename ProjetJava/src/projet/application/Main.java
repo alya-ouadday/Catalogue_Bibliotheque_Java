@@ -1,6 +1,6 @@
 package projet.application;
 
-import java.io.File; 
+import java.io.File;
 
 import projet.data.FileReader;
 import projet.classesProjet.*;
