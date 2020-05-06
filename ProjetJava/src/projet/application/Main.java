@@ -1,9 +1,9 @@
 package projet.application;
 
-
 import java.io.File;
 
 import projet.data.FileReader;
+import projet.classesProjet.*;
 
 public class Main 
 {
@@ -31,6 +31,8 @@ public class Main
 		{
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
+		
+		Reseau parisBiblios = new Reseau(); 
 		
 		//TODO Project :)
 	}

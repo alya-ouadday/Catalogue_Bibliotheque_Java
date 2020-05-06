@@ -1,5 +1,8 @@
 package projet.data;
 
+import projet.classesProjet.*;
+import projet.application.*;
+
 import java.io.BufferedReader;
 
 import java.io.IOException;
@@ -177,6 +180,7 @@ public class FileReader
             		}
                 
                 //TODO Do something with data
+            	
             	
                 System.out.println(
                 		isbn + ";" +
