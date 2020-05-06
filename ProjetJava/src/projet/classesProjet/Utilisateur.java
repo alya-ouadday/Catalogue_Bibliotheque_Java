@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author fande
  *
  */
-public class Utilisateur {
+public class Utilisateur implements Echange {
 	private int id;
 	private String name;
 	private int quota;
@@ -26,6 +26,16 @@ public class Utilisateur {
 	}
 	public Utilisateur(String name, int quota) {
 		this(name, quota, new ArrayList<Bibliotheque>(), new ArrayList<Document>());
+		
+	}
+	@Override
+	public void remettre(Bibliotheque bibliotheque, Document document) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void emprunter(Bibliotheque bibliotheque, Document document) {
+		// TODO Auto-generated method stub
 		
 	}
 	

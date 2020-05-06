@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @author fande
  *
  */
-public class Reseau {
+public class Reseau implements Consultable {
 	private ArrayList<Bibliotheque> listeBiblio;
 	private HashMap<String, Document> listeDocument;
 	private HashMap<String, Livre> listeLivre;
@@ -44,6 +44,48 @@ public class Reseau {
 	}
 	public void consulterDocuments() {
 		
+	}
+
+	@Override
+	public void ShowAllDocuments() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Document> searchSerie() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Livre searchISBN(String isbn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Document searchEAN(String ean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Document> searchDocumentsAuthor(String authorName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int searchNumberPeriod(String beginDate, String endDate) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
