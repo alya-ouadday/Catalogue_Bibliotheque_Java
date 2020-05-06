@@ -7,7 +7,7 @@ package projet.classesProjet;
  * @author alyab
  *
  */
-public class Document {
+public abstract class Document {
 	private String ean; 
 	private String title; 
 	private String publisher; 
