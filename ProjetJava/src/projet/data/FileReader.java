@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FileReader 
 {
-	public static void getDataFromCSVFile(String csvFilePath)
+	public static void getDataFromCSVFile(String csvFilePath, Reseau reseau)
 	{
         String line = "";
         String[] data = null;
@@ -179,7 +179,7 @@ public class FileReader
             			numberCopySaintSimon = 0;
             		}
                 
-                //TODO Do something with data
+                
             	
             	
                 System.out.println(
