@@ -22,6 +22,6 @@ public class PartitionInSerie extends Partition implements InSerie{
 	@Override
 	public Serie getSerie() {
 		// TODO Auto-generated method stub
-		return null;
+		return serie;
 	}
 }

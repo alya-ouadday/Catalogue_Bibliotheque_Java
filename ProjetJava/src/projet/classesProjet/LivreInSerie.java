@@ -19,7 +19,7 @@ public class LivreInSerie extends Livre implements InSerie{
 	@Override
 	public Serie getSerie() {
 		// TODO Auto-generated method stub
-		return null;
+		return serie;
 	}
 
 }

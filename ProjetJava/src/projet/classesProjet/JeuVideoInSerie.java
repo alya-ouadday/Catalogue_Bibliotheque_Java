@@ -22,7 +22,7 @@ public class JeuVideoInSerie extends JeuVideo implements InSerie   {
 	@Override
 	public Serie getSerie() {
 		// TODO Auto-generated method stub
-		return null;
+		return serie;
 	}
 
 }

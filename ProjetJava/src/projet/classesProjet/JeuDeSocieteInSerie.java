@@ -22,7 +22,7 @@ public class JeuDeSocieteInSerie extends JeuDeSociete implements InSerie{
 	@Override
 	public Serie getSerie() {
 		// TODO Auto-generated method stub
-		return null;
+		return serie;
 	}
 
 }

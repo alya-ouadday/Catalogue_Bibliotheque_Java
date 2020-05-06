@@ -23,9 +23,15 @@ public class Bibliotheque {
 	}
 	
 	
-	/*
-	public void addUtilisateur(Utilisateur) {
+	
+	public void addUtilisateur(Utilisateur utilisateur) {
 		
 	}
-	*/
+	
+	
+	
+	public void addDocument(Document document) {
+		
+	}
+	
 }
