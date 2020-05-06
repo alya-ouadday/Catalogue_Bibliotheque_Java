@@ -139,7 +139,7 @@ public class FileReader
             		//Get the number of copy in the library "Edmond Rostand"
             		try
             		{
-            			numberCopyEdmondRostand = Integer.parseInt(data[11]);
+            			numberCopyEdmondRostand = Integer.parseInt(data[12]);
             		}
             		catch (Exception exception)
             		{
@@ -149,7 +149,7 @@ public class FileReader
             		//Get the number of copy in the library "Jean-Pierre Melville"
             		try
             		{
-            			numberCopyJeanPierreMelville = Integer.parseInt(data[11]);
+            			numberCopyJeanPierreMelville = Integer.parseInt(data[13]);
             		}
             		catch (Exception exception)
             		{
@@ -159,7 +159,7 @@ public class FileReader
             		//Get the number of copy in the library "Oscar Wilde"
             		try
             		{
-            			numberCopyOscarWilde = Integer.parseInt(data[11]);
+            			numberCopyOscarWilde = Integer.parseInt(data[14]);
             		}
             		catch (Exception exception)
             		{
@@ -169,7 +169,7 @@ public class FileReader
             		//Get the number of copy in the library "Saint-Simon"
             		try
             		{
-            			numberCopySaintSimon = Integer.parseInt(data[11]);
+            			numberCopySaintSimon = Integer.parseInt(data[15]);
             		}
             		catch (Exception exception)
             		{
