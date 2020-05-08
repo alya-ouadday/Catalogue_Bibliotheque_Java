@@ -199,6 +199,79 @@ public class FileReader
                 		numberCopyJeanPierreMelville + ";" +
                 		numberCopyOscarWilde + ";" +
                 		numberCopySaintSimon);
+                
+                /*
+                 * methode à rajouter 
+                 * addDocument dans Serie
+                 * addDocument dans bibliotheque
+                 * 
+                 */
+                
+                Document document = null;
+                
+                //si le document n'appartient pas à une série
+                if(seriesTitle == null) {
+                	//si le document est identifiable
+                	if((ean != null) || (isbn!=null)) {
+	                	//si le doc a un ean et pas d'isbn
+		                if( (ean != null) && (isbn==null)) {
+		                		//si le doc est un vinyle
+		                		if(type == "Vinyle") {
+		                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+		                		}
+		                		
+		                }
+		                //si le doc a un ISBN
+		                else{
+		                	//si le doc est une partition
+	                		if(type == "Partition") {
+	                			document = new Partition(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+	                		}
+	                		else {
+	                			document = new Livre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+	                		}
+		                }	
+                	}
+	            }
+                //si le document appartient à une série
+                else {
+                	//si le document est identifiable
+                	if((ean != null) || (isbn!=null)) {
+                		//on commence par gerer sa serie
+                		Serie serie = null;
+                		if((reseau.getListeSerie()).containsKey(seriesTitle)) {
+                			serie = (reseau.getListeSerie()).get(seriesTitle);
+                		}
+                		else {
+                			serie = new Serie(seriesTitle);
+                			reseau.addSerie(serie);
+                		}
+	                	//si le doc a un ean et pas d'isbn
+		                if( (ean != null) && (isbn==null)) {
+		                		//si le doc est un vinyle
+		                		if(type == "Vinyle") {
+		                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+		                		}	
+		                }
+		                //si le doc a un ISBN
+		                else{
+		                	//si le doc est une partition
+	                		if(type == "Partition") {
+	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                		}
+	                		else {
+	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                		}
+		                }
+		                serie.addDocument(document);
+                	}
+                }
+                
+                reseau.addDocument(document);
+                
+                
+                
+                
             }
         } 
         catch (IOException exception) 
