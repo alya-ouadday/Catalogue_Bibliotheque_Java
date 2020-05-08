@@ -17,7 +17,7 @@ public class Serie {
 		return listeDoc; 
 	}
 	
-	public void addDocument() {
+	public void addDocument(Document document) {
 		
 	}
 }
