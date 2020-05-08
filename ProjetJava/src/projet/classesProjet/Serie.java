@@ -16,4 +16,8 @@ public class Serie {
 	public HashMap<Integer, Document> getListeDoc(){
 		return listeDoc; 
 	}
+	
+	public void addDocument() {
+		
+	}
 }
