@@ -20,5 +20,9 @@ public class Livre extends Document {
 		this.isbn = isbn; 
 		
 	}
+	
+	public String getISBN() {
+		return isbn;
+	}
 
 }

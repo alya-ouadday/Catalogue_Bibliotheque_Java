@@ -40,7 +40,7 @@ public class Bibliotheque implements Consultable, Echange {
 		
 	}
 	@Override
-	public ArrayList<Document> searchSerie() {
+	public HashMap<Integer, Document> searchSerie(String serieName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

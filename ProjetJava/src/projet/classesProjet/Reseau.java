@@ -34,43 +34,59 @@ public class Reseau implements Consultable {
 	}
 				
 	
-	
+	public  HashMap<String, Serie>  getListeSerie(){
+		return listeSerie; 
+	}
 	
 	public void addBiblio(Bibliotheque bibliotheque) {
 		listeBiblio.add(bibliotheque); 
 		
 	}
 	public void addDocument(Document document) {
-		
-		
-		
+		if(document != null) {
+			listeDocument.put(document.getEAN(), document); 
+			if (listeAuthor.containsKey(document.getAuthor())){
+				listeAuthor.get(document.getAuthor()).add(document); 
+			}
+			else {
+				ArrayList<Document> value = new ArrayList<Document>(); 
+				value.add(document); 
+				listeAuthor.put(document.getAuthor(), value); 
+			}
+			if(document instanceof Livre) {
+				Livre livre = (Livre)document;
+				listeLivre.put(livre.getISBN(), livre); 
+			}	
+		}
 	}
-	public void consulterDocuments() {
-		
-	}
+	
 
 	@Override
 	public void ShowAllDocuments() {
-		// TODO Auto-generated method stub
+		for(Document document: listeDocument.values()) {
+			System.out.print(document.toString());
+		}
 		
 	}
 
 	@Override
-	public ArrayList<Document> searchSerie() {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<Integer, Document> searchSerie(String serieName) {
+		HashMap<Integer, Document> serie = listeSerie.get(serieName).getListeDoc(); 
+		for(Document document : serie.values()) {
+			System.out.println(document.getTitle()); 
+		}
+		
+		return serie; 
 	}
 
 	@Override
 	public Livre searchISBN(String isbn) {
-		// TODO Auto-generated method stub
-		return null;
+		return null; 
 	}
 
 	@Override
 	public Document searchEAN(String ean) {
-		// TODO Auto-generated method stub
-		return null;
+		return listeDocument.get(ean); 
 	}
 
 	@Override
