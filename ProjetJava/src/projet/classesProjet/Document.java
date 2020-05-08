@@ -28,6 +28,25 @@ public abstract class Document {
 		this.nbCopies = nbCopies;
 	}
 	
+	
+	public String getEAN() {
+		return ean; 
+	}
+	
+	public String getAuthor() {
+		return authorName; 
+	}
+	
+	public String getTitle() {
+		return title; 
+	}
+	@Override
+	public String toString() {
+		String s = "EAN: " + ean + " titre: "+ title+ " editeur: "+" Auteur: "+ authorName + " "
+	+ authorSurname+ " type: "+ type+ " nombre de copies : " + nbCopies; 
+		return s; 
+	}
+	
 	public boolean equals(Document document) {
 		return false; 
 	}

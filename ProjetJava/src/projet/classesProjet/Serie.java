@@ -12,4 +12,8 @@ public class Serie {
 	public Serie(String name) {
 		this(name, new HashMap<Integer, Document>());
 	}
+	
+	public HashMap<Integer, Document> getListeDoc(){
+		return listeDoc; 
+	}
 }
