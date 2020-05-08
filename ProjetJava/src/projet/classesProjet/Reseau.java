@@ -4,6 +4,7 @@
 package projet.classesProjet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import projet.exceptions.*;
 
 /**
  * @author fande
@@ -80,8 +81,9 @@ public class Reseau implements Consultable {
 	}
 
 	@Override
-	public Livre searchISBN(String isbn) {
-		return null; 
+	public Livre searchISBN(String isbn) throws formatISBNException{
+		
+		return listeLivre.get(isbn);  
 	}
 
 	@Override
@@ -105,6 +107,10 @@ public class Reseau implements Consultable {
 	public int searchNumberPeriod(String beginDate, String endDate) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public void addSerie(Serie serie) {
+		
 	}
 	
 }

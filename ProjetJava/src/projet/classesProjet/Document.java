@@ -50,5 +50,6 @@ public abstract class Document {
 	public boolean equals(Document document) {
 		return false; 
 	}
+	
 
 }
