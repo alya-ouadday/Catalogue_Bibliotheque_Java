@@ -35,7 +35,7 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	
-	public void addDocument(Document document) {
+	public void addDocument(Document document, Integer nBCopie) {
 		
 	}
 	@Override

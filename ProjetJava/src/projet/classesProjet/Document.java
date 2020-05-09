@@ -34,7 +34,7 @@ public abstract class Document {
 	}
 	
 	public String getAuthor() {
-		return authorName; 
+		return authorName + " " + authorSurname; 
 	}
 	
 	public String getTitle() {
