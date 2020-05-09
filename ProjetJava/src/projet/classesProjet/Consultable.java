@@ -16,7 +16,8 @@ public interface Consultable {
 	public HashMap<Integer, Document> searchSerie(String serieName); 
 	public Livre searchISBN(String isbn) throws formatISBNException; 
 	public Document searchEAN(String ean) throws formatEANException; 
-	public ArrayList<Document> searchDocumentsAuthor(String authorName); 
+	public void searchDocumentsAuthorName(String authorName);
+	public void searchDocumentsAuthorSurname(String authorSurname);
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname); 
 	public int searchNumberPeriod(String beginDate, String endDate ); 
 	

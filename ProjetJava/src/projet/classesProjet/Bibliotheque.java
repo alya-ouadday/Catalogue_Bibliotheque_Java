@@ -12,15 +12,18 @@ import java.util.HashMap;
 public class Bibliotheque implements Consultable, Echange {
 	private String name;
 	private Reseau reseau;
-	private HashMap<String,Integer> listeCopie;
+	private HashMap<String,Integer> listeCopieDoc;
+	private HashMap<String,Integer> listeCopieLivre;
 	
-	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopie) {
+	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre) {
 		this.name = name;
 		this.reseau = reseau;
-		this.listeCopie = listeCopie;
+		this.listeCopieDoc = listeCopieDoc;
+		this.listeCopieLivre = listeCopieLivre; 
+		
 	}
 	public Bibliotheque(String nom,Reseau reseau) {
-		this(nom, reseau, new HashMap<String,Integer>());
+		this(nom, reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>());
 	}
 	
 	public String getName() {
@@ -59,10 +62,16 @@ public class Bibliotheque implements Consultable, Echange {
 		return null;
 	}
 	@Override
-	public ArrayList<Document> searchDocumentsAuthor(String authorName) {
+	public void searchDocumentsAuthorName(String authorName) {
 		// TODO Auto-generated method stub
-		return null;
 	}
+	
+	@Override
+	public void searchDocumentsAuthorSurname(String authorName) {
+		// TODO Auto-generated method stub
+	}
+	
+	
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
 		// TODO Auto-generated method stub

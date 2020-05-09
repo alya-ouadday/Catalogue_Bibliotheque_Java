@@ -59,7 +59,8 @@ public class Reseau implements Consultable {
 			if(document instanceof Livre) {
 				Livre livre = (Livre)document;
 				listeLivre.put(livre.getISBN(), livre); 
-			}	
+			}
+			
 		}
 	}
 	
@@ -97,31 +98,44 @@ public class Reseau implements Consultable {
 		}
 		return listeDocument.get(ean); 
 	}
+	
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
 			
 		return listeAuthor.get(authorName + " "+ authorSurname); 
 	}
+	
 	@Override
-	public ArrayList<Document> searchDocumentsAuthor(String authorName) {
+	public void searchDocumentsAuthorName(String authorName) {
 		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
 			if( entry.getKey().matches(authorName +"(.*)")) {
-				System.out.println(entry.getKey()+ " : \n" + entry.getValue().toString()); 
-			}
-			
-		}
-		return null; 
-		
-		
-		
+				System.out.println(entry.getKey()+ " : " ); 
+				for (Document document: entry.getValue()) {
+					System.out.println(document.toString()); 			
+				}
+			}	
+		}			
 	}
-
 	
+	@Override
+	public void searchDocumentsAuthorSurname(String authorSurname) {
+		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
+			if( entry.getKey().matches("(.*)"+authorSurname)) {
+				System.out.println(entry.getKey()+ " : ");
+				for (Document document: entry.getValue()) {
+					System.out.println(document.toString()); 
+					
+				}
+			}
+		} 			
+	}
 
 	@Override
 	public int searchNumberPeriod(String beginDate, String endDate) {
-		// TODO Auto-generated method stub
-		return 0;
+		for(Map.Entry<String, Document> entry : listeDocument.entrySet()) {
+		
+		}
+		return 0; 
 	}
 	
 	public void addSerie(Serie serie) {

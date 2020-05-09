@@ -216,19 +216,19 @@ public class FileReader
 	                	//si le doc a un ean et pas d'isbn
 		                if( (ean != null) && (isbn==null)) {
 		                		//si le doc est un vinyle
-		                		if(type == "Vinyle") {
+		                		if(type.matches("Vinyle(.*)")) {
 		                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
 		                		}
 		                		//si le doc est un CD
-		                		else if(type == "Disque compact") {
+		                		else if(type.matches("Disque compact(.*)")) {
 		                			document = new CD(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
 		                		}
 		                		//si le doc est un Jeu de societe
-		                		else if(type == "Jeux de societe") {
+		                		else if(type.matches("Jeux de(.*)")) {
 		                			document = new JeuDeSociete(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
 		                		}
 		                		//si le doc est un Jeu video
-		                		else if(type == "Jeux Videos") {
+		                		else if(type.matches("Jeux Videos(.*)")) {
 		                			document = new JeuVideo(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
 		                		}
 		                		//sinon on le met dans autre
@@ -240,19 +240,19 @@ public class FileReader
 		                //si le doc a un ISBN
 		                else{
 		                	//si le doc est une partition
-	                		if(type == "Partition") {
+	                		if(type.matches("Partition(.*)")) {
 	                			document = new Partition(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
 	                		//si le doc est une carte
-	                		else if(type == "Carte ou plan") {
+	                		else if(type.matches("Carte(.*)")) {
 	                			document = new Carte(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
 	                		//si le doc est une revue
-	                		else if(type == "Revue pour adulte") {
+	                		else if(type.matches("Revue(.*)")) {
 	                			document = new Revue(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
 	                		//si le doc est une Bande Dessinee
-	                		else if(type == "Revue pour adulte") {
+	                		else if(type.matches("Bande dessinee(.*)")) {
 	                			document = new BandeDessinee(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
 	                		//sinon c'est juste un livre
@@ -278,19 +278,19 @@ public class FileReader
 	                	//si le doc a un ean et pas d'isbn
 		                if( (ean != null) && (isbn==null)) {
 		                	//si le doc est un vinyle
-	                		if(type == "Vinyle") {
+	                		if(type.matches("Vinyle(.*)")) {
 	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
 	                		}
 	                		//si le doc est un CD
-	                		else if(type == "Disque compact") {
+	                		else if(type.matches("Disque compact(.*)")) {
 	                			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
 	                		}
 	                		//si le doc est un Jeu de societe
-	                		else if(type == "Jeux de societe") {
+	                		else if(type.matches("Jeux de societe(.*)")) {
 	                			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
 	                		}
 	                		//si le doc est un Jeu video
-	                		else if(type == "Jeux Videos") {
+	                		else if(type.matches("Jeux Videos(.*)")) {
 	                			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
 	                		}
 	                		//sinon on le met dans autre
@@ -301,19 +301,19 @@ public class FileReader
 		                //si le doc a un ISBN
 		                else{
 		                	//si le doc est une partition
-	                		if(type == "Partition") {
+	                		if(type.matches("Partition(.*)")) {
 	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 	                		//si le doc est une carte
-	                		else if(type == "Carte ou plan") {
+	                		else if(type.matches("Carte(.*)")) {
 	                			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 	                		//si le doc est une revue
-	                		else if(type == "Revue pour adulte") {
+	                		else if(type.matches("Revue(.*)")) {
 	                			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 	                		//si le doc est une Bande Dessinee
-	                		else if(type == "Revue pour adulte") {
+	                		else if(type.matches("Bande dessinee(.*)")) {
 	                			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 	                		//sinon c'est juste un livre

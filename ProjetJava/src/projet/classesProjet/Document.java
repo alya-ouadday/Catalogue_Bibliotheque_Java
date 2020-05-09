@@ -40,6 +40,10 @@ public abstract class Document {
 	public String getTitle() {
 		return title; 
 	}
+	
+	public String getDate() {
+		return date; 
+	}
 	@Override
 	public String toString() {
 		String s = "EAN: " + ean + " titre: "+ title+ " editeur: "+" Auteur: "+ authorName + " "
