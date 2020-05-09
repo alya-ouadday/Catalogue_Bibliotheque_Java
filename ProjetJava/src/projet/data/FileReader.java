@@ -219,6 +219,22 @@ public class FileReader
 		                		if(type == "Vinyle") {
 		                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
 		                		}
+		                		//si le doc est un CD
+		                		else if(type == "Disque compact") {
+		                			document = new CD(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+		                		}
+		                		//si le doc est un Jeu de societe
+		                		else if(type == "Jeux de societe") {
+		                			document = new JeuDeSociete(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+		                		}
+		                		//si le doc est un Jeu video
+		                		else if(type == "Jeux Videos") {
+		                			document = new JeuVideo(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+		                		}
+		                		//sinon on le met dans autre
+		                		else {
+		                			document = new Autre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+		                		}
 		                		
 		                }
 		                //si le doc a un ISBN
@@ -227,6 +243,19 @@ public class FileReader
 	                		if(type == "Partition") {
 	                			document = new Partition(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
+	                		//si le doc est une carte
+	                		else if(type == "Carte ou plan") {
+	                			document = new Carte(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+	                		}
+	                		//si le doc est une revue
+	                		else if(type == "Revue pour adulte") {
+	                			document = new Revue(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+	                		}
+	                		//si le doc est une Bande Dessinee
+	                		else if(type == "Revue pour adulte") {
+	                			document = new BandeDessinee(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+	                		}
+	                		//sinon c'est juste un livre
 	                		else {
 	                			document = new Livre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
 	                		}
@@ -248,10 +277,26 @@ public class FileReader
                 		}
 	                	//si le doc a un ean et pas d'isbn
 		                if( (ean != null) && (isbn==null)) {
-		                		//si le doc est un vinyle
-		                		if(type == "Vinyle") {
-		                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
-		                		}	
+		                	//si le doc est un vinyle
+	                		if(type == "Vinyle") {
+	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                		}
+	                		//si le doc est un CD
+	                		else if(type == "Disque compact") {
+	                			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                		}
+	                		//si le doc est un Jeu de societe
+	                		else if(type == "Jeux de societe") {
+	                			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                		}
+	                		//si le doc est un Jeu video
+	                		else if(type == "Jeux Videos") {
+	                			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                		}
+	                		//sinon on le met dans autre
+	                		else {
+	                			document = new AutreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                		}
 		                }
 		                //si le doc a un ISBN
 		                else{
@@ -259,19 +304,46 @@ public class FileReader
 	                		if(type == "Partition") {
 	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
+	                		//si le doc est une carte
+	                		else if(type == "Carte ou plan") {
+	                			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                		}
+	                		//si le doc est une revue
+	                		else if(type == "Revue pour adulte") {
+	                			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                		}
+	                		//si le doc est une Bande Dessinee
+	                		else if(type == "Revue pour adulte") {
+	                			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                		}
+	                		//sinon c'est juste un livre
 	                		else {
 	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 		                }
-		                serie.addDocument(document);
+		                Integer numeroSerie = new Integer(seriesNumber);
+		                serie.addDocument(document,numeroSerie);
                 	}
                 }
-                
+                //on ajoute le document au reseau
                 reseau.addDocument(document);
-                
-                
-                
-                
+                //on ajoute le document au bibliotheque
+                if(numberCopyAimeCesaire > 0) {
+                	(reseau.getListeBiblio()).get("AimeCesaire").addDocument(document, numberCopyAimeCesaire);
+                }
+                if(numberCopyEdmondRostand > 0) {
+                	(reseau.getListeBiblio()).get("EdmondRostand").addDocument(document, numberCopyEdmondRostand);
+                }
+                if(numberCopyJeanPierreMelville > 0) {
+                	(reseau.getListeBiblio()).get("JeanPierreMelville").addDocument(document, numberCopyJeanPierreMelville);
+                }
+                if(numberCopyOscarWilde > 0) {
+                	(reseau.getListeBiblio()).get("OscarWilde").addDocument(document, numberCopyOscarWilde);
+                }
+                if(numberCopySaintSimon > 0) {
+                	(reseau.getListeBiblio()).get("SaintSimon").addDocument(document, numberCopySaintSimon);
+                }
+                 
             }
         } 
         catch (IOException exception) 
