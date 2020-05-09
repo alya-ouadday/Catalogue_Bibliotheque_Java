@@ -4,6 +4,8 @@
 package projet.classesProjet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import projet.exceptions.*;
 
 /**
@@ -11,13 +13,13 @@ import projet.exceptions.*;
  *
  */
 public class Reseau implements Consultable {
-	private ArrayList<Bibliotheque> listeBiblio;
+	private HashMap<String, Bibliotheque> listeBiblio;
 	private HashMap<String, Document> listeDocument;
 	private HashMap<String, Livre> listeLivre;
 	private HashMap<String, ArrayList<Document>> listeAuthor;
 	private HashMap<String, Serie> listeSerie;
 	
-	public Reseau(ArrayList<Bibliotheque> listeBiblio, HashMap<String, Document> listeDocument, 
+	public Reseau(HashMap<String, Bibliotheque> listeBiblio, HashMap<String, Document> listeDocument, 
 				   HashMap<String, Livre> listeLivre, HashMap<String, ArrayList<Document>> listeAuthor, HashMap<String, Serie> listeSerie) {
 		this.listeBiblio = listeBiblio;
 		this.listeDocument = listeDocument;
@@ -28,7 +30,7 @@ public class Reseau implements Consultable {
 	
 	public Reseau() {
 		
-		this(new ArrayList<Bibliotheque>(), new HashMap<String,Document>(), new HashMap<String, Livre>(),
+		this(new HashMap<String, Bibliotheque>(), new HashMap<String,Document>(), new HashMap<String, Livre>(),
 				new HashMap<String,ArrayList<Document>>(), new HashMap<String, Serie>()) ;
 		
 
@@ -40,7 +42,7 @@ public class Reseau implements Consultable {
 	}
 	
 	public void addBiblio(Bibliotheque bibliotheque) {
-		listeBiblio.add(bibliotheque); 
+		listeBiblio.put(bibliotheque.getName(), bibliotheque); 
 		
 	}
 	public void addDocument(Document document) {
@@ -82,26 +84,39 @@ public class Reseau implements Consultable {
 
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
-		
+		if (!isbn.matches("\\d{3}-\\d{1}-\\d{5}-\\d{3}-\\d{1}")){
+			throw new formatISBNException(); 
+		}
 		return listeLivre.get(isbn);  
 	}
 
 	@Override
-	public Document searchEAN(String ean) {
+	public Document searchEAN(String ean) throws formatEANException{
+		if (!ean.matches("\\d{13}")){
+			throw new formatEANException(); 
+		}
 		return listeDocument.get(ean); 
 	}
-
-	@Override
-	public ArrayList<Document> searchDocumentsAuthor(String authorName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
-		// TODO Auto-generated method stub
-		return null;
+			
+		return listeAuthor.get(authorName + " "+ authorSurname); 
 	}
+	@Override
+	public ArrayList<Document> searchDocumentsAuthor(String authorName) {
+		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
+			if( entry.getKey().matches(authorName +"(.*)")) {
+				System.out.println(entry.getKey()+ " : \n" + entry.getValue().toString()); 
+			}
+			
+		}
+		return null; 
+		
+		
+		
+	}
+
+	
 
 	@Override
 	public int searchNumberPeriod(String beginDate, String endDate) {
@@ -110,7 +125,11 @@ public class Reseau implements Consultable {
 	}
 	
 	public void addSerie(Serie serie) {
-		
+		listeSerie.put(serie.getName(), serie); 
+	}
+	
+	public HashMap<String, Bibliotheque> getListeBiblio(){
+		return listeBiblio; 
 	}
 	
 }

@@ -1,5 +1,7 @@
 package projet.classesProjet;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Serie {
 	private String name;
@@ -17,7 +19,14 @@ public class Serie {
 		return listeDoc; 
 	}
 	
-	public void addDocument(Document document) {
-		
+	public void addDocument(Document document, Integer numero) {
+		if(document instanceof InSerie) {
+			listeDoc.put(numero, document); 
+			Map<Integer, Document> treeMap = new TreeMap<Integer, Document>(listeDoc);
+		}
+	}
+	
+	public String getName() {
+		return name; 
 	}
 }

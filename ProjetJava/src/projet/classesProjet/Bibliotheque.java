@@ -10,17 +10,21 @@ import java.util.HashMap;
  *
  */
 public class Bibliotheque implements Consultable, Echange {
-	private String nom;
+	private String name;
 	private Reseau reseau;
 	private HashMap<String,Integer> listeCopie;
 	
-	public Bibliotheque(String nom,Reseau reseau, HashMap<String,Integer> listeCopie) {
-		this.nom = nom;
+	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopie) {
+		this.name = name;
 		this.reseau = reseau;
 		this.listeCopie = listeCopie;
 	}
 	public Bibliotheque(String nom,Reseau reseau) {
 		this(nom, reseau, new HashMap<String,Integer>());
+	}
+	
+	public String getName() {
+		return name; 
 	}
 	
 	
