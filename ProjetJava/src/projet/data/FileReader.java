@@ -63,7 +63,7 @@ public class FileReader
             	//Sort data
             		
             		//Get the ISBN number
-            		isbn = data[0];
+            		isbn = data[0].replace("-", "");//On remplace les tirets par rien 
             		
             		//Get the EAN number
             		ean = data[1];
@@ -111,10 +111,10 @@ public class FileReader
             		}
             		
             		//Get the name of the author
-            		authorSurname = data[7];
+            		authorName = data[7];
             		
             		//Get the surname of the author
-            		authorName = data[8];
+            		authorSurname = data[8];
             		
             		//Get the type of the document
             		type = data[9];

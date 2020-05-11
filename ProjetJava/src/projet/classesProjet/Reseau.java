@@ -51,11 +51,11 @@ public class Reseau implements Consultable {
 				//qui a seulement un ISBN 
 				listeDocument.put(document.getEAN(), document); 
 			}
-				if (listeAuthor.containsKey(document.getAuthor())){ //si l'auteur du doc est deja 
+			if (listeAuthor.containsKey(document.getAuthor())){ //si l'auteur du doc est deja 
 				//dans la liste d'auteur
-					listeAuthor.get(document.getAuthor()).add(document); 
-				}
-			else {
+				listeAuthor.get(document.getAuthor()).add(document); 
+			}
+			else if (listeAuthor.containsKey(document.getAuthor())!= true) {
 				ArrayList<Document> value = new ArrayList<Document>(); 
 				value.add(document); 
 				listeAuthor.put(document.getAuthor(), value); 
@@ -83,16 +83,17 @@ public class Reseau implements Consultable {
 		//la série par son nom dans la liste des series, et on parcours sa liste de document pour print
 		//tous les docs dedans 
 		//il faut encore trier la hashmap avant
-		for(Document document : serie.keySet()) {
-			System.out.println(document.getTitle()); 
-		}
+		serie.entrySet()
+		  .stream()
+		  .sorted(Map.Entry.comparingByValue())
+		  .forEach(System.out::println);
 		
 		return serie; 
 	}
 
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
-		if (!isbn.matches("\\d{3}-\\d{1}-\\d{5}-\\d{3}-\\d{1}")){
+		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
 		return listeLivre.get(isbn);  
@@ -108,7 +109,14 @@ public class Reseau implements Consultable {
 	
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
-			
+		if(listeAuthor.get(authorName + " "+ authorSurname) != null) {
+		for(Document document :listeAuthor.get(authorName + " "+ authorSurname) ) {
+			System.out.println(document.toString()); 
+		}
+		}
+		else {
+			System.out.println("Cet auteur n'a rien écrit"); 
+		}
 		return listeAuthor.get(authorName + " "+ authorSurname); 
 	}
 	

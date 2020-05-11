@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import projet.data.FileReader;
+import projet.exceptions.formatEANException;
 import projet.exceptions.formatISBNException;
 import projet.classesProjet.*;
 
@@ -36,7 +37,7 @@ public class Main
 				//We start by reading the CSV file
 				FileReader.getDataFromCSVFile(args[0], parisBiblios);
 				
-				System.out.println("[Main] End of the file " + args[0] + ".");
+				System.out.println("[Main] End of the fi le " + args[0] + ".");
 			}
 			else
 			{
@@ -50,11 +51,25 @@ public class Main
 	
 		//parisBiblios.ShowAllDocuments();
 		//parisBiblios.searchSerie("Dragonball");
+		String isbn = "978-2-03-585916-7";
+		isbn = isbn.replace("-", ""); 
 		try {
-			parisBiblios.searchISBN("978-2-7234-6776-6");
+			
+			System.out.println(parisBiblios.searchISBN(isbn));
 		}catch(formatISBNException e) {
 			System.out.println("erreur ouille");
 		}
+		
+		try {
+			
+			System.out.println(parisBiblios.searchEAN("9782758510598"));
+		}catch(formatEANException e) {
+			System.out.println("erreur ouille");
+		}
+		
+		
+		parisBiblios.searchDocumentsAuthor("Vian", "Boris"); 
+		
 		
 		
 		//TODO Project :)

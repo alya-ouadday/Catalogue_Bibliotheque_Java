@@ -29,5 +29,10 @@ public class Livre extends Document {
 	public String getType(){
 		return("Livre");
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "ISBN: " + this.isbn;  
+	}
 
 }
