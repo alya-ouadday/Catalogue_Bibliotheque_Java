@@ -71,8 +71,12 @@ public class Reseau implements Consultable {
 
 	@Override
 	public void ShowAllDocuments() {
-		for(Document document: listeDocument.values()) {
-			System.out.print(document.toString());
+		//for(Document document: listeDocument.values()) {
+			//System.out.print(document.toString());
+		//}
+		
+		for(Map.Entry<String, Document> entry : listeDocument.entrySet()) {
+			System.out.println(entry.getValue().toString()); 
 		}
 		
 	}
