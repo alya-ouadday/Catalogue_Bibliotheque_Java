@@ -47,7 +47,7 @@ public class Main
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
 	
-		
+		parisBiblios.ShowAllDocuments();
 	
 		
 		//TODO Project :)

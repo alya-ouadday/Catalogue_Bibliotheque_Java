@@ -39,8 +39,19 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	public void addDocument(Document document, Integer nBCopie) {
-		
+		if(document != null) {
+			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
+				//qui a seulement un ISBN 
+				listeCopieDoc.put(document.getEAN(), nBCopie); 
+			}
+			if(document instanceof Livre) {
+				Livre livre = (Livre)document;
+				listeCopieLivre.put(livre.getISBN(), nBCopie); 
+			}
+		}
 	}
+	
+	
 	@Override
 	public void ShowAllDocuments() {
 		// TODO Auto-generated method stub

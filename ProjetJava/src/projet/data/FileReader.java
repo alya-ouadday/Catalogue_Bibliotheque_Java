@@ -180,8 +180,7 @@ public class FileReader
             		}
                 
                 
-            	
-            	
+            	/*
                 System.out.println(
                 		isbn + ";" +
                 		ean + ";" +
@@ -199,22 +198,25 @@ public class FileReader
                 		numberCopyJeanPierreMelville + ";" +
                 		numberCopyOscarWilde + ";" +
                 		numberCopySaintSimon);
-                
+                */
                 /*
                  * methode à rajouter 
                  * addDocument dans Serie
                  * addDocument dans bibliotheque
                  * 
                  */
+               
+                
+                
                 
                 Document document = null;
                 
                 //si le document n'appartient pas à une série
-                if(seriesTitle == null) {
+                if(seriesTitle.isEmpty()) {
                 	//si le document est identifiable
-                	if((ean != null) || (isbn!=null)) {
+                	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
 	                	//si le doc a un ean et pas d'isbn
-		                if( (ean != null) && (isbn==null)) {
+		                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
 		                		//si le doc est un vinyle
 		                		if(type.matches("Vinyle(.*)")) {
 		                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
@@ -265,18 +267,18 @@ public class FileReader
                 //si le document appartient à une série
                 else {
                 	//si le document est identifiable
-                	if((ean != null) || (isbn!=null)) {
+                	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
                 		//on commence par gerer sa serie
-                		Serie serie = null;
+                		Serie serie = new Serie(seriesTitle);
+                		
                 		if((reseau.getListeSerie()).containsKey(seriesTitle)) {
-                			serie = (reseau.getListeSerie()).get(seriesTitle);
+                			serie = (reseau.getListeSerie()).get(seriesTitle);//on pointe sur la série déja dans le réseau si elle existe
                 		}
                 		else {
-                			serie = new Serie(seriesTitle);
                 			reseau.addSerie(serie);
                 		}
 	                	//si le doc a un ean et pas d'isbn
-		                if( (ean != null) && (isbn==null)) {
+		                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
 		                	//si le doc est un vinyle
 	                		if(type.matches("Vinyle(.*)")) {
 	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
@@ -321,8 +323,8 @@ public class FileReader
 	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
 	                		}
 		                }
-		                Integer numeroSerie = new Integer(seriesNumber);
-		                serie.addDocument(document,numeroSerie);
+		                //Integer numeroSerie = new Integer(seriesNumber);
+		                serie.addDocument(document,seriesNumber);
                 	}
                 }
                 //on ajoute le document au reseau
@@ -345,6 +347,7 @@ public class FileReader
                 }
                  
             }
+            
         } 
         catch (IOException exception) 
         {
