@@ -13,7 +13,7 @@ import projet.exceptions.*;
 public interface Consultable {
 	
 	public void ShowAllDocuments();
-	public HashMap<Integer, Document> searchSerie(String serieName); 
+	public HashMap<Document, Integer> searchSerie(String serieName); 
 	public Livre searchISBN(String isbn) throws formatISBNException; 
 	public Document searchEAN(String ean) throws formatEANException; 
 	public void searchDocumentsAuthorName(String authorName);
