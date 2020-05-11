@@ -16,5 +16,9 @@ public class Autre extends Document{
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies); 
 		
 	}
+	
+	public String getType(){
+		return("Autre");
+	}
 
 }

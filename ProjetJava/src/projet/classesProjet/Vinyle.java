@@ -16,5 +16,10 @@ public class Vinyle extends Document{
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies); 
 		
 	}
+	
+	@Override
+	public String getType(){
+		return("Vinyle");
+	}
 
 }

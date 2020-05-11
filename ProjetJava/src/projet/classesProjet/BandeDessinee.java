@@ -16,5 +16,10 @@ public class BandeDessinee extends Livre{
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		
 	}
+	
+	@Override
+	public String getType(){
+		return("Bande Dessinee");
+	}
 
 }

@@ -16,5 +16,9 @@ public class CD extends Document {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies); 
 		
 	}
+	
+	public String getType(){
+		return("CD");
+	}
 
 }

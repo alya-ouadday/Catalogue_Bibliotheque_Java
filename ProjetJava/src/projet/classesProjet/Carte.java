@@ -16,5 +16,11 @@ public class Carte extends Livre{
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		
 	}
+	
+	@Override
+	public String getType(){
+		return("Carte");
+	}
+
 
 }

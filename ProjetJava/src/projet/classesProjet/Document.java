@@ -28,6 +28,7 @@ public abstract class Document {
 		this.nbCopies = nbCopies;
 	}
 	
+	public abstract String getType(); 
 	
 	public String getEAN() {
 		return ean; 
@@ -47,7 +48,7 @@ public abstract class Document {
 	@Override
 	public String toString() {
 		String s = "EAN: " + ean + " titre: "+ title+ " editeur: "+" Auteur: "+ authorName + " "
-	+ authorSurname+ " type: "+ type+ " nombre de copies : " + nbCopies; 
+	+ authorSurname+ " type: "+ type+ " nombre de copies : " + nbCopies+ " type : " + getType(); 
 		return s; 
 	}
 	

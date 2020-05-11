@@ -24,5 +24,10 @@ public class Livre extends Document {
 	public String getISBN() {
 		return isbn;
 	}
+	
+	@Override
+	public String getType(){
+		return("Livre");
+	}
 
 }

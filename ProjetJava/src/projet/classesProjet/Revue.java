@@ -16,5 +16,10 @@ public class Revue extends Livre {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		
 	}
+	
+	@Override
+	public String getType(){
+		return("Revue");
+	}
 
 }
