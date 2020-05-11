@@ -47,10 +47,14 @@ public class Reseau implements Consultable {
 	}
 	public void addDocument(Document document) {
 		if(document != null) {
-			listeDocument.put(document.getEAN(), document); 
-			if (listeAuthor.containsKey(document.getAuthor())){
-				listeAuthor.get(document.getAuthor()).add(document); 
+			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
+				//qui a seulement un ISBN 
+				listeDocument.put(document.getEAN(), document); 
 			}
+				if (listeAuthor.containsKey(document.getAuthor())){ //si l'auteur du doc est deja 
+				//dans la liste d'auteur
+					listeAuthor.get(document.getAuthor()).add(document); 
+				}
 			else {
 				ArrayList<Document> value = new ArrayList<Document>(); 
 				value.add(document); 
