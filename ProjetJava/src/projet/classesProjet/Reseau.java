@@ -35,7 +35,7 @@ public class Reseau implements Consultable {
 		
 
 	}
-				
+	
 	
 	public  HashMap<String, Serie>  getListeSerie(){
 		return listeSerie; 
