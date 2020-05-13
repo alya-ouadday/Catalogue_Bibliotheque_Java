@@ -32,7 +32,7 @@ public class Livre extends Document {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "ISBN: " + this.isbn;  
+		return super.toString() + " ISBN: " + this.isbn;  
 	}
 
 }

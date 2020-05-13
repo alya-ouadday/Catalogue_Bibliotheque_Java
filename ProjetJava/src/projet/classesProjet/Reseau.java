@@ -4,7 +4,11 @@
 package projet.classesProjet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import projet.exceptions.*;
 
@@ -83,10 +87,18 @@ public class Reseau implements Consultable {
 		//la série par son nom dans la liste des series, et on parcours sa liste de document pour print
 		//tous les docs dedans 
 		//il faut encore trier la hashmap avant
-		serie.entrySet()
-		  .stream()
-		  .sorted(Map.Entry.comparingByValue())
-		  .forEach(System.out::println);
+	
+		Map<Document,Integer > sorted = serie.entrySet()
+				  .stream()
+				  .sorted(Map.Entry.comparingByValue())
+				  .collect(Collectors.toMap(
+				    Map.Entry::getKey, 
+				    Map.Entry::getValue, 
+				    (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		
+		for(Map.Entry<Document, Integer> entry: sorted.entrySet()) {
+			System.out.println(entry.getKey().toString() + " numero dans la serie: " + entry.getValue()); 
+		}
 		
 		return serie; 
 	}
@@ -120,16 +132,40 @@ public class Reseau implements Consultable {
 		return listeAuthor.get(authorName + " "+ authorSurname); 
 	}
 	
+
+	
+	
+	public void test() {
+		
+	}
+	
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
-		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
+		/*for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
 			if( entry.getKey().matches(authorName +"(.*)")) {
 				System.out.println(entry.getKey()+ " : " ); 
 				for (Document document: entry.getValue()) {
 					System.out.println(document.toString()); 			
 				}
 			}	
-		}			
+		}*/
+		
+	
+		Stream<String> nomAuteurs = listeAuthor
+	      .entrySet()
+	      .stream()
+	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
+	      .map(Map.Entry::getKey);;
+	      
+	      Set<String> names = nomAuteurs.collect(Collectors.toSet());
+	      
+	      for(String nom:names) {
+	    	  
+	    	  System.out.println(nom + "\n" + listeAuthor.get(nom));
+	      }
+	     
+	      
+	      
 	}
 	
 	@Override
@@ -144,6 +180,7 @@ public class Reseau implements Consultable {
 			}
 		} 			
 	}
+
 
 	@Override
 	public int searchNumberPeriod(String beginDate, String endDate) {

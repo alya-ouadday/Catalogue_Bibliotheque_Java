@@ -71,6 +71,7 @@ public class Main
 		parisBiblios.searchDocumentsAuthor("Vian", "Boris"); 
 		
 		parisBiblios.searchSerie("Angel voice");
+		parisBiblios.searchDocumentsAuthorName("Walter");
 		
 		
 		//TODO Project :)
