@@ -66,9 +66,7 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public void ShowAllDocuments() {
-		System.out.println("Coucou! Bon appétit :) "); 
-		
-		//hehehehe
+		// TODO Auto-generated method stub
 		
 	}
 	@Override
