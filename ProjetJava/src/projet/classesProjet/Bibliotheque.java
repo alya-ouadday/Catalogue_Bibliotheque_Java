@@ -33,6 +33,18 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	public void addUtilisateur(Utilisateur utilisateur) {
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
+		System.out.println("Alya est un caca");
 		
 	}
 	
