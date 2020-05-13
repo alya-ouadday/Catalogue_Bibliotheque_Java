@@ -71,6 +71,21 @@ public class Bibliotheque implements Consultable, Echange {
 		System.out.println("Alya est une petite crotte");
 		System.out.println("Alya est une petite crotte");
 		System.out.println("Alya est une petite crotte");
+		System.out.println("Nous ne sommes pas des bourrssins ! il faut y arrier"); 
+		//lilkdeuz
+		//lolo 
+		/*mmmmmmmmm
+		 * 
+		 * 
+		 */
+		
+		System.out.println("Nous ne sommes pas des bourrssins ! il faut y arrier"); 
+		//lilkdeuz
+		//lolo 
+		/*mmmmmmmmm
+		 * 
+		 * 
+		 */
 	}
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
