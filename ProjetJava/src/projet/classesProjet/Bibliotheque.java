@@ -67,7 +67,10 @@ public class Bibliotheque implements Consultable, Echange {
 	@Override
 	public void ShowAllDocuments() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Alya est une petite crotte");
+		System.out.println("Alya est une petite crotte");
+		System.out.println("Alya est une petite crotte");
+		System.out.println("Alya est une petite crotte");
 	}
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
