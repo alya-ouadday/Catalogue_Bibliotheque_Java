@@ -66,8 +66,13 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public void ShowAllDocuments() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Nous ne sommes pas des bourrssins ! il faut y arrier"); 
+		//lilkdeuz
+		//lolo 
+		/*mmmmmmmmm
+		 * 
+		 * 
+		 */
 	}
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
