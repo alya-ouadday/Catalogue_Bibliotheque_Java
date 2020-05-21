@@ -19,7 +19,7 @@ public interface Consultable {
 	public void searchDocumentsAuthorName(String authorName);
 	public void searchDocumentsAuthorSurname(String authorSurname);
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname); 
-	public int searchNumberPeriod(String beginDate, String endDate ); 
+	public int searchNumberPeriod(int beginDate, int endDate ); 
 	
 
 }

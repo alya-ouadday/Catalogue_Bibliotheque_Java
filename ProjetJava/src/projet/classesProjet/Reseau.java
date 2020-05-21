@@ -194,11 +194,28 @@ public class Reseau implements Consultable {
 
 
 	@Override
-	public int searchNumberPeriod(String beginDate, String endDate) {
+	public int searchNumberPeriod(int beginDate, int endDate) {
+		int compteur = 0; 
 		for(Map.Entry<String, Document> entry : listeDocument.entrySet()) {
-		
+			String date = entry.getValue().getDate(); 
+			int dateNum = 0; 
+			if (date!= "?") {
+				try {
+					   dateNum = Integer.parseInt(date);
+					}
+					catch (NumberFormatException e)
+					{
+					   dateNum = 0;
+					}
+			}
+			
+			if(dateNum >= beginDate && dateNum <= endDate) {
+				compteur ++; 
+			}
+			
+			
 		}
-		return 0; 
+		return compteur; 
 	}
 	
 	public void addSerie(Serie serie) {
