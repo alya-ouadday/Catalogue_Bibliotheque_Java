@@ -49,6 +49,7 @@ public class Main
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
 	
+		/*
 		//parisBiblios.ShowAllDocuments();
 		//parisBiblios.searchSerie("Dragonball");
 		String isbn = "978-2-03-585916-7";
@@ -72,6 +73,8 @@ public class Main
 		
 		parisBiblios.searchSerie("Angel voice");
 		parisBiblios.searchDocumentsAuthorName("Walter");
+		*/
+		aimeCesaire.ShowAllDocuments();
 		
 		
 		//TODO Project :)

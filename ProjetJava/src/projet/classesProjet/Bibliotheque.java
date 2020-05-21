@@ -57,12 +57,12 @@ public class Bibliotheque implements Consultable, Echange {
 	public void ShowAllDocuments() {
 		for(Document document: reseau.getListeDocument().values()) {
 			if(listeCopieDoc.containsKey(document.getEAN())) {
-				System.out.println(document.toString());
+				System.out.println(document.toString() + "  Nombre de copie disponible dans cette bibliothèque :" + listeCopieDoc.get(document.getEAN()));
 			}
 			else if(document instanceof Livre) {
 				Livre livre = (Livre)document;
 				if(listeCopieLivre.containsKey(livre.getISBN())) {	
-					System.out.println(livre.toString());
+					System.out.println(livre.toString() + "  Nombre de copie disponible dans cette bibliothèque :" + listeCopieLivre.get(livre.getISBN()));
 				}
 			}
 		}
