@@ -45,6 +45,21 @@ public class Reseau implements Consultable {
 		return listeSerie; 
 	}
 	
+	public  HashMap<String, Bibliotheque> getListeBiblio(){
+		return listeBiblio; 
+	}
+	
+	public  HashMap<String, Document> getListeDocument(){
+		return listeDocument; 
+	}
+	public HashMap<String, Livre> getListeLivre(){
+		return listeLivre; 
+	}
+	public HashMap<String, ArrayList<Document>> getListeAuthor(){
+		return listeAuthor; 
+	}
+	
+	
 	public void addBiblio(Bibliotheque bibliotheque) {
 		listeBiblio.put(bibliotheque.getName(), bibliotheque); 
 		
@@ -133,11 +148,7 @@ public class Reseau implements Consultable {
 	}
 	
 
-	
-	
-	public void test() {
-		
-	}
+
 	
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
@@ -194,8 +205,6 @@ public class Reseau implements Consultable {
 		listeSerie.put(serie.getName(), serie); 
 	}
 	
-	public HashMap<String, Bibliotheque> getListeBiblio(){
-		return listeBiblio; 
-	}
+
 	
 }
