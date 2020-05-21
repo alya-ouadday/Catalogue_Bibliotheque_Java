@@ -33,18 +33,7 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	public void addUtilisateur(Utilisateur utilisateur) {
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
-		System.out.println("Alya est un caca");
+		
 		
 	}
 	
@@ -66,28 +55,19 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public void ShowAllDocuments() {
-		// TODO Auto-generated method stub
-		System.out.println("Alya est une petite crotte");
-		System.out.println("Alya est une petite crotte");
-		System.out.println("Alya est une petite crotte");
-		System.out.println("Alya est une petite crotte");
-		
-		System.out.println("Nous ne sommes pas des bourrssins ! il faut y arrier"); 
-		//lilkdeuz
-		//lolo 
-		/*mmmmmmmmm
-		 * 
-		 * 
-		 */
-		
-		System.out.println("Nous ne sommes pas des bourrssins ! il faut y arrier"); 
-		//lilkdeuz
-		//lolo 
-		/*mmmmmmmmm
-		 * 
-		 * 
-		 */
+		for(Document document: reseau.getListeDocument().values()) {
+			if(listeCopieDoc.containsKey(document.getEAN())) {
+				System.out.println(document.toString());
+			}
+			else if(document instanceof Livre) {
+				Livre livre = (Livre)document;
+				if(listeCopieLivre.containsKey(livre.getISBN())) {	
+					System.out.println(livre.toString());
+				}
+			}
+		}
 	}
+	
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
 		// TODO Auto-generated method stub
@@ -120,10 +100,12 @@ public class Bibliotheque implements Consultable, Echange {
 		return null;
 	}
 	@Override
-	public int searchNumberPeriod(String beginDate, String endDate) {
+	public int searchNumberPeriod(int beginDate, int endDate) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
 	@Override
 	public void remettre(Bibliotheque bibliotheque, Document document) {
 		// TODO Auto-generated method stub
