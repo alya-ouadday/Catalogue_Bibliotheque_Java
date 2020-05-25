@@ -107,7 +107,7 @@ public class FileReader
             		}
             		catch (Exception exception)
             		{
-            			seriesNumber = null;
+            			seriesNumber = 0;
             		}
             		
             		//Get the name of the author
@@ -281,46 +281,46 @@ public class FileReader
 		                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
 		                	//si le doc est un vinyle
 	                		if(type.matches("Vinyle(.*)")) {
-	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
 	                		}
 	                		//si le doc est un CD
 	                		else if(type.matches("Disque compact(.*)")) {
-	                			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
 	                		}
 	                		//si le doc est un Jeu de societe
 	                		else if(type.matches("Jeux de societe(.*)")) {
-	                			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
 	                		}
 	                		//si le doc est un Jeu video
 	                		else if(type.matches("Jeux Videos(.*)")) {
-	                			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
 	                		}
 	                		//sinon on le met dans autre
 	                		else {
-	                			document = new AutreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie);	
+	                			document = new AutreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
 	                		}
 		                }
 		                //si le doc a un ISBN
 		                else{
 		                	//si le doc est une partition
 	                		if(type.matches("Partition(.*)")) {
-	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
 	                		}
 	                		//si le doc est une carte
 	                		else if(type.matches("Carte(.*)")) {
-	                			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
 	                		}
 	                		//si le doc est une revue
 	                		else if(type.matches("Revue(.*)")) {
-	                			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
 	                		}
 	                		//si le doc est une Bande Dessinee
 	                		else if(type.matches("Bande dessinee(.*)")) {
-	                			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
 	                		}
 	                		//sinon c'est juste un livre
 	                		else {
-	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie);	
+	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
 	                		}
 		                }
 		                //Integer numeroSerie = new Integer(seriesNumber);
