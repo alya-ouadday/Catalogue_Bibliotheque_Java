@@ -94,6 +94,12 @@ public class Reseau implements Consultable {
 			System.out.println(document.toString());
 		}
 		
+		for(Livre livre : listeLivre.values()) {
+			if(!listeDocument.containsKey(livre.getEAN())) {
+				System.out.println(livre.toString()); 
+			}
+		}
+		
 	}
 
 	@Override
@@ -102,19 +108,11 @@ public class Reseau implements Consultable {
 		//la série par son nom dans la liste des series, et on parcours sa liste de document pour print
 		//tous les docs dedans 
 		//il faut encore trier la hashmap avant
-	
-		Map<Document,Integer > sorted = serie.entrySet()
+				serie.entrySet()
 				  .stream()
 				  .sorted(Map.Entry.comparingByValue())
-				  .collect(Collectors.toMap(
-				    Map.Entry::getKey, 
-				    Map.Entry::getValue, 
-				    (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-		
-		for(Map.Entry<Document, Integer> entry: sorted.entrySet()) {
-			System.out.println(entry.getKey().toString() + " numero dans la serie: " + entry.getValue()); 
-		}
-		
+				  .forEach(System.out::println);
+				
 		return serie; 
 	}
 
