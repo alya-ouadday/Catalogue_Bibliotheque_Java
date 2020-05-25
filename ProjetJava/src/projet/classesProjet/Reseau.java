@@ -94,6 +94,12 @@ public class Reseau implements Consultable {
 			System.out.println(document.toString());
 		}
 		
+		for(Livre livre : listeLivre.values()) {
+			if(!listeDocument.containsKey(livre.getEAN())) {
+				System.out.println(livre.toString()); 
+			}
+		}
+		
 	}
 
 	@Override
