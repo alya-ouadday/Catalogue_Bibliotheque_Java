@@ -5,6 +5,7 @@ package projet.classesProjet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 /**
  * @author fande
  *
@@ -69,22 +70,36 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<Document, Integer> serie = reseau.getListeSerie().get(serieName).getListeDoc();
+		
+		serie.entrySet()
+		  .stream()
+		  .sorted(Map.Entry.comparingByValue())
+		  .forEach(System.out::println);
+		
+		return serie; 
 	}
 	@Override
 	public Livre searchISBN(String isbn) {
-		// TODO Auto-generated method stub
-		return null;
+		Livre livre = null; 
+		if(listeCopieLivre.containsKey(isbn)) {
+			livre = reseau.getListeLivre().get(isbn); 
+			System.out.println(livre); 
+		}
+		return livre;
 	}
 	@Override
 	public Document searchEAN(String ean) {
-		// TODO Auto-generated method stub
-		return null;
+		Document document = null; 
+		if(listeCopieDoc.containsKey(ean)) {
+			document = reseau.getListeDocument().get(ean); 
+			System.out.println(document); 
+		}
+		return document;
 	}
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
-		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
