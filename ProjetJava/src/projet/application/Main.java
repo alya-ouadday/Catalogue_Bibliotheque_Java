@@ -118,7 +118,6 @@ public class Main
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
-							System.out.println(str); 
 			
 						}
 						if (str.isEmpty()) {
