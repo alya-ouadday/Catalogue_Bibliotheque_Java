@@ -90,6 +90,10 @@ public class Main
 		//parisBiblios.searchDocumentsAuthorSurname("Boris"); 
 		//parisBiblios.searchNumberPeriod(2000, 2010);
 		
+		//aimeCesaire.searchSerie("Calamity Mamie");
+		//edmondRostand.searchSerie("Calamity Mamie");
+		
+		
 		//TODO Project :)
 	}
 }
