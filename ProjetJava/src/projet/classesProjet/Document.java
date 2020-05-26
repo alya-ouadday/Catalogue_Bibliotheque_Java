@@ -10,14 +10,14 @@ package projet.classesProjet;
 public abstract class Document {
 	private String ean; 
 	private String title; 
-	private String publisher; 
-	private String date;
+	private String publisher;
 	private String authorName;
 	private String authorSurname;
 	private String type;
+	private int date;
 	private int nbCopies;
 	
-	public Document(String ean,String title, String publisher, String date, String authorName, String authorSurname, String type, int nbCopies) {
+	public Document(String ean,String title, String publisher, int date, String authorName, String authorSurname, String type, int nbCopies) {
 		this.ean= ean; 
 		this.title= title; 
 		this.publisher = publisher; 
@@ -42,7 +42,7 @@ public abstract class Document {
 		return title; 
 	}
 	
-	public String getDate() {
+	public int getDate() {
 		return date; 
 	}
 	@Override

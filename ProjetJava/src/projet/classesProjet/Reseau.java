@@ -222,35 +222,15 @@ public class Reseau implements Consultable {
 		*/
 		int compteur = 0; 
 		for(Document document: listeDocument.values()) {	
-				String date = document.getDate(); 
-				int dateNum = 0; 
-				if (date!= "?") {
-					try {
-						   dateNum = Integer.parseInt(date);
-						}
-						catch (NumberFormatException e)
-						{
-						   dateNum = 0;
-						}
-				}	
-				if(dateNum >= beginDate && dateNum <= endDate) {
+				int date = document.getDate(); 	
+				if(date >= beginDate && date <= endDate) {
 					compteur ++; 
 				}
 		}
 		for(Livre livre: listeLivre.values()) {	
 				if(!(listeDocument.containsKey(livre.getEAN()))) {	
-					String date = livre.getDate(); 
-					int dateNum = 0; 
-					if (date!= "?") {
-						try {
-							   dateNum = Integer.parseInt(date);
-							}
-							catch (NumberFormatException e)
-							{
-							   dateNum = 0;
-							}
-					}		
-					if(dateNum >= beginDate && dateNum <= endDate) {
+					int date = livre.getDate(); 
+					if(date >= beginDate && date <= endDate) {
 						compteur ++; 
 					}
 				}

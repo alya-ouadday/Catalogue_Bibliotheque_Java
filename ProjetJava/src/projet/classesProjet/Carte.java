@@ -12,7 +12,7 @@ public class Carte extends Livre{
 	/**
 	 * 
 	 */
-	public Carte(String ean,String title, String publisher, String date, String authorName, String authorSurname, String type, int nbCopies, String isbn) {
+	public Carte(String ean,String title, String publisher, int date, String authorName, String authorSurname, String type, int nbCopies, String isbn) {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		
 	}

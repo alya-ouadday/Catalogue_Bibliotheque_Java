@@ -12,7 +12,7 @@ public class BandeDessinee extends Livre{
 	/**
 	 * 
 	 */
-	public BandeDessinee(String ean,String title, String publisher, String date, String authorName, String authorSurname, String type, int nbCopies, String isbn) {
+	public BandeDessinee(String ean,String title, String publisher, int date, String authorName, String authorSurname, String type, int nbCopies, String isbn) {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		
 	}

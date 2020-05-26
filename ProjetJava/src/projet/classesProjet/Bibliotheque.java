@@ -145,38 +145,16 @@ public class Bibliotheque implements Consultable, Echange {
 		int compteur = 0; 
 		for(Document document: reseau.getListeDocument().values()) {
 			if(listeCopieDoc.containsKey(document.getEAN())) {
-				String date = document.getDate(); 
-				int dateNum = 0; 
-				if (date!= "?") {
-					try {
-						   dateNum = Integer.parseInt(date);
-						}
-						catch (NumberFormatException e)
-						{
-						   dateNum = 0;
-						}
-				}
-				
-				if(dateNum >= beginDate && dateNum <= endDate) {
+				int date = document.getDate(); 
+				if(date >= beginDate && date <= endDate) {
 					compteur ++; 
 				}
 			}
 		}
 		for(Livre livre: reseau.getListeLivre().values()) {	
 				if(listeCopieLivre.containsKey(livre.getISBN()) && !(listeCopieDoc.containsKey(livre.getEAN()))) {	
-					String date = livre.getDate(); 
-					int dateNum = 0; 
-					if (date!= "?") {
-						try {
-							   dateNum = Integer.parseInt(date);
-							}
-							catch (NumberFormatException e)
-							{
-							   dateNum = 0;
-							}
-					}
-					
-					if(dateNum >= beginDate && dateNum <= endDate) {
+					int date = livre.getDate(); 
+					if(date >= beginDate && date <= endDate) {
 						compteur ++; 
 					}
 				}

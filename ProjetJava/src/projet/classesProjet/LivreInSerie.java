@@ -11,7 +11,7 @@ public class LivreInSerie extends Livre implements InSerie{
 	
 	private Serie serie; 
 	private Integer seriesNumber;
-	public LivreInSerie(String ean,String title, String publisher, String date, String authorName, String authorSurname, String type, int nbCopies, String isbn, Serie serie, Integer seriesNumber) {
+	public LivreInSerie(String ean,String title, String publisher, int date, String authorName, String authorSurname, String type, int nbCopies, String isbn, Serie serie, Integer seriesNumber) {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies, isbn); 
 		this.serie = serie; 
 		this.seriesNumber = seriesNumber;

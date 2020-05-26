@@ -25,12 +25,12 @@ public class FileReader
         String ean;
         String title;
         String publisher;
-        String date;
         String seriesTitle;
         Integer seriesNumber;
         String authorName;
         String authorSurname;
         String type;
+        int date;
         int totalCopies;
         int numberCopyAimeCesaire;
         int numberCopyEdmondRostand;
@@ -77,24 +77,17 @@ public class FileReader
             		//Get the publication date
             		try
             		{
-            			int dateInt = Integer.parseInt(data[4].replaceAll("[^0-9]", ""));
+            			date = Integer.parseInt(data[4].replaceAll("[^0-9]", ""));
             			
-            			if(dateInt%10000 >= 2021 || dateInt%10000 < 0)
+            			if(date%10000 >= 2021 || date%10000 < 0)
             			{
-            				date = "?";
+            				date = 0;
             			}
-            			else if(dateInt/10000 == 0)
-            			{
-            				date = Integer.toString(dateInt%10000);
-            			}
-            			else
-            			{
-            				date = dateInt%10000 + "-" + dateInt/10000;
-            			}
+            			
             		}
             		catch (Exception exception)
             		{
-            			date = "?";
+            			date = 0;
             		}
             		
             		//Get the title of the series

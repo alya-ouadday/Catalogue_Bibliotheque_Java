@@ -14,7 +14,7 @@ public class PartitionInSerie extends Partition implements InSerie{
 	 */
 	private Serie serie; 
 	private Integer seriesNumber;
-	public PartitionInSerie(String ean,String title, String publisher, String date,
+	public PartitionInSerie(String ean,String title, String publisher, int date,
 			String authorName, String authorSurname, String type, int nbCopies, String isbn, Serie serie, Integer seriesNumber) {
 		super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
 		this.serie = serie; 

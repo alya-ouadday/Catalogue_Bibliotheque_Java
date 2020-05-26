@@ -11,7 +11,7 @@ public class VinyleInSerie extends Vinyle implements InSerie{
 
 	private Serie serie; 
 	private Integer seriesNumber;
-	public VinyleInSerie(String ean, String title, String publisher, String date, String authorName,
+	public VinyleInSerie(String ean, String title, String publisher, int date, String authorName,
 														String authorSurname, String type, int nbCopies, Serie serie, Integer seriesNumber) {
 		
 		super(ean, title, publisher, date, authorName, authorSurname, type, nbCopies);
