@@ -119,7 +119,10 @@ public class Reseau implements Consultable {
 				  .sorted(Map.Entry.comparingByValue())
 				  .forEach(entry -> System.out.println(entry.getKey()));
 			}		
-		}	
+		}
+		else {
+			System.out.println("Cette série n'est pas dans le réseau !");
+		}
 		return serie; 
 	}
 
@@ -129,7 +132,13 @@ public class Reseau implements Consultable {
 		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
-		System.out.println(listeLivre.get(isbn));
+	
+		if (listeLivre.get(isbn) ==null) {
+			System.out.println("Cet ISBN ne correspond à aucun livre du réseau");
+		}
+		else {
+			System.out.println(listeLivre.get(isbn));
+		}
 		return listeLivre.get(isbn);  
 	}
 
@@ -138,7 +147,14 @@ public class Reseau implements Consultable {
 		if (!ean.matches("\\d{13}")){
 			throw new formatEANException(); 
 		}
-		System.out.println(listeDocument.get(ean));
+		
+		if (listeLivre.get(ean) ==null) {
+			System.out.println("Cet EAN ne correspond à aucun document du réseau");
+		}
+		else {
+			System.out.println(listeLivre.get(ean));
+		}
+
 		return listeDocument.get(ean); 
 	}
 	
@@ -150,7 +166,7 @@ public class Reseau implements Consultable {
 		}
 		}
 		else {
-			System.out.println("Cet auteur n'a rien écrit"); 
+			System.out.println("Cet auteur n'a écrit aucun document du réseau"); 
 		}
 		return listeAuthor.get(authorName + " "+ authorSurname); 
 	}

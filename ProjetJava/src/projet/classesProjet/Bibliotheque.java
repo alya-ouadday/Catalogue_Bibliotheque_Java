@@ -76,16 +76,15 @@ public class Bibliotheque implements Consultable, Echange {
 				  .sorted(Map.Entry.comparingByValue())
 				  .filter(entry -> {
 									  if(entry.getKey() instanceof LivreInSerie) {
-										  LivreInSerie livre = (LivreInSerie)entry.getKey();
+										  Livre livre = (Livre)entry.getKey();
 										  if(!listeCopieLivre.containsKey(livre.getISBN())) {//si les tomes ne sont pas dan sla bu 
-											  System.out.println("Le tome " + livre.getSeriesNumber() + "de la serie n'est pas dans cette bibliothèque");
+											  System.out.println("Le tome " + entry.getValue() + "de la serie n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
 										  return true;
 									  }else {
-										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) {
-											  InSerie doc = (InSerie)entry.getKey(); 
-											  System.out.println("Le numéro " + doc.getSeriesNumber() + " n'est pas dans cette bibliothèque");
+										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) { 
+											  System.out.println("Le numéro " + entry.getValue() + " n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
 										  return true;
@@ -100,9 +99,17 @@ public class Bibliotheque implements Consultable, Echange {
 				  .filter(entry -> {
 									  if(entry.getKey() instanceof Livre) {
 										  Livre livre = (Livre)entry.getKey();
-										  return listeCopieLivre.containsKey(livre.getISBN());
+										  if(!listeCopieLivre.containsKey(livre.getISBN())) {//si les tomes ne sont pas dan sla bu 
+											  System.out.println("Le livre : " + livre.getTitle()+"  de la serie n'est pas dans cette bibliothèque");
+											  return false; 
+										  }
+										  return true;
 									  }else
-									  return listeCopieDoc.containsKey(entry.getKey().getEAN());
+										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) { 
+											  System.out.println("Le document "+ entry.getKey().getTitle() +"n'est pas dans cette bibliothèque");
+											  return false; 
+										  }
+										  return true;
 								  	} )
 				  .forEach(entry -> System.out.println(entry.getKey()));
 			}		
