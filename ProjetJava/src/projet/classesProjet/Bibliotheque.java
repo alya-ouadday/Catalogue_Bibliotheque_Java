@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+
+import projet.exceptions.formatISBNException;
 /**
  * @author fande
  *
@@ -97,7 +99,11 @@ public class Bibliotheque implements Consultable, Echange {
 		return serie; 
 	}
 	@Override
-	public Livre searchISBN(String isbn) {
+	public Livre searchISBN(String isbn) throws formatISBNException{
+		isbn = isbn.replace("-", "");
+		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
+			throw new formatISBNException(); 
+		}
 		Livre livre = null; 
 		if(listeCopieLivre.containsKey(isbn)) {
 			livre = reseau.getListeLivre().get(isbn); 

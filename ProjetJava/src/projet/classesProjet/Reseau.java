@@ -166,7 +166,7 @@ public class Reseau implements Consultable {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
 	      .forEach(entry -> {
-	      					System.out.println(entry.getKey() + "\n");
+	      					System.out.println("\n"+entry.getKey());
 	      					for(Document document: listeAuthor.get(entry.getKey())) {
 	      						System.out.println(document); 
 	      					}
@@ -181,7 +181,7 @@ public class Reseau implements Consultable {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
 	      .forEach(entry -> {
-	      					System.out.println(entry.getKey() + "\n");
+	      					System.out.println("\n"+entry.getKey());
 	      					for(Document document: listeAuthor.get(entry.getKey())) {
 	      						System.out.println(document); 
 	      					}

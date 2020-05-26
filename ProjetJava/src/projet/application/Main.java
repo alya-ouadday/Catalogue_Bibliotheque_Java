@@ -29,6 +29,7 @@ public class Main
 		
 		boolean marche = true;
 		int commande = 0;
+		int typeAction = 0; //si egal à 0 alors on fait les action sur le réseau sinon on les fait sur une bibliotheque.
 		while(marche) {
 			//si on est dans le menu
 			if(commande ==0) {
@@ -39,7 +40,7 @@ public class Main
 				commande = Integer.parseInt(str);
 			}
 			//si commande 1
-			if(commande ==1) {
+			else if(commande ==1) {
 				
 				System.out.println("Veuillez entrer le nom de la nouvelle bibliotheque :");
 				System.out.println("Entrer une chaine vide pour revenir au menu");
@@ -54,20 +55,165 @@ public class Main
 				}	
 			}
 			//si commande 2
-			if(commande ==2) {
-				
-				System.out.println("Veuillez entrer le nom de la nouvelle bibliotheque :");
+			else if(commande ==2) {
 				System.out.println("Entrer une chaine vide pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					System.out.println("Vous avez choisis : " + str);
-				reseau.addBiblio(new Bibliotheque(str,reseau));
-				System.out.println("La nouvelle bibliothèque a ete ajoutee au reseau.");
+					
 				commande=0;
 				}	
 			}
+			//si commande 3
+			else if(commande ==3) {
+				System.out.println("Entrer une chaine vide pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					
+				commande=0;
+				}	
+			}
+			//si commande 4
+			else if(commande ==4) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						reseau.ShowAllDocuments();
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						if(reseau.getListeBiblio().containsKey(str)) {
+							reseau.getListeBiblio().get(str).ShowAllDocuments();
+						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+					}
+					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}	
+			}
+			//si commande 5
+			else if(commande ==5) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						System.out.println("Entrer le nom d'une serie");
+						str = sc.nextLine();
+						reseau.searchSerie(str);
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						if(reseau.getListeBiblio().containsKey(str)) {
+							Bibliotheque bibli = reseau.getListeBiblio().get(str);
+							System.out.println("Entrer le nom d'une serie");
+							str = sc.nextLine();
+							bibli.searchSerie(str);
+						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+					}
+					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}	
+			}
+			//si commande 6
+			else if(commande ==6) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
+						System.out.println("d'abord entrer le nom de l'auteur :");
+						System.out.println("faites entrer si vous ne connaissez pas le nom");
+						String nom = sc.nextLine();
+						System.out.println("maintenant entrer le prenom de l'auteur :");
+						System.out.println("faites entrer si vous ne connaissez pas le prenom");
+						String prenom = sc.nextLine();
+						if(!nom.isEmpty() && !prenom.isEmpty()) {
+							reseau.searchDocumentsAuthor(nom, prenom);
+						}else if(!nom.isEmpty() && prenom.isEmpty()) {
+							reseau.searchDocumentsAuthorName(nom);
+						}else reseau.searchDocumentsAuthorSurname(prenom);
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						if(reseau.getListeBiblio().containsKey(str)) {
+							Bibliotheque bibli = reseau.getListeBiblio().get(str);
+							System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
+							System.out.println("d'abord entrer le nom de l'auteur :");
+							System.out.println("faites entrer si vous ne connaissez pas le nom");
+							String nom = sc.nextLine();
+							System.out.println("maintenant entrer le prenom de l'auteur :");
+							System.out.println("faites entrer si vous ne connaissez pas le prenom");
+							String prenom = sc.nextLine();
+							if(!nom.isEmpty() && !prenom.isEmpty()) {
+								bibli.searchDocumentsAuthor(nom, prenom);
+							}else if(!nom.isEmpty() && prenom.isEmpty()) {
+								bibli.searchDocumentsAuthorName(nom);
+							}else bibli.searchDocumentsAuthorSurname(prenom);
+						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+					}
+					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}	
+			}
+			//si commande 7
+			else if(commande ==7) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						System.out.println("Entrer l'ISBN du livre que vous cherchez :");
+						str = sc.nextLine();
+						try {
+							reseau.searchISBN(str);
+						} catch (formatISBNException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						if(reseau.getListeBiblio().containsKey(str)) {
+							Bibliotheque bibli = reseau.getListeBiblio().get(str);
+							System.out.println("Entrer l'ISBN du livre que vous cherchez :");
+							str = sc.nextLine();
+							try {
+								bibli.searchISBN(str);
+							} catch (formatISBNException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+					}
+					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}	
+			}
+			
+			
+			
 			
 		}
 	}
@@ -128,7 +274,7 @@ public class Main
 		//parisBiblios.searchSerie("Calamity Mamie");
 		//aimeCesaire.searchSerie("Calamity Mamie");
 		//edmondRostand.searchSerie("Calamity Mamie");
-		//menu(parisBiblios);
+		menu(parisBiblios);
 		
 		
 		
