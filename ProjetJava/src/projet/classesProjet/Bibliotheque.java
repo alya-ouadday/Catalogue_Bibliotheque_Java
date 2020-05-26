@@ -71,6 +71,7 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
+		/*
 		HashMap<Document, Integer> serie = reseau.getListeSerie().get(serieName).getListeDoc();
 		
 		serie.entrySet()
@@ -85,6 +86,38 @@ public class Bibliotheque implements Consultable, Echange {
 		  } )
 		  .forEach(System.out::println);
 		
+		return serie; 
+		*/
+		HashMap<Document, Integer> serie = null;
+		if(reseau.getListeSerie().containsKey(serieName)) {
+			serie = reseau.getListeSerie().get(serieName).getListeDoc();
+			if(!serie.containsValue(0)) {//si les documents ont tous un numero ont les affiche par numero
+				serie.entrySet()
+				  .stream()
+				  .sorted(Map.Entry.comparingByValue())
+				  .filter(entry -> {
+									  if(entry.getKey() instanceof Livre) {
+										  Livre livre = (Livre)entry.getKey();
+										  return listeCopieLivre.containsKey(livre.getISBN());
+									  }else
+									  return listeCopieDoc.containsKey(entry.getKey().getEAN());
+								  	} )
+				  .forEach(entry -> System.out.println(entry.getKey()));
+			}else {
+				serie = reseau.getListeSerie().get(serieName).getListeDocDate();
+				serie.entrySet()
+				  .stream()
+				  .sorted(Map.Entry.comparingByValue())
+				  .filter(entry -> {
+									  if(entry.getKey() instanceof Livre) {
+										  Livre livre = (Livre)entry.getKey();
+										  return listeCopieLivre.containsKey(livre.getISBN());
+									  }else
+									  return listeCopieDoc.containsKey(entry.getKey().getEAN());
+								  	} )
+				  .forEach(entry -> System.out.println(entry.getKey()));
+			}		
+		}	
 		return serie; 
 	}
 	@Override

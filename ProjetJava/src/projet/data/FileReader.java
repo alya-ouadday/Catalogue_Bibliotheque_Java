@@ -317,7 +317,7 @@ public class FileReader
 	                		}
 		                }
 		                //Integer numeroSerie = new Integer(seriesNumber);
-		                serie.addDocument(document,seriesNumber);
+		                serie.addDocument(document,seriesNumber,date);
                 	}
                 }
                 //on ajoute le document au reseau

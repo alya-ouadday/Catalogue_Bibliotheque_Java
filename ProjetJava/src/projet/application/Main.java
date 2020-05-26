@@ -35,15 +35,38 @@ public class Main
 				afficheMenu();
 				System.out.println("Veuillez choisir une commande :");
 				String str = sc.nextLine();
-				System.out.println("Vous avez choisis, : " + str);
+				System.out.println("Vous avez choisis : " + str);
 				commande = Integer.parseInt(str);
 			}
 			//si commande 1
 			if(commande ==1) {
-				System.out.println("Veuillez choisir une commande :");
+				
+				System.out.println("Veuillez entrer le nom de la nouvelle bibliotheque :");
+				System.out.println("Entrer une chaine vide pour revenir au menu");
 				String str = sc.nextLine();
-				System.out.println("Vous avez choisis, : " + str);
-				commande = Integer.parseInt(str);
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					System.out.println("Vous avez choisis : " + str);
+				reseau.addBiblio(new Bibliotheque(str,reseau));
+				System.out.println("La nouvelle bibliothèque a ete ajoutee au reseau.");
+				commande=0;
+				}	
+			}
+			//si commande 2
+			if(commande ==2) {
+				
+				System.out.println("Veuillez entrer le nom de la nouvelle bibliotheque :");
+				System.out.println("Entrer une chaine vide pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					System.out.println("Vous avez choisis : " + str);
+				reseau.addBiblio(new Bibliotheque(str,reseau));
+				System.out.println("La nouvelle bibliothèque a ete ajoutee au reseau.");
+				commande=0;
+				}	
 			}
 			
 		}
@@ -102,9 +125,10 @@ public class Main
 		oscardWilde.searchNumberPeriod(2008, 2010);
 		saintSimon.searchNumberPeriod(2008, 2010);
 		*/
+		//parisBiblios.searchSerie("Calamity Mamie");
+		//aimeCesaire.searchSerie("Calamity Mamie");
+		//edmondRostand.searchSerie("Calamity Mamie");
 		//menu(parisBiblios);
-		
-		aimeCesaire.searchDocumentsAuthorSurname("Jean");
 		
 		
 		

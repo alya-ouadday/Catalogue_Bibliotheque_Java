@@ -104,15 +104,22 @@ public class Reseau implements Consultable {
 
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
-		HashMap<Document, Integer> serie = listeSerie.get(serieName).getListeDoc();//On retrouve 
-		//la série par son nom dans la liste des series, et on parcours sa liste de document pour print
-		//tous les docs dedans 
-		//il faut encore trier la hashmap avant
+		HashMap<Document, Integer> serie = null;
+		if(listeSerie.containsKey(serieName)) {
+			serie = listeSerie.get(serieName).getListeDoc();
+			if(!serie.containsValue(0)) {//si les documents ont tous un numero ont les affiche par numero
 				serie.entrySet()
 				  .stream()
 				  .sorted(Map.Entry.comparingByValue())
 				  .forEach(entry -> System.out.println(entry.getKey()));
-				
+			}else {
+				serie = listeSerie.get(serieName).getListeDocDate();
+				serie.entrySet()
+				  .stream()
+				  .sorted(Map.Entry.comparingByValue())
+				  .forEach(entry -> System.out.println(entry.getKey()));
+			}		
+		}	
 		return serie; 
 	}
 
