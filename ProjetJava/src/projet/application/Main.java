@@ -22,7 +22,7 @@ public class Main
 		System.out.println("7 - afficher un livre par son ISBN");
 		System.out.println("8 - afficher un document par son EAN");
 		System.out.println("9 - afficher le nombre de doc entre deux date");
-		
+
 	}
 	public static void menu(Reseau reseau) {
 		Scanner sc = new Scanner(System.in);
@@ -288,12 +288,51 @@ public class Main
 					commande=0;
 				}	
 			}
-			
-			
-			
-			
-			
-			
+			//si commande 9
+			else if(commande ==9) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
+						System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
+						String debut = sc.nextLine();
+						System.out.println("maintenant l'annee jusqu'à laquelle vous voulez compter :");
+						String end = sc.nextLine();
+						if(!debut.isEmpty() && !end.isEmpty()) reseau.searchNumberPeriod(Integer.parseInt(debut), Integer.parseInt(end));
+						else System.out.println("vos dates sont erronees");
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else{
+							Bibliotheque bibli = reseau.getListeBiblio().get(str);
+							System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
+							System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
+							String debut = sc.nextLine();
+							System.out.println("maintenant l'annee jusqu'à laquelle vous voulez compter :");
+							String end = sc.nextLine();
+							if(!debut.isEmpty() && !end.isEmpty()) reseau.searchNumberPeriod(Integer.parseInt(debut), Integer.parseInt(end));
+							else System.out.println("vos dates sont erronees");
+						}
+					}
+						System.out.println("Entrer une chaine quelconque pour revenir au menu");
+						str = sc.nextLine();
+						commande=0;
+						
+				}
+			}
+				
 		}
 	}
 	
