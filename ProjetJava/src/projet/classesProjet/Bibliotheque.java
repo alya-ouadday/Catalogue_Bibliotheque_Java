@@ -4,6 +4,7 @@
 package projet.classesProjet;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -141,8 +142,48 @@ public class Bibliotheque implements Consultable, Echange {
 	}
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
-		// TODO Auto-generated method stub
-		return 0;
+		int compteur = 0; 
+		for(Document document: reseau.getListeDocument().values()) {
+			if(listeCopieDoc.containsKey(document.getEAN())) {
+				String date = document.getDate(); 
+				int dateNum = 0; 
+				if (date!= "?") {
+					try {
+						   dateNum = Integer.parseInt(date);
+						}
+						catch (NumberFormatException e)
+						{
+						   dateNum = 0;
+						}
+				}
+				
+				if(dateNum >= beginDate && dateNum <= endDate) {
+					compteur ++; 
+				}
+			}
+		}
+		for(Livre livre: reseau.getListeLivre().values()) {	
+				if(listeCopieLivre.containsKey(livre.getISBN()) && !(listeCopieDoc.containsKey(livre.getEAN()))) {	
+					String date = livre.getDate(); 
+					int dateNum = 0; 
+					if (date!= "?") {
+						try {
+							   dateNum = Integer.parseInt(date);
+							}
+							catch (NumberFormatException e)
+							{
+							   dateNum = 0;
+							}
+					}
+					
+					if(dateNum >= beginDate && dateNum <= endDate) {
+						compteur ++; 
+					}
+				}
+		}
+		System.out.println("Nombre de document entre "+beginDate+" et "+endDate+" : "+compteur);
+		return compteur; 
+	
 	}
 	
 	

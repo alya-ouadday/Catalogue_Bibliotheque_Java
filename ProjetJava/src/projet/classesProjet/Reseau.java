@@ -196,6 +196,7 @@ public class Reseau implements Consultable {
 
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
+		/*
 		int compteur = 0; 
 		for(Map.Entry<String, Document> entry : listeDocument.entrySet()) {
 			String date = entry.getValue().getDate(); 
@@ -218,6 +219,45 @@ public class Reseau implements Consultable {
 		}
 		System.out.println("Nombre de document entre "+beginDate+" et "+endDate+" : "+compteur);
 		return compteur; 
+		*/
+		int compteur = 0; 
+		for(Document document: listeDocument.values()) {	
+				String date = document.getDate(); 
+				int dateNum = 0; 
+				if (date!= "?") {
+					try {
+						   dateNum = Integer.parseInt(date);
+						}
+						catch (NumberFormatException e)
+						{
+						   dateNum = 0;
+						}
+				}	
+				if(dateNum >= beginDate && dateNum <= endDate) {
+					compteur ++; 
+				}
+		}
+		for(Livre livre: listeLivre.values()) {	
+				if(!(listeDocument.containsKey(livre.getEAN()))) {	
+					String date = livre.getDate(); 
+					int dateNum = 0; 
+					if (date!= "?") {
+						try {
+							   dateNum = Integer.parseInt(date);
+							}
+							catch (NumberFormatException e)
+							{
+							   dateNum = 0;
+							}
+					}		
+					if(dateNum >= beginDate && dateNum <= endDate) {
+						compteur ++; 
+					}
+				}
+		}
+		System.out.println("Nombre de document entre "+beginDate+" et "+endDate+" : "+compteur);
+		return compteur; 
+	
 	}
 	
 	public void addSerie(Serie serie) {

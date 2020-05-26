@@ -49,49 +49,23 @@ public class Main
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
 	
-		/*
-		//parisBiblios.ShowAllDocuments();
-		//parisBiblios.searchSerie("Dragonball");
-		String isbn = "978-2-03-585916-7";
-		isbn = isbn.replace("-", ""); 
-		try {
-			
-			System.out.println(parisBiblios.searchISBN(isbn));
-		}catch(formatISBNException e) {
-			System.out.println("erreur ouille");
-		}
-		
-		try {
-			
-			System.out.println(parisBiblios.searchEAN("9782758510598"));
-		}catch(formatEANException e) {
-			System.out.println("erreur ouille");
-		}
 		
 		
-		parisBiblios.searchDocumentsAuthor("Vian", "Boris"); 
 		
-		parisBiblios.searchSerie("Angel voice");
-		parisBiblios.searchDocumentsAuthorName("Walter");
-		*/
-		//aimeCesaire.ShowAllDocuments();
-		//parisBiblios.ShowAllDocuments();
-		//parisBiblios.searchSerie("Dragon Ball");
-		/*try {
-		parisBiblios.searchISBN("97-82723-467-773");
-		}catch(formatISBNException e) {
-			System.out.println("erreur ouille");
-		}
-		try {		
-			parisBiblios.searchEAN("9782723467773");
-		}catch(formatEANException e) {
-			System.out.println("erreur ouille");
-		}*/
+		
+		
 		//parisBiblios.searchDocumentsAuthorSurname("Boris"); 
-		//parisBiblios.searchNumberPeriod(2000, 2010);
+		parisBiblios.searchNumberPeriod(2008, 2010);
 		
 		//aimeCesaire.searchSerie("Calamity Mamie");
 		//edmondRostand.searchSerie("Calamity Mamie");
+		aimeCesaire.searchNumberPeriod(2008, 2010);
+		edmondRostand.searchNumberPeriod(2008, 2010);
+		jeanPierreMelville.searchNumberPeriod(2008, 2010);
+		oscardWilde.searchNumberPeriod(2008, 2010);
+		saintSimon.searchNumberPeriod(2008, 2010);
+
+		
 		
 		
 		//TODO Project :)
