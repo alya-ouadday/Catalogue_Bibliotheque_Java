@@ -111,8 +111,27 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ArrayList<Document> listeDoc = new ArrayList<Document>(); 
+		if(reseau.getListeAuthor().containsKey(authorName + " "+ authorSurname)){
+		for(Document document :reseau.getListeAuthor().get(authorName + " "+ authorSurname) ) {
+			if(listeCopieDoc.containsKey(document.getEAN())) {
+				listeDoc.add(document);
+				System.out.println(document.toString()); 
+			}
+			else if(document instanceof Livre) {
+				Livre livre = (Livre)document; 
+				if(listeCopieLivre.containsKey(livre.getISBN())) {
+					listeDoc.add(livre); 
+					System.out.println(livre.toString());
+				}
+			}
+		}
+		}
+		else {
+			System.out.println("Cet auteur n'a rien écrit"); 
+		}
+		return listeDoc; 
 	}
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
