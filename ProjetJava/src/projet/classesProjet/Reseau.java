@@ -153,35 +153,23 @@ public class Reseau implements Consultable {
 	
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
-		/*for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
-			if( entry.getKey().matches(authorName +"(.*)")) {
-				System.out.println(entry.getKey()+ " : " ); 
-				for (Document document: entry.getValue()) {
-					System.out.println(document.toString()); 			
-				}
-			}	
-		}*/
 		
-	
-		Stream<String> nomAuteurs = listeAuthor
+		  listeAuthor
 	      .entrySet()
 	      .stream()
 	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
-	      .map(Map.Entry::getKey);;
-	      
-	      Set<String> names = nomAuteurs.collect(Collectors.toSet());
-	      
-	      for(String nom:names) {
-	    	  
-	    	  System.out.println(nom + "\n" + listeAuthor.get(nom));
-	      }
-	     
-	      
-	      
+	      .forEach(entry -> {
+	      					System.out.println(entry.getKey() + "\n");
+	      					for(Document document: listeAuthor.get(entry.getKey())) {
+	      						System.out.println(document); 
+	      					}
+	    		  
+	      					});      
 	}
 	
 	@Override
 	public void searchDocumentsAuthorSurname(String authorSurname) {
+		/*
 		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
 			if( entry.getKey().matches("(.*)"+authorSurname)) {
 				System.out.println(entry.getKey()+ " : ");
@@ -190,36 +178,27 @@ public class Reseau implements Consultable {
 					
 				}
 			}
-		} 			
+		}*/
+		
+		  listeAuthor
+	      .entrySet()
+	      .stream()
+	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
+	      .forEach(entry -> {
+	      					System.out.println(entry.getKey() + "\n");
+	      					for(Document document: listeAuthor.get(entry.getKey())) {
+	      						System.out.println(document); 
+	      					}
+	    		  
+	      					});      
 	}
+	
+	
 
 
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
-		/*
-		int compteur = 0; 
-		for(Map.Entry<String, Document> entry : listeDocument.entrySet()) {
-			String date = entry.getValue().getDate(); 
-			int dateNum = 0; 
-			if (date!= "?") {
-				try {
-					   dateNum = Integer.parseInt(date);
-					}
-					catch (NumberFormatException e)
-					{
-					   dateNum = 0;
-					}
-			}
-			
-			if(dateNum >= beginDate && dateNum <= endDate) {
-				compteur ++; 
-			}
-			
-			
-		}
-		System.out.println("Nombre de document entre "+beginDate+" et "+endDate+" : "+compteur);
-		return compteur; 
-		*/
+
 		int compteur = 0; 
 		for(Document document: listeDocument.values()) {	
 				int date = document.getDate(); 	

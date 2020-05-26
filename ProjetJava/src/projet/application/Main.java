@@ -102,7 +102,9 @@ public class Main
 		oscardWilde.searchNumberPeriod(2008, 2010);
 		saintSimon.searchNumberPeriod(2008, 2010);
 		*/
-		menu(parisBiblios);
+		//menu(parisBiblios);
+		
+		aimeCesaire.searchDocumentsAuthorSurname("Jean");
 		
 		
 		

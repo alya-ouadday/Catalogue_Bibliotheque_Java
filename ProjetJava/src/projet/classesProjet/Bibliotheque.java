@@ -107,13 +107,46 @@ public class Bibliotheque implements Consultable, Echange {
 	}
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
-		
+		  reseau.getListeAuthor()
+	      .entrySet()
+	      .stream()
+	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
+	      .forEach(entry -> {
+	      					System.out.println(entry.getKey() + "\n");
+	      					for(Document document: reseau.getListeAuthor().get(entry.getKey())) {
+	      						if(listeCopieDoc.containsKey(document.getEAN())) {
+	      							System.out.println(document); }
+	      						else if(document instanceof Livre) {
+	      							Livre livre = (Livre)document; 
+	      							if(listeCopieLivre.containsKey(livre.getISBN())) {
+		      							System.out.println(livre); }
+	      						}
+	      					}
+	    		  
+	      					});      
 	}
 	
 	@Override
-	public void searchDocumentsAuthorSurname(String authorName) {
-		// TODO Auto-generated method stub
+	public void searchDocumentsAuthorSurname(String authorSurname) {
+		  reseau.getListeAuthor()
+	      .entrySet()
+	      .stream()
+	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
+	      .forEach(entry -> {
+	      					System.out.println(entry.getKey() + "\n");
+	      					for(Document document: reseau.getListeAuthor().get(entry.getKey())) {
+	      						if(listeCopieDoc.containsKey(document.getEAN())) {
+	      							System.out.println(document); }
+	      						else if(document instanceof Livre) {
+	      							Livre livre = (Livre)document; 
+	      							if(listeCopieLivre.containsKey(livre.getISBN())) {
+		      							System.out.println(livre); }
+	      						}
+	      					}
+	    		  
+	      					});      
 	}
+	
 	
 	
 	@Override
