@@ -74,8 +74,21 @@ public class Main
 		parisBiblios.searchSerie("Angel voice");
 		parisBiblios.searchDocumentsAuthorName("Walter");
 		*/
-		aimeCesaire.ShowAllDocuments();
-		
+		//aimeCesaire.ShowAllDocuments();
+		//parisBiblios.ShowAllDocuments();
+		//parisBiblios.searchSerie("Dragon Ball");
+		/*try {
+		parisBiblios.searchISBN("97-82723-467-773");
+		}catch(formatISBNException e) {
+			System.out.println("erreur ouille");
+		}
+		try {		
+			parisBiblios.searchEAN("9782723467773");
+		}catch(formatEANException e) {
+			System.out.println("erreur ouille");
+		}*/
+		//parisBiblios.searchDocumentsAuthorSurname("Boris"); 
+		//parisBiblios.searchNumberPeriod(2000, 2010);
 		
 		//TODO Project :)
 	}

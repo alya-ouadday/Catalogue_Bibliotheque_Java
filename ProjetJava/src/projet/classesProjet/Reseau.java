@@ -111,16 +111,18 @@ public class Reseau implements Consultable {
 				serie.entrySet()
 				  .stream()
 				  .sorted(Map.Entry.comparingByValue())
-				  .forEach(System.out::println);
+				  .forEach(entry -> System.out.println(entry.getKey()));
 				
 		return serie; 
 	}
 
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
+		isbn = isbn.replace("-", "");
 		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
+		System.out.println(listeLivre.get(isbn));
 		return listeLivre.get(isbn);  
 	}
 
@@ -129,6 +131,7 @@ public class Reseau implements Consultable {
 		if (!ean.matches("\\d{13}")){
 			throw new formatEANException(); 
 		}
+		System.out.println(listeDocument.get(ean));
 		return listeDocument.get(ean); 
 	}
 	
@@ -213,6 +216,7 @@ public class Reseau implements Consultable {
 			
 			
 		}
+		System.out.println("Nombre de document entre "+beginDate+" et "+endDate+" : "+compteur);
 		return compteur; 
 	}
 	

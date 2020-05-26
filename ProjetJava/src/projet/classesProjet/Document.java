@@ -47,7 +47,7 @@ public abstract class Document {
 	}
 	@Override
 	public String toString() {
-		String s = "EAN: " + ean + " titre: "+ title+ " editeur: "+" Auteur: "+ authorName + " "
+		String s = "EAN: " + ean + " titre: "+ title+ " editeur: "+ "date : "+date+ " Auteur: "+ authorName + " "
 	+ authorSurname+ " type: "+ type+ " nombre de copies : " + nbCopies+ " type : " + getType(); 
 		return s; 
 	}
