@@ -115,16 +115,28 @@ public class Main
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
-						if(reseau.getListeBiblio().containsKey(str)) {
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+							System.out.println(str); 
+			
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else {
 							Bibliotheque bibli = reseau.getListeBiblio().get(str);
 							System.out.println("Entrer le nom d'une serie");
 							str = sc.nextLine();
 							bibli.searchSerie(str);
-						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+						}
+						System.out.println("Taper entrer pour retourner au menu "); 
+						str = sc.nextLine(); 
+						commande = 0;
+						
+						
 					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
-					str = sc.nextLine();
-					commande=0;
+					 
 				}	
 			}
 			//si commande 6

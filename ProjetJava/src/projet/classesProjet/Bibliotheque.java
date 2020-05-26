@@ -74,11 +74,21 @@ public class Bibliotheque implements Consultable, Echange {
 				  .stream()
 				  .sorted(Map.Entry.comparingByValue())
 				  .filter(entry -> {
-									  if(entry.getKey() instanceof Livre) {
-										  Livre livre = (Livre)entry.getKey();
-										  return listeCopieLivre.containsKey(livre.getISBN());
-									  }else
-									  return listeCopieDoc.containsKey(entry.getKey().getEAN());
+									  if(entry.getKey() instanceof LivreInSerie) {
+										  LivreInSerie livre = (LivreInSerie)entry.getKey();
+										  if(!listeCopieLivre.containsKey(livre.getISBN())) {//si les tomes ne sont pas dan sla bu 
+											  System.out.println("Le tome " + livre.getSeriesNumber() + "de la serie n'est pas dans cette bibliothèque");
+											  return false; 
+										  }
+										  return true;
+									  }else {
+										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) {
+											  InSerie doc = (InSerie)entry.getKey(); 
+											  System.out.println("Le numéro " + doc.getSeriesNumber() + " n'est pas dans cette bibliothèque");
+											  return false; 
+										  }
+										  return true;
+									  }
 								  	} )
 				  .forEach(entry -> System.out.println(entry.getKey()));
 			}else {
@@ -95,7 +105,10 @@ public class Bibliotheque implements Consultable, Echange {
 								  	} )
 				  .forEach(entry -> System.out.println(entry.getKey()));
 			}		
-		}	
+		}
+		else {
+			System.out.println("Cette série n'est pas dans le réseau"); 
+		}
 		return serie; 
 	}
 	@Override
