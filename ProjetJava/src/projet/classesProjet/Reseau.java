@@ -112,7 +112,7 @@ public class Reseau implements Consultable {
 				  .stream()
 				  .sorted(Map.Entry.comparingByValue())
 				  .forEach(entry -> System.out.println(entry.getKey()));
-			}else {
+			}else {//sinon on les trie par date
 				serie = listeSerie.get(serieName).getListeDocDate();
 				serie.entrySet()
 				  .stream()
@@ -176,17 +176,6 @@ public class Reseau implements Consultable {
 	
 	@Override
 	public void searchDocumentsAuthorSurname(String authorSurname) {
-		/*
-		for(Map.Entry<String, ArrayList<Document>> entry : listeAuthor.entrySet()) {
-			if( entry.getKey().matches("(.*)"+authorSurname)) {
-				System.out.println(entry.getKey()+ " : ");
-				for (Document document: entry.getValue()) {
-					System.out.println(document.toString()); 
-					
-				}
-			}
-		}*/
-		
 		  listeAuthor
 	      .entrySet()
 	      .stream()

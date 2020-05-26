@@ -34,13 +34,6 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	
-	public void addUtilisateur(Utilisateur utilisateur) {
-		
-		
-	}
-	
-	
-	
 	public void addDocument(Document document, Integer nBCopie) {
 		if(document != null) {
 			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
@@ -71,23 +64,6 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
-		/*
-		HashMap<Document, Integer> serie = reseau.getListeSerie().get(serieName).getListeDoc();
-		
-		serie.entrySet()
-		  .stream()
-		  .sorted(Map.Entry.comparingByValue())
-		  .filter(entry -> {
-					  if(entry.getKey() instanceof Livre) {
-						  Livre livre = (Livre)entry.getKey();
-						  return listeCopieLivre.containsKey(livre.getISBN());
-					  }else
-					  return listeCopieDoc.containsKey(entry.getKey().getEAN());
-		  } )
-		  .forEach(System.out::println);
-		
-		return serie; 
-		*/
 		HashMap<Document, Integer> serie = null;
 		if(reseau.getListeSerie().containsKey(serieName)) {
 			serie = reseau.getListeSerie().get(serieName).getListeDoc();
@@ -230,6 +206,10 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	}
 	
+	
+	public void addUtilisateur(Utilisateur utilisateur) {
+			
+	}
 	
 	@Override
 	public void remettre(Bibliotheque bibliotheque, Document document) {
