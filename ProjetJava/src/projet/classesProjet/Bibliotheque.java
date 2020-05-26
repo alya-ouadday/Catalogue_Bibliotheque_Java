@@ -75,7 +75,13 @@ public class Bibliotheque implements Consultable, Echange {
 		serie.entrySet()
 		  .stream()
 		  .sorted(Map.Entry.comparingByValue())
-		  //.filter(entry -> listeCopieDoc.containsKey(entry.getKey().getEAN()) || listeCopieLivre.containsKey(entry.getKey().getISBN()) )
+		  .filter(entry -> {
+					  if(entry.getKey() instanceof Livre) {
+						  Livre livre = (Livre)entry.getKey();
+						  return listeCopieLivre.containsKey(livre.getISBN());
+					  }else
+					  return listeCopieDoc.containsKey(entry.getKey().getEAN());
+		  } )
 		  .forEach(System.out::println);
 		
 		return serie; 
