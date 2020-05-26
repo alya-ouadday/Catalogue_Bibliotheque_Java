@@ -90,9 +90,16 @@ public class Main
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
-						if(reseau.getListeBiblio().containsKey(str)) {
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else{
 							reseau.getListeBiblio().get(str).ShowAllDocuments();
-						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+						}
 					}
 					System.out.println("Entrer une chaine quelconque pour revenir au menu");
 					str = sc.nextLine();
@@ -163,7 +170,14 @@ public class Main
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
-						if(reseau.getListeBiblio().containsKey(str)) {
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else{
 							Bibliotheque bibli = reseau.getListeBiblio().get(str);
 							System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
 							System.out.println("d'abord entrer le nom de l'auteur :");
@@ -177,12 +191,12 @@ public class Main
 							}else if(!nom.isEmpty() && prenom.isEmpty()) {
 								bibli.searchDocumentsAuthorName(nom);
 							}else bibli.searchDocumentsAuthorSurname(prenom);
-						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
-					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
-					str = sc.nextLine();
-					commande=0;
-				}	
+						}
+						System.out.println("Entrer une chaine quelconque pour revenir au menu");
+						str = sc.nextLine();
+						commande=0;
+					}	
+				}
 			}
 			//si commande 7
 			else if(commande ==7) {
@@ -205,7 +219,14 @@ public class Main
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
-						if(reseau.getListeBiblio().containsKey(str)) {
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else{
 							Bibliotheque bibli = reseau.getListeBiblio().get(str);
 							System.out.println("Entrer l'ISBN du livre que vous cherchez :");
 							str = sc.nextLine();
@@ -215,13 +236,60 @@ public class Main
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						}else System.out.println("cette bibliotheque n'existe pas dans le reseau");
+						}
 					}
 					System.out.println("Entrer une chaine quelconque pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
 				}	
 			}
+			//si commande 8
+			else if(commande ==8) {
+				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					typeAction = Integer.parseInt(str);
+					if(typeAction == 0) {
+						System.out.println("Entrer l'EAN du document que vous cherchez :");
+						str = sc.nextLine();
+						try {
+							reseau.searchEAN(str);
+						} catch (formatEANException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque");
+						str = sc.nextLine();
+						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+							str = sc.nextLine();
+						}
+						if (str.isEmpty()) {
+							commande = 0;
+						}
+						else{
+							Bibliotheque bibli = reseau.getListeBiblio().get(str);
+							System.out.println("Entrer l'EAN du document que vous cherchez :");
+							str = sc.nextLine();
+							try {
+								bibli.searchEAN(str);
+							} catch (formatEANException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}	
+			}
+			
+			
 			
 			
 			

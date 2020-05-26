@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import projet.exceptions.formatEANException;
 import projet.exceptions.formatISBNException;
 /**
  * @author fande
@@ -125,7 +126,10 @@ public class Bibliotheque implements Consultable, Echange {
 		return livre;
 	}
 	@Override
-	public Document searchEAN(String ean) {
+	public Document searchEAN(String ean) throws formatEANException{
+		if (!ean.matches("\\d{13}")){
+			throw new formatEANException(); 
+		}
 		Document document = null; 
 		if(listeCopieDoc.containsKey(ean)) {
 			document = reseau.getListeDocument().get(ean); 
