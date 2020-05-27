@@ -14,7 +14,7 @@ import projet.exceptions.formatISBNException;
  * @author fande
  *
  */
-public class Bibliotheque implements Consultable, Echange {
+public class Bibliotheque implements Consultable{
 	private String name;
 	private Reseau reseau;
 	private HashMap<String,Integer> listeCopieDoc;
@@ -258,12 +258,12 @@ public class Bibliotheque implements Consultable, Echange {
 		listeUtilisateur.put(utilisateur.getId(), utilisateur);
 	}
 	
-	@Override
+
 	public void remettre(Bibliotheque bibliotheque, Document document) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
 	public void emprunter(Bibliotheque bibliotheque, Document document) {
 		// TODO Auto-generated method stub
 		

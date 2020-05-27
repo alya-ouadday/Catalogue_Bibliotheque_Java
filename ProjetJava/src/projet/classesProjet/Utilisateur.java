@@ -2,13 +2,14 @@
  * 
  */
 package projet.classesProjet;
+import projet.exceptions.*;
 import java.util.ArrayList;
 
 /**
  * @author fande
  *
  */
-public class Utilisateur implements Echange {
+public class Utilisateur{
 	private Integer id;
 	private String name;
 	private Integer quota;
@@ -50,16 +51,22 @@ public class Utilisateur implements Echange {
 		bibli.addUtilisateur(this);
 	}
 	
-	@Override
+
 	public void remettre(Bibliotheque bibliotheque, Document document) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void emprunter(Bibliotheque bibliotheque, Document document) {
-		// TODO Auto-generated method stub
+
+	public void emprunter(Bibliotheque bibliotheque, Document document) throws quotaException {
+		
 		listeDocument.add(document);
-		bibliotheque.getListeCopieDoc();
+		Integer nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
+		nbCopieDoc--;
+		if(document instanceof Livre) {
+			Livre livre = (Livre)document;
+			Integer nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+			nbCopieLivre--;
+		}
 		
 	}
 	
