@@ -39,28 +39,37 @@ public class Main
 				String str = sc.nextLine();
 				System.out.println("Vous avez choisis : " + str);
 				try {
-				commande = Integer.parseInt(str);
-				}catch(Exception e) {
+					commande = Integer.parseInt(str);
+					if(commande < 0 || commande > 10) {
+						System.out.println("Veuillez entrer un numéro de commande entre 1 et 10 \n "
+								+ " Appuyer sur entrer pour revenir au menu");
+						str = sc.nextLine();
+						commande = 0; 
+					}
+				}catch(NumberFormatException e) {
+					System.out.println("Veuillez entrer un numéro de commande entre 1 et 10 \n "
+							+ " Appuyer sur entrer pour revenir au menu");
+					str = sc.nextLine();
+					commande = 0; 
 				}
 			}
 			//si commande 1
 			else if(commande ==1) {
 				
-				System.out.println("Veuillez entrer le nom de la nouvelle bibliotheque :");
-				System.out.println("Entrer une chaine vide pour revenir au menu");
+				System.out.println("Veuillez saisir le nom de la nouvelle bibliotheque :");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					System.out.println("Vous avez choisis : " + str);
 				reseau.addBiblio(new Bibliotheque(str,reseau));
-				System.out.println("La nouvelle bibliothèque a ete ajoutee au reseau.");
+				System.out.println("La nouvelle bibliothèque " + str + " a ete ajoutee au reseau.");
 				commande=0;
 				}	
 			}
 			//si commande 2
 			else if(commande ==2) {
-				System.out.println("Entrer une chaine vide pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
@@ -71,7 +80,7 @@ public class Main
 			}
 			//si commande 3
 			else if(commande ==3) {
-				System.out.println("Entrer une chaine vide pour revenir au menu");
+				System.out.println("Taper sur entreée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
@@ -82,13 +91,26 @@ public class Main
 			}
 			//si commande 4
 			else if(commande ==4) {
-				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Saisir 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
+					try {
 					typeAction = Integer.parseInt(str);
+					if(typeAction != 1 && typeAction != 0) {
+						System.out.println("Erreur. Il faut saisir 0 ou 1");
+						System.out.println("Taper sur entrée pour revenir au menu");
+						str = sc.nextLine();
+						commande = 0; 
+					}
+					}catch(NumberFormatException e) {
+						System.out.println("Erreur. Il faut saisir 0 ou 1");
+						System.out.println("Taper sur entrée pour revenir au menu");
+						str = sc.nextLine();
+						commande = 0; 
+					}
 					if(typeAction == 0) {
 						reseau.ShowAllDocuments();
 					}else if(typeAction == 1) {
@@ -105,7 +127,7 @@ public class Main
 							reseau.getListeBiblio().get(str).ShowAllDocuments();
 						}
 					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					System.out.println("Taper sur entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
 				}	
@@ -113,12 +135,25 @@ public class Main
 			//si commande 5
 			else if(commande ==5) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					typeAction = Integer.parseInt(str);
+					try {
+						typeAction = Integer.parseInt(str);
+						if(typeAction != 1 && typeAction != 0) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+						}catch(NumberFormatException e) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
 					if(typeAction == 0) {
 						System.out.println("Entrer le nom d'une serie");
 						str = sc.nextLine();
@@ -140,7 +175,7 @@ public class Main
 							str = sc.nextLine();
 							bibli.searchSerie(str);
 						}
-						System.out.println("Taper entrer pour retourner au menu "); 
+						System.out.println("Taper entrée pour retourner au menu "); 
 						str = sc.nextLine(); 
 						commande = 0;
 						
@@ -152,19 +187,32 @@ public class Main
 			//si commande 6
 			else if(commande ==6) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					typeAction = Integer.parseInt(str);
+					try {
+						typeAction = Integer.parseInt(str);
+						if(typeAction != 1 && typeAction != 0) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+						}catch(NumberFormatException e) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
 					if(typeAction == 0) {
 						System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
 						System.out.println("d'abord entrer le nom de l'auteur :");
-						System.out.println("faites entrer si vous ne connaissez pas le nom");
+						System.out.println("Taper sur entrée si vous ne connaissez pas le nom");
 						String nom = sc.nextLine();
 						System.out.println("maintenant entrer le prenom de l'auteur :");
-						System.out.println("faites entrer si vous ne connaissez pas le prenom");
+						System.out.println("Taper sur entrée si vous ne connaissez pas le prenom");
 						String prenom = sc.nextLine();
 						if(!nom.isEmpty() && !prenom.isEmpty()) {
 							reseau.searchDocumentsAuthor(nom+ " "+ prenom);
@@ -185,11 +233,11 @@ public class Main
 						else{
 							Bibliotheque bibli = reseau.getListeBiblio().get(str);
 							System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
-							System.out.println("d'abord entrer le nom de l'auteur :");
-							System.out.println("faites entrer si vous ne connaissez pas le nom");
+							System.out.println("d'abord saisir le nom de l'auteur :");
+							System.out.println("Taper sur entrée si vous ne connaissez pas le nom");
 							String nom = sc.nextLine();
-							System.out.println("maintenant entrer le prenom de l'auteur :");
-							System.out.println("faites entrer si vous ne connaissez pas le prenom");
+							System.out.println("maintenant saisir le prenom de l'auteur :");
+							System.out.println("Taper sur entrée si vous ne connaissez pas le prenom");
 							String prenom = sc.nextLine();
 							if(!nom.isEmpty() && !prenom.isEmpty()) {
 								bibli.searchDocumentsAuthor(nom + " " + prenom);
@@ -197,7 +245,7 @@ public class Main
 								bibli.searchDocumentsAuthorName(nom);
 							}else bibli.searchDocumentsAuthorSurname(prenom);
 						}
-						System.out.println("Entrer une chaine quelconque pour revenir au menu");
+						System.out.println("Taper sur entrée pour revenir au menu");
 						str = sc.nextLine();
 						commande=0;
 					}	
@@ -206,12 +254,25 @@ public class Main
 			//si commande 7
 			else if(commande ==7) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					typeAction = Integer.parseInt(str);
+					try {
+						typeAction = Integer.parseInt(str);
+						if(typeAction != 1 && typeAction != 0) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+						}catch(NumberFormatException e) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
 					if(typeAction == 0) {
 						System.out.println("Entrer l'ISBN du livre que vous cherchez :");
 						str = sc.nextLine();
@@ -243,7 +304,7 @@ public class Main
 							}
 						}
 					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					System.out.println("Taper sur entrée pour retourner au menu");
 					str = sc.nextLine();
 					commande=0;
 				}	
@@ -251,12 +312,25 @@ public class Main
 			//si commande 8
 			else if(commande ==8) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					typeAction = Integer.parseInt(str);
+					try {
+						typeAction = Integer.parseInt(str);
+						if(typeAction != 1 && typeAction != 0) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+						}catch(NumberFormatException e) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
 					if(typeAction == 0) {
 						System.out.println("Entrer l'EAN du document que vous cherchez :");
 						str = sc.nextLine();
@@ -296,20 +370,51 @@ public class Main
 			//si commande 9
 			else if(commande ==9) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
-				System.out.println("Entrer une chaine quelconque pour revenir au menu");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					typeAction = Integer.parseInt(str);
+					try {
+						typeAction = Integer.parseInt(str);
+						if(typeAction != 1 && typeAction != 0) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+						}catch(NumberFormatException e) {
+							System.out.println("Erreur. Il faut saisir 0 ou 1");
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
 					if(typeAction == 0) {
 						System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
 						System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
 						String debut = sc.nextLine();
 						System.out.println("maintenant l'annee jusqu'à laquelle vous voulez compter :");
 						String end = sc.nextLine();
-						if(!debut.isEmpty() && !end.isEmpty()) reseau.searchNumberPeriod(Integer.parseInt(debut), Integer.parseInt(end));
-						else System.out.println("vos dates sont erronees");
+						int debutNumber = 0;
+						int endNumber = 0;
+						try {
+							debutNumber = Integer.parseInt(debut);
+							endNumber = Integer.parseInt(end);
+							if(debutNumber < 0 || endNumber > 2020 || debutNumber > 2020 || endNumber < 0) {
+								debutNumber = 0; 
+								endNumber = 0; 
+								System.out.println("Vos dates sont erronees");
+							}
+							else {
+								reseau.searchNumberPeriod(debutNumber, endNumber);
+							}
+						}catch(NumberFormatException e ){
+							System.out.println("Vos dates sont erronees");
+							debutNumber = 0; 
+							endNumber = 0; 
+						}
+						
+						
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
@@ -327,11 +432,27 @@ public class Main
 							String debut = sc.nextLine();
 							System.out.println("maintenant l'annee jusqu'à laquelle vous voulez compter :");
 							String end = sc.nextLine();
-							if(!debut.isEmpty() && !end.isEmpty()) reseau.searchNumberPeriod(Integer.parseInt(debut), Integer.parseInt(end));
-							else System.out.println("vos dates sont erronees");
+							int debutNumber = 0;
+							int endNumber = 0;
+							try {
+								debutNumber = Integer.parseInt(debut);
+								endNumber = Integer.parseInt(end);
+								if(debutNumber < 0 || endNumber > 2020 || debutNumber > 2020 || endNumber < 0) {
+									debutNumber = 0; 
+									endNumber = 0; 
+									System.out.println("vos dates sont erronees");
+								}
+								else {
+									reseau.searchNumberPeriod(debutNumber, endNumber);
+								}
+							}catch(NumberFormatException e ){
+								System.out.println("vos dates sont erronees");
+								debutNumber = 0; 
+								endNumber = 0; 
+							}
 						}
 					}
-						System.out.println("Entrer une chaine quelconque pour revenir au menu");
+						System.out.println("Taper sur entrer pour revenir au menu");
 						str = sc.nextLine();
 						commande=0;
 						
@@ -347,11 +468,11 @@ public class Main
 	{
 		
 		Reseau parisBiblios = new Reseau(); 
-		Bibliotheque aimeCesaire = new Bibliotheque("AimeCesaire",parisBiblios ); 
-		Bibliotheque edmondRostand = new Bibliotheque("EdmondRostand",parisBiblios ); 
-		Bibliotheque jeanPierreMelville = new Bibliotheque("JeanPierreMelville",parisBiblios ); 
-		Bibliotheque oscardWilde = new Bibliotheque("OscarWilde",parisBiblios ); 
-		Bibliotheque saintSimon = new Bibliotheque("SaintSimon",parisBiblios ); 
+		Bibliotheque aimeCesaire = new Bibliotheque("aime cesaire",parisBiblios ); 
+		Bibliotheque edmondRostand = new Bibliotheque("edmond rostand",parisBiblios ); 
+		Bibliotheque jeanPierreMelville = new Bibliotheque("jean pierre melville",parisBiblios ); 
+		Bibliotheque oscardWilde = new Bibliotheque("oscar wilde",parisBiblios ); 
+		Bibliotheque saintSimon = new Bibliotheque("saint simon",parisBiblios ); 
 		parisBiblios.addBiblio(aimeCesaire);
 		parisBiblios.addBiblio(edmondRostand);
 		parisBiblios.addBiblio(jeanPierreMelville);

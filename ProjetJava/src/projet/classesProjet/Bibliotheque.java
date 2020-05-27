@@ -22,14 +22,14 @@ public class Bibliotheque implements Consultable{
 	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
 	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre) {
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.reseau = reseau;
 		this.listeCopieDoc = listeCopieDoc;
 		this.listeCopieLivre = listeCopieLivre; 
 		
 	}
 	public Bibliotheque(String nom,Reseau reseau) {
-		this(nom, reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>());
+		this(nom.toLowerCase(), reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>());
 	}
 	
 	public String getName() {
