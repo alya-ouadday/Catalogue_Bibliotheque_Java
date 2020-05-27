@@ -192,7 +192,7 @@ public class Bibliotheque implements Consultable{
 						System.out.println(livre.toString());
 					}
 					else {
-						System.out.println("Sin livre à l'ISBN " + livre.getISBN() + " n'est pas dans la bibliothèque. Consulter le réseau");
+						System.out.println("So n livre à l'ISBN " + livre.getISBN() + " n'est pas dans la bibliothèque. Consulter le réseau");
 					}
 				}
 				else {

@@ -534,15 +534,17 @@ public class Main
 		Document docu4 = parisBiblios.searchEAN("9782070638291");
 		try {
 			jean.sInscrire(edmondRostand);
-			System.out.println(jean.getListeBibliothèque());
+			jean.sInscrire(aimeCesaire);
 		}
 		
 		catch(inscriptionException e){
 			System.out.println("inscrption");
 		}
 		try{
-			jean.emprunter(edmondRostand, docu1);
-			jean.emprunter(edmondRostand, docu2);
+			jean.emprunter(aimeCesaire, docu1);
+		//	jean.emprunter(edmondRostand, docu2);
+		//	jean.emprunter(edmondRostand, docu3);
+		//	jean.emprunter(edmondRostand, docu4);
 			System.out.println(jean.getListeDocument());
 			
 		}catch(quotaException e){
