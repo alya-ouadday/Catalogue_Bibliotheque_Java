@@ -22,6 +22,7 @@ public class Main
 		System.out.println("7 - afficher un livre par son ISBN");
 		System.out.println("8 - afficher un document par son EAN");
 		System.out.println("9 - afficher le nombre de doc entre deux date");
+		System.out.println("10 - Quitter");
 
 	}
 	public static void menu(Reseau reseau) {
@@ -37,7 +38,10 @@ public class Main
 				System.out.println("Veuillez choisir une commande :");
 				String str = sc.nextLine();
 				System.out.println("Vous avez choisis : " + str);
-				commande = Integer.parseInt(str); // faire un try catch + enlever tous les caractères qui sont pas des nombres + verifier que entre 0 et 10
+				try {
+				commande = Integer.parseInt(str);
+				}catch(Exception e) {
+				}
 			}
 			//si commande 1
 			else if(commande ==1) {
