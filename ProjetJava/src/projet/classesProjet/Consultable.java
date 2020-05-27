@@ -18,7 +18,7 @@ public interface Consultable {
 	public Document searchEAN(String ean) throws formatEANException; 
 	public void searchDocumentsAuthorName(String authorName);
 	public void searchDocumentsAuthorSurname(String authorSurname);
-	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname); 
+	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname); 
 	public int searchNumberPeriod(int beginDate, int endDate ); 
 	
 

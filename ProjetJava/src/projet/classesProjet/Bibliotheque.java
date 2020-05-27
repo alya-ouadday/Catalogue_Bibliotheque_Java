@@ -142,6 +142,14 @@ public class Bibliotheque implements Consultable, Echange {
 			livre = reseau.getListeLivre().get(isbn); 
 			System.out.println(livre); 
 		}
+		else {
+			if(reseau.getListeLivre().containsKey(isbn)) {
+				System.out.println("Ce livre n'est pas dans cette bibliothèque. Consultez le réseau");
+			}
+			else {
+				System.out.println("Ce livre n'est pas dans le réseau");
+			}
+		}
 		return livre;
 	}
 	@Override
@@ -154,7 +162,47 @@ public class Bibliotheque implements Consultable, Echange {
 			document = reseau.getListeDocument().get(ean); 
 			System.out.println(document); 
 		}
+		else {
+			if(reseau.getListeLivre().containsKey(ean)) {
+				System.out.println("Ce document n'est pas dans cette bibliothèque. Consultez le réseau");
+			}
+			else {
+				System.out.println("Ce document n'est pas dans le réseau");
+			}
+		}
 		return document;
+	}
+	
+	@Override
+	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname) {
+		
+		ArrayList<Document> listeDoc = new ArrayList<Document>(); 
+		if(reseau.getListeAuthor().containsKey(authorNameSurname)){
+			System.out.println(authorNameSurname + " : "); 
+			for(Document document :reseau.getListeAuthor().get(authorNameSurname) ) {
+				if(listeCopieDoc.containsKey(document.getEAN())) {
+					listeDoc.add(document);
+					System.out.println(document.toString()); 
+				}
+				else if(document instanceof Livre) {
+					Livre livre = (Livre)document; 
+					if(listeCopieLivre.containsKey(livre.getISBN())) {
+						listeDoc.add(livre); 
+						System.out.println(livre.toString());
+					}
+					else {
+						System.out.println("Sin livre à l'ISBN " + livre.getISBN() + " n'est pas dans la bibliothèque. Consulter le réseau");
+					}
+				}
+				else {
+					System.out.println("Son document à l'EAN "+ document.getEAN()+ " n'est pas dans la bibliothèque. Consulter le réseau");
+				}
+			}
+		}
+		else {
+			System.out.println("Cet auteur n'a écrit aucun document du réseau "); 
+		}
+		return listeDoc; 
 	}
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
@@ -163,17 +211,7 @@ public class Bibliotheque implements Consultable, Echange {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
 	      .forEach(entry -> {
-	      					System.out.println(entry.getKey() + "\n");
-	      					for(Document document: reseau.getListeAuthor().get(entry.getKey())) {
-	      						if(listeCopieDoc.containsKey(document.getEAN())) {
-	      							System.out.println(document); }
-	      						else if(document instanceof Livre) {
-	      							Livre livre = (Livre)document; 
-	      							if(listeCopieLivre.containsKey(livre.getISBN())) {
-		      							System.out.println(livre); }
-	      						}
-	      					}
-	    		  
+	    	  				searchDocumentsAuthor(entry.getKey()); 
 	      					});      
 	}
 	
@@ -184,46 +222,13 @@ public class Bibliotheque implements Consultable, Echange {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
 	      .forEach(entry -> {
-	      					System.out.println(entry.getKey() + "\n");
-	      					for(Document document: reseau.getListeAuthor().get(entry.getKey())) {
-	      						if(listeCopieDoc.containsKey(document.getEAN())) {
-	      							System.out.println(document); }
-	      						else if(document instanceof Livre) {
-	      							Livre livre = (Livre)document; 
-	      							if(listeCopieLivre.containsKey(livre.getISBN())) {
-		      							System.out.println(livre); }
-	      						}
-	      					}
-	    		  
+	    	  	searchDocumentsAuthor(entry.getKey()); 
 	      					});      
 	}
 	
 	
 	
-	@Override
-	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
-		
-		ArrayList<Document> listeDoc = new ArrayList<Document>(); 
-		if(reseau.getListeAuthor().containsKey(authorName + " "+ authorSurname)){
-		for(Document document :reseau.getListeAuthor().get(authorName + " "+ authorSurname) ) {
-			if(listeCopieDoc.containsKey(document.getEAN())) {
-				listeDoc.add(document);
-				System.out.println(document.toString()); 
-			}
-			else if(document instanceof Livre) {
-				Livre livre = (Livre)document; 
-				if(listeCopieLivre.containsKey(livre.getISBN())) {
-					listeDoc.add(livre); 
-					System.out.println(livre.toString());
-				}
-			}
-		}
-		}
-		else {
-			System.out.println("Cet auteur n'a rien écrit"); 
-		}
-		return listeDoc; 
-	}
+
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
 		int compteur = 0; 

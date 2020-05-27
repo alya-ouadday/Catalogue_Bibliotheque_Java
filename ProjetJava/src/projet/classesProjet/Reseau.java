@@ -159,16 +159,17 @@ public class Reseau implements Consultable {
 	}
 	
 	@Override
-	public ArrayList<Document> searchDocumentsAuthor(String authorName, String authorSurname) {
-		if(listeAuthor.get(authorName + " "+ authorSurname) != null) {
-		for(Document document :listeAuthor.get(authorName + " "+ authorSurname) ) {
-			System.out.println(document.toString()); 
-		}
+	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname) {
+		if(listeAuthor.containsKey(authorNameSurname)) {
+			System.out.println(authorNameSurname + " : ");
+			for(Document document :listeAuthor.get(authorNameSurname) ) {
+				System.out.println(document.toString()); 
+			}
 		}
 		else {
 			System.out.println("Cet auteur n'a écrit aucun document du réseau"); 
 		}
-		return listeAuthor.get(authorName + " "+ authorSurname); 
+		return listeAuthor.get(authorNameSurname); 
 	}
 	
 
@@ -182,10 +183,8 @@ public class Reseau implements Consultable {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
 	      .forEach(entry -> {
-	      					System.out.println("\n"+entry.getKey());
-	      					for(Document document: listeAuthor.get(entry.getKey())) {
-	      						System.out.println(document); 
-	      					}
+	      					searchDocumentsAuthor(entry.getKey());
+	      					
 	    		  
 	      					});      
 	}
@@ -197,10 +196,7 @@ public class Reseau implements Consultable {
 	      .stream()
 	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
 	      .forEach(entry -> {
-	      					System.out.println("\n"+entry.getKey());
-	      					for(Document document: listeAuthor.get(entry.getKey())) {
-	      						System.out.println(document); 
-	      					}
+	    	  				searchDocumentsAuthor(entry.getKey());
 	    		  
 	      					});      
 	}

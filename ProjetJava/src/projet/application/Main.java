@@ -37,7 +37,7 @@ public class Main
 				System.out.println("Veuillez choisir une commande :");
 				String str = sc.nextLine();
 				System.out.println("Vous avez choisis : " + str);
-				commande = Integer.parseInt(str);
+				commande = Integer.parseInt(str); // faire un try catch + enlever tous les caractères qui sont pas des nombres + verifier que entre 0 et 10
 			}
 			//si commande 1
 			else if(commande ==1) {
@@ -163,10 +163,11 @@ public class Main
 						System.out.println("faites entrer si vous ne connaissez pas le prenom");
 						String prenom = sc.nextLine();
 						if(!nom.isEmpty() && !prenom.isEmpty()) {
-							reseau.searchDocumentsAuthor(nom, prenom);
+							reseau.searchDocumentsAuthor(nom+ " "+ prenom);
 						}else if(!nom.isEmpty() && prenom.isEmpty()) {
 							reseau.searchDocumentsAuthorName(nom);
-						}else reseau.searchDocumentsAuthorSurname(prenom);
+						}else if (nom.isEmpty() && !prenom.isEmpty()) {
+								reseau.searchDocumentsAuthorSurname(prenom);}
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine();
@@ -187,7 +188,7 @@ public class Main
 							System.out.println("faites entrer si vous ne connaissez pas le prenom");
 							String prenom = sc.nextLine();
 							if(!nom.isEmpty() && !prenom.isEmpty()) {
-								bibli.searchDocumentsAuthor(nom, prenom);
+								bibli.searchDocumentsAuthor(nom + " " + prenom);
 							}else if(!nom.isEmpty() && prenom.isEmpty()) {
 								bibli.searchDocumentsAuthorName(nom);
 							}else bibli.searchDocumentsAuthorSurname(prenom);
