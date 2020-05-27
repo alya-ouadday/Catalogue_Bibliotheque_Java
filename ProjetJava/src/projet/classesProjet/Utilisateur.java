@@ -72,7 +72,7 @@ public class Utilisateur{
 				if(doc.equals(document))
 					listeDocument.remove(document);
 			}
-			nbCopieDoc++;
+			if(nbCopieDoc != null) nbCopieDoc++;
 			if(document instanceof Livre) {
 				nbCopieLivre++;
 			}
@@ -98,7 +98,7 @@ public class Utilisateur{
 		}
 		else {
 			listeDocument.add(document);
-			nbCopieDoc--;
+			if(nbCopieDoc != null) nbCopieDoc++;
 			if(document instanceof Livre) {
 				nbCopieLivre--;
 			}
