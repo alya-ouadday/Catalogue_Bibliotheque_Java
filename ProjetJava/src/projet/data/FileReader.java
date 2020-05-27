@@ -324,19 +324,19 @@ public class FileReader
                 reseau.addDocument(document);
                 //on ajoute le document au bibliotheque
                 if(numberCopyAimeCesaire > 0) {
-                	(reseau.getListeBiblio()).get("AimeCesaire").addDocument(document, numberCopyAimeCesaire);
+                	(reseau.getListeBiblio()).get("aime cesaire").addDocument(document, numberCopyAimeCesaire);
                 }
                 if(numberCopyEdmondRostand > 0) {
-                	(reseau.getListeBiblio()).get("EdmondRostand").addDocument(document, numberCopyEdmondRostand);
+                	(reseau.getListeBiblio()).get("edmond rostand").addDocument(document, numberCopyEdmondRostand);
                 }
                 if(numberCopyJeanPierreMelville > 0) {
-                	(reseau.getListeBiblio()).get("JeanPierreMelville").addDocument(document, numberCopyJeanPierreMelville);
+                	(reseau.getListeBiblio()).get("jean pierre melville").addDocument(document, numberCopyJeanPierreMelville);
                 }
                 if(numberCopyOscarWilde > 0) {
-                	(reseau.getListeBiblio()).get("OscarWilde").addDocument(document, numberCopyOscarWilde);
+                	(reseau.getListeBiblio()).get("oscar wilde").addDocument(document, numberCopyOscarWilde);
                 }
                 if(numberCopySaintSimon > 0) {
-                	(reseau.getListeBiblio()).get("SaintSimon").addDocument(document, numberCopySaintSimon);
+                	(reseau.getListeBiblio()).get("saint simon").addDocument(document, numberCopySaintSimon);
                 }
                  
             }
