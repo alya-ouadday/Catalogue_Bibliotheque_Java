@@ -19,6 +19,7 @@ public class Bibliotheque implements Consultable, Echange {
 	private Reseau reseau;
 	private HashMap<String,Integer> listeCopieDoc;
 	private HashMap<String,Integer> listeCopieLivre;
+	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
 	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre) {
 		this.name = name;
@@ -34,7 +35,18 @@ public class Bibliotheque implements Consultable, Echange {
 	public String getName() {
 		return name; 
 	}
-	
+	public Reseau getReseau() {
+		return reseau; 
+	}
+	public HashMap<String,Integer> getListeCopieDoc() {
+		return listeCopieDoc; 
+	}
+	public HashMap<String,Integer> getListeCopieLivre() {
+		return listeCopieLivre; 
+	}
+	public HashMap<Integer,Utilisateur> getListeUtilisateur() {
+		return listeUtilisateur; 
+	}
 	
 	
 	public void addDocument(Document document, Integer nBCopie) {
@@ -238,7 +250,7 @@ public class Bibliotheque implements Consultable, Echange {
 	
 	
 	public void addUtilisateur(Utilisateur utilisateur) {
-			
+		listeUtilisateur.put(utilisateur.getId(), utilisateur);
 	}
 	
 	@Override
