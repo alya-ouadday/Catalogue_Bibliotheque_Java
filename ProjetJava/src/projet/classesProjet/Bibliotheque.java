@@ -336,17 +336,16 @@ public class Bibliotheque implements Consultable{
 			throw new nonDispoException();
 		}
 		else {
-			if(nbCopieDoc!=null) {
+			if((nbCopieDoc!=null && nbCopieDocHome!=null)) {
 				nbCopieDoc--;
-			nbCopieDocHome++;
+				nbCopieDocHome++;
 			}
-			
-			
+			if((nbCopieLivre!=null && nbCopieLivreHome!=null)) {
+				nbCopieLivre--;
+				nbCopieLivreHome++;
+			}	
 		}
-		
-		
-		
-		
+
 	}
 	
 }
