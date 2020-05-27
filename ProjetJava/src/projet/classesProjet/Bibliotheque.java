@@ -22,15 +22,15 @@ public class Bibliotheque implements Consultable{
 	private HashMap<String,Integer> listeCopieLivre;
 	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
-	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre) {
+	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre,HashMap<Integer,Utilisateur> listeUtilisateur) {
 		this.name = name.toLowerCase();
 		this.reseau = reseau;
 		this.listeCopieDoc = listeCopieDoc;
 		this.listeCopieLivre = listeCopieLivre; 
-		
+		this.listeUtilisateur = listeUtilisateur;
 	}
 	public Bibliotheque(String nom,Reseau reseau) {
-		this(nom.toLowerCase(), reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>());
+		this(nom.toLowerCase(), reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>(),new HashMap<Integer,Utilisateur>());
 	}
 	
 	public String getName() {
@@ -305,8 +305,43 @@ public class Bibliotheque implements Consultable{
 			*/
 		Integer nbCopieDoc = null;
 		Integer nbCopieLivre = null;
+		Integer nbCopieDocHome = null;
+		Integer nbCopieLivreHome = null;
 		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
 			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
+			 if(!listeCopieDoc.containsKey(document.getEAN())) {
+				 listeCopieDoc.put(document.getEAN(), 0);
+				 nbCopieDocHome = listeCopieDoc.get(document.getEAN());
+			 }
+			 else {
+				 nbCopieDocHome = listeCopieDoc.get(document.getEAN());
+			 }
+			 
+		}
+		if(document instanceof Livre) {
+			Livre livre = (Livre)document;
+			if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())){
+				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+				 if(!listeCopieLivre.containsKey(livre.getISBN())) {
+					 listeCopieLivre.put(livre.getISBN(), 0);
+					 nbCopieLivreHome = listeCopieDoc.get(livre.getISBN());
+				 }
+				 else {
+					 nbCopieLivreHome = listeCopieDoc.get(livre.getISBN());
+				 }
+			}
+		}
+		if((nbCopieDoc<=0 && nbCopieLivre<=0) || (nbCopieDoc==null && nbCopieLivre==null) 
+				|| (nbCopieDoc<=0 && nbCopieLivre==null) || (nbCopieDoc==null && nbCopieLivre<=0)  ) {
+			throw new nonDispoException();
+		}
+		else {
+			if(nbCopieDoc!=null) {
+				nbCopieDoc--;
+			nbCopieDocHome++;
+			}
+			
+			
 		}
 		
 		
