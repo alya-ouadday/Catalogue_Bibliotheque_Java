@@ -46,26 +46,62 @@ public class Utilisateur{
 		return listeDocument;
 	}
 	
-	public void sInscrire(Bibliotheque bibli) {
+	public void sInscrire(Bibliotheque bibli) throws inscriptionException {
+		if(bibli.getListeUtilisateur().containsKey(id)) {
+			throw new inscriptionException("deja");
+		}
+		else {
 		listeBibliotheque.add(bibli);
 		bibli.addUtilisateur(this);
+		}
 	}
 	
 
-	public void remettre(Bibliotheque bibliotheque, Document document) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void emprunter(Bibliotheque bibliotheque, Document document) throws quotaException {
-		
-		listeDocument.add(document);
+	public void remettre(Bibliotheque bibliotheque, Document document) throws inscriptionException {
 		Integer nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
-		nbCopieDoc--;
+		Integer nbCopieLivre = null;
 		if(document instanceof Livre) {
 			Livre livre = (Livre)document;
-			Integer nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
-			nbCopieLivre--;
+			nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+		}
+		if(!bibliotheque.getListeUtilisateur().containsKey(id)) {
+			throw new inscriptionException("non");
+		}
+		else {
+			for(Document doc : listeDocument) {
+				if(doc.equals(document))
+					listeDocument.remove(document);
+			}
+			nbCopieDoc++;
+			if(document instanceof Livre) {
+				nbCopieLivre++;
+			}
+		}
+			
+	}
+
+	public void emprunter(Bibliotheque bibliotheque, Document document) throws quotaException, nonDispoException, inscriptionException {
+		Integer nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
+		Integer nbCopieLivre = null;
+		if(document instanceof Livre) {
+			Livre livre = (Livre)document;
+			nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+		}
+		if(this.listeDocument.size() >= quota) {
+			throw new quotaException();
+		}
+		else if(nbCopieDoc<=0 || (nbCopieLivre<=0 && nbCopieLivre!=null)) {
+			throw new nonDispoException();
+		}
+		else if(!bibliotheque.getListeUtilisateur().containsKey(id)) {
+			throw new inscriptionException("non");
+		}
+		else {
+			listeDocument.add(document);
+			nbCopieDoc--;
+			if(document instanceof Livre) {
+				nbCopieLivre--;
+			}
 		}
 		
 	}
