@@ -7,6 +7,9 @@ import java.util.Scanner;
 import projet.data.FileReader;
 import projet.exceptions.formatEANException;
 import projet.exceptions.formatISBNException;
+import projet.exceptions.inscriptionException;
+import projet.exceptions.nonDispoException;
+import projet.exceptions.quotaException;
 import projet.classesProjet.*;
 
 public class Main 
@@ -22,7 +25,9 @@ public class Main
 		System.out.println("7 - afficher un livre par son ISBN");
 		System.out.println("8 - afficher un document par son EAN");
 		System.out.println("9 - afficher le nombre de doc entre deux date");
-		System.out.println("10 - Quitter");
+		System.out.println("10 - emprunter un document");
+		System.out.println("11 - rendre un document");
+		System.out.println("12 - Quitter");
 
 	}
 	public static void menu(Reseau reseau) {
@@ -518,7 +523,42 @@ public class Main
 		//parisBiblios.searchSerie("Calamity Mamie");
 		//aimeCesaire.searchSerie("Calamity Mamie");
 		//edmondRostand.searchSerie("Calamity Mamie");
-		menu(parisBiblios);
+		//menu(parisBiblios);
+		
+	
+		Utilisateur jean = new Utilisateur("jean", 3); 
+		try {
+		Document docu1 = parisBiblios.searchEAN("9782070638444");
+		Document docu2 = parisBiblios.searchEAN("9782070637119");
+		Document docu3 = parisBiblios.searchEAN("9782747035200");
+		Document docu4 = parisBiblios.searchEAN("9782070638291");
+		try {
+			jean.sInscrire(edmondRostand);
+			System.out.println(jean.getListeBibliothèque());
+		}
+		
+		catch(inscriptionException e){
+			System.out.println("inscrption");
+		}
+		try{
+			jean.emprunter(edmondRostand, docu1);
+			jean.emprunter(edmondRostand, docu2);
+			System.out.println(jean.getListeDocument());
+			
+		}catch(quotaException e){
+			e.printStackTrace();
+		} catch (nonDispoException e) {
+			
+			e.printStackTrace();
+		} catch (inscriptionException e) {
+			
+			e.printStackTrace();
+		}
+		}
+		catch(formatEANException e) {
+			e.printStackTrace();
+		}
+		
 		
 		
 		
