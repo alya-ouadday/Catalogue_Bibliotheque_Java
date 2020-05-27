@@ -10,6 +10,7 @@ import java.util.Map;
 
 import projet.exceptions.formatEANException;
 import projet.exceptions.formatISBNException;
+import projet.exceptions.nonDispoException;
 /**
  * @author fande
  *
@@ -259,13 +260,40 @@ public class Bibliotheque implements Consultable{
 	}
 	
 
-	public void remettre(Bibliotheque bibliotheque, Document document) {
-		// TODO Auto-generated method stub
-		
+	public void remettre(Bibliotheque bibliotheque, Document document){
+		try {
+			bibliotheque.emprunter(this, document);
+		} catch (nonDispoException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void emprunter(Bibliotheque bibliotheque, Document document) {
+	public void emprunter(Bibliotheque bibliotheque, Document document) throws nonDispoException {
 		// TODO Auto-generated method stub
+		Integer nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
+		Integer nbCopieLivre = null;
+		if(document instanceof Livre) {
+			Livre livre = (Livre)document;
+			nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+		}
+		Integer nbCopieDocHome = listeCopieDoc.get(document.getEAN());
+		Integer nbCopieLivreHome = null;
+		if(document instanceof Livre) {
+			Livre livre = (Livre)document;
+			nbCopieLivreHome = bibliotheque.listeCopieLivre.get(livre.getISBN());
+		}
+		if(nbCopieDoc<=0 || (nbCopieLivre<=0 && nbCopieLivre!=null)) {
+			throw new nonDispoException();
+		}
+		else {
+			
+			nbCopieDoc--;
+			nbCopieDocHome++;
+			if(document instanceof Livre) {
+				nbCopieLivre--;
+				nbCopieLivreHome++;
+			}
+		}
 		
 	}
 	
