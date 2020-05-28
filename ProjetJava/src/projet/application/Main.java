@@ -18,7 +18,7 @@ public class Main
 		System.out.println("Choisissez le numéro de votre commande : ");
 		System.out.println("1 - ajouter une nouvelle bibliothèque au reseau ");
 		System.out.println("2 - ajouter document");
-		System.out.println("3 - ajouter nouvel utilisateur");
+		System.out.println("3 - ajouter nouvel utilisateur au reseau");
 		System.out.println("4 - afficher l'ensemble des document ");
 		System.out.println("5 - afficher les document d'une série");
 		System.out.println("6 - afficher les documents d'un auteur");
@@ -27,7 +27,8 @@ public class Main
 		System.out.println("9 - afficher le nombre de doc entre deux date");
 		System.out.println("10 - emprunter un document");
 		System.out.println("11 - rendre un document");
-		System.out.println("12 - Quitter");
+		System.out.println("12 - inscrire un utilisateur");
+		System.out.println("13 - Quitter");
 
 	}
 	public static void menu(Reseau reseau) {
@@ -80,7 +81,7 @@ public class Main
 					commande = 0;
 				}else {
 					
-				commande=0;
+					commande=0;
 				}	
 			}
 			//si commande 3
@@ -528,10 +529,8 @@ public class Main
 	
 		Utilisateur jean = new Utilisateur("jean", 3); 
 		try {
-		Document docu1 = parisBiblios.searchEAN("9782070638444");
-		Document docu2 = parisBiblios.searchEAN("9782070637119");
-		Document docu3 = parisBiblios.searchEAN("9782747035200");
-		Document docu4 = parisBiblios.searchEAN("9782070638291");
+		Document docu1 = parisBiblios.searchEAN("9782355041587");
+		Livre livre1 =(Livre) docu1;
 		try {
 			jean.sInscrire(edmondRostand);
 			jean.sInscrire(aimeCesaire);
@@ -540,12 +539,17 @@ public class Main
 		catch(inscriptionException e){
 			System.out.println("inscrption");
 		}
+		System.out.println("liste jean"+jean.getListeDocument());
+		System.out.println("copie restante : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+		System.out.println("copie restante livre : "+aimeCesaire.getListeCopieDoc().get(livre1.getISBN()));
 		try{
 			jean.emprunter(aimeCesaire, docu1);
 		//	jean.emprunter(edmondRostand, docu2);
 		//	jean.emprunter(edmondRostand, docu3);
 		//	jean.emprunter(edmondRostand, docu4);
-			System.out.println(jean.getListeDocument());
+			System.out.println("liste jean"+jean.getListeDocument());
+			System.out.println("copie restante : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre : "+aimeCesaire.getListeCopieDoc().get(livre1.getISBN()));
 			
 		}catch(quotaException e){
 			e.printStackTrace();

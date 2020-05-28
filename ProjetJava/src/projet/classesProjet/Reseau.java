@@ -22,22 +22,22 @@ public class Reseau implements Consultable {
 	private HashMap<String, Livre> listeLivre;
 	private HashMap<String, ArrayList<Document>> listeAuthor;
 	private HashMap<String, Serie> listeSerie;
+	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
 	public Reseau(HashMap<String, Bibliotheque> listeBiblio, HashMap<String, Document> listeDocument, 
-				   HashMap<String, Livre> listeLivre, HashMap<String, ArrayList<Document>> listeAuthor, HashMap<String, Serie> listeSerie) {
+				   HashMap<String, Livre> listeLivre, HashMap<String, ArrayList<Document>> listeAuthor, HashMap<String, Serie> listeSerie,HashMap<Integer,Utilisateur> listeUtilisateur) {
 		this.listeBiblio = listeBiblio;
 		this.listeDocument = listeDocument;
 		this.listeLivre = listeLivre;
 		this.listeAuthor = listeAuthor;
 		this.listeSerie = listeSerie;	
+		this.listeUtilisateur = listeUtilisateur;
 	}
 	
 	public Reseau() {
 		
 		this(new HashMap<String, Bibliotheque>(), new HashMap<String,Document>(), new HashMap<String, Livre>(),
-				new HashMap<String,ArrayList<Document>>(), new HashMap<String, Serie>()) ;
-		
-
+				new HashMap<String,ArrayList<Document>>(), new HashMap<String, Serie>(),new HashMap<Integer,Utilisateur>()) ;
 	}
 	
 	
@@ -57,6 +57,9 @@ public class Reseau implements Consultable {
 	}
 	public HashMap<String, ArrayList<Document>> getListeAuthor(){
 		return listeAuthor; 
+	}
+	public HashMap<Integer,Utilisateur> getListeUtilisateur() {
+		return listeUtilisateur; 
 	}
 	
 	
