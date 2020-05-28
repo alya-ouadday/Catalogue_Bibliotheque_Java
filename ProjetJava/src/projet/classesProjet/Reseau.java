@@ -16,7 +16,7 @@ import projet.exceptions.*;
  * 
  * represente le reseau
  * @author BEN OUADDAY et LEJEUNE
- *
+ * 
  */
 public class Reseau implements Consultable {
 	/**
@@ -140,19 +140,19 @@ public class Reseau implements Consultable {
 	public void addDocument(Document document) {
 		if(document != null) {
 			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
-				//qui a seulement un ISBN 
+																							//qui a seulement un ISBN 
 				listeDocument.put(document.getEAN(), document); 
 			}
 			if (listeAuthor.containsKey(document.getAuthor())){ //si l'auteur du doc est deja 
-				//dans la liste d'auteur
+																//dans la liste d'auteur
 				listeAuthor.get(document.getAuthor()).add(document); 
 			}
-			else if (listeAuthor.containsKey(document.getAuthor())!= true) {
+			else if (listeAuthor.containsKey(document.getAuthor())!= true) { //
 				ArrayList<Document> value = new ArrayList<Document>(); 
 				value.add(document); 
 				listeAuthor.put(document.getAuthor(), value); 
 			}
-			if(document instanceof Livre) {
+			if(document instanceof Livre) {//si c'est un livre alors il a un ISBN et on l'ajoute à la liste des livre
 				Livre livre = (Livre)document;
 				listeLivre.put(livre.getISBN(), livre); 
 			}
@@ -194,11 +194,11 @@ public class Reseau implements Consultable {
 
 	@Override
 	public void ShowAllDocuments() {
-		for(Document document: listeDocument.values()) {
+		for(Document document: listeDocument.values()) {//on affiche tous les documents
 			System.out.println(document.toString());
 		}
 		
-		for(Livre livre : listeLivre.values()) {
+		for(Livre livre : listeLivre.values()) {//on affiche tout les livres
 			if(!listeDocument.containsKey(livre.getEAN())) {
 				System.out.println(livre.toString()); 
 			}
@@ -210,19 +210,19 @@ public class Reseau implements Consultable {
 	public HashMap<Document, Integer> searchSerie(String serieName) {
 		serieName = serieName.toLowerCase(); 
 		HashMap<Document, Integer> serie = null;
-		if(listeSerie.containsKey(serieName)) {
+		if(listeSerie.containsKey(serieName)) {//si la serie est bien dans notre reseau
 			serie = listeSerie.get(serieName).getListeDoc();
 			if(!serie.containsValue(0)) {//si les documents ont tous un numero ont les affiche par numero
 				serie.entrySet()
 				  .stream()
-				  .sorted(Map.Entry.comparingByValue())
-				  .forEach(entry -> System.out.println(entry.getKey()));
+				  .sorted(Map.Entry.comparingByValue())//on trie la hashmap par sa valeur donc par les numéro des documents
+				  .forEach(entry -> System.out.println(entry.getKey()));//on affiche les document de la serie dans l'ordre de leur numero
 			}else {//sinon on les trie par date
 				serie = listeSerie.get(serieName).getListeDocDate();
 				serie.entrySet()
 				  .stream()
-				  .sorted(Map.Entry.comparingByValue())
-				  .forEach(entry -> System.out.println(entry.getKey()));
+				  .sorted(Map.Entry.comparingByValue())//on trie la hashmap par sa valeur donc par les dates des documents
+				  .forEach(entry -> System.out.println(entry.getKey()));//on affiche les document de la serie dans l'ordre de publication
 			}		
 		}
 		else {
@@ -233,15 +233,15 @@ public class Reseau implements Consultable {
 
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
-		String isbnVerif = isbn.replace("-", "");
+		String isbnVerif = isbn.replace("-", "");//on enleve les tiret et espace pour verifier ensuite que le ISBN a le bon format
 		if ((isbnVerif.matches("\\d{13}") || isbnVerif.matches("\\d{10}") || isbnVerif.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
 	
-		if (!listeLivre.containsKey(isbn)) {
+		if (!listeLivre.containsKey(isbn)) {//si l'ISBN ne correspond a aucun livre du reseau
 			System.out.println("Cet ISBN ne correspond à aucun livre du réseau");
 		}
-		else {
+		else {//sinon on affiche le bon livre
 			System.out.println(listeLivre.get(isbn));
 		}
 		return listeLivre.get(isbn);  
@@ -249,14 +249,14 @@ public class Reseau implements Consultable {
 
 	@Override
 	public Document searchEAN(String ean) throws formatEANException{
-		if (!ean.matches("\\d{13}")){
+		if (!ean.matches("\\d{13}")){//on verifie que l'EAN a le bon format
 			throw new formatEANException(); 
 		}
 		
-		if (!listeDocument.containsKey(ean)) {
+		if (!listeDocument.containsKey(ean)) {//si l'EAN ne correspond a aucun document du reseau
 			System.out.println("Cet EAN ne correspond à aucun document du réseau");
 		}
-		else {
+		else {//sinon on affiche le bon document
 			System.out.println(listeDocument.get(ean));
 		}
 
@@ -266,9 +266,9 @@ public class Reseau implements Consultable {
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname) {
 		authorNameSurname = authorNameSurname.toLowerCase(); 
-		if(listeAuthor.containsKey(authorNameSurname)) {
+		if(listeAuthor.containsKey(authorNameSurname)) {//si le nom et prenom correspond bien a un auteur du reseau 
 			System.out.println(authorNameSurname + " : ");
-			for(Document document :listeAuthor.get(authorNameSurname) ) {
+			for(Document document :listeAuthor.get(authorNameSurname) ) {//alors on affiche sa liste de livre
 				System.out.println(document.toString()); 
 			}
 		}
@@ -285,9 +285,10 @@ public class Reseau implements Consultable {
 		  listeAuthor
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches(authorName.toLowerCase() + "(.*)"))
+	      .filter(entry -> entry.getKey().matches(authorName.toLowerCase() + "(.*)")) //on filtre la hashmap pour ne garder que 
+	      																				//les auteurs avec un nom qui correspond
 	      .forEach(entry -> {
-	      					searchDocumentsAuthor(entry.getKey());
+	      					searchDocumentsAuthor(entry.getKey());//on affiche les liste de documents pour chacun des auteur ayant le nom rechercher
 	      					
 	    		  
 	      					});      
@@ -298,9 +299,10 @@ public class Reseau implements Consultable {
 		  listeAuthor
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname.toLowerCase()))
+	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname.toLowerCase()))//on filtre la hashmap pour ne garder que 
+																						//les auteurs avec un prenom qui correspond
 	      .forEach(entry -> {
-	    	  				searchDocumentsAuthor(entry.getKey());
+	    	  				searchDocumentsAuthor(entry.getKey());//on affiche les liste de documents pour chacun des auteur ayant le prenom rechercher
 	    		  
 	      					});      
 	}
@@ -310,18 +312,18 @@ public class Reseau implements Consultable {
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
 
-		int compteur = 0; 
-		for(Document document: listeDocument.values()) {	
+		int compteur = 0; //compte le nombre de doc
+		for(Document document: listeDocument.values()) {	//pour chaque document du reseau
 				int date = document.getDate(); 	
-				if(date >= beginDate && date <= endDate) {
-					compteur ++; 
+				if(date >= beginDate && date <= endDate) {	//si la date est comprise dans l'intervalle
+					compteur ++; //on incremente le compteur
 				}
 		}
-		for(Livre livre: listeLivre.values()) {	
-				if(!(listeDocument.containsKey(livre.getEAN()))) {	
+		for(Livre livre: listeLivre.values()) {	//pour tout les livre
+				if(!(listeDocument.containsKey(livre.getEAN()))) {	//si on a pas deja compte ce livre dans les document
 					int date = livre.getDate(); 
-					if(date >= beginDate && date <= endDate) {
-						compteur ++; 
+					if(date >= beginDate && date <= endDate) {//si la date est comprise dans l'intervalle
+						compteur ++; //on incremente le compteur
 					}
 				}
 		}
