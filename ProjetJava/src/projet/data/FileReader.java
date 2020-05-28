@@ -14,6 +14,133 @@ import java.util.List;
 
 public class FileReader 
 {
+	public static Document createDoc(Reseau reseau,String isbn, String ean, String title, String publisher, String seriesTitle, 
+										Integer seriesNumber, String authorName, String authorSurname, String type, int date, int totalCopies) {
+
+		Document document = null;
+        
+        //si le document n'appartient pas à une série
+        if(seriesTitle.isEmpty()) {
+        	//si le document est identifiable
+        	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
+            	//si le doc a un ean et pas d'isbn
+                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
+                		//si le doc est un vinyle
+                		if(type.matches("Vinyle(.*)")) {
+                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+                		}
+                		//si le doc est un CD
+                		else if(type.matches("Disque compact(.*)")) {
+                			document = new CD(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+                		}
+                		//si le doc est un Jeu de societe
+                		else if(type.matches("Jeux de(.*)")) {
+                			document = new JeuDeSociete(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+                		}
+                		//si le doc est un Jeu video
+                		else if(type.matches("Jeux Videos(.*)")) {
+                			document = new JeuVideo(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+                		}
+                		//sinon on le met dans autre
+                		else {
+                			document = new Autre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
+                		}
+                		
+                }
+                //si le doc a un ISBN
+                else{
+                	//si le doc est une partition
+            		if(type.matches("Partition(.*)")) {
+            			document = new Partition(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+            		}
+            		//si le doc est une carte
+            		else if(type.matches("Carte(.*)")) {
+            			document = new Carte(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+            		}
+            		//si le doc est une revue
+            		else if(type.matches("Revue(.*)")) {
+            			document = new Revue(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+            		}
+            		//si le doc est une Bande Dessinee
+            		else if(type.matches("Bande dessinee(.*)")) {
+            			document = new BandeDessinee(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+            		}
+            		//sinon c'est juste un livre
+            		else {
+            			document = new Livre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
+            		}
+                }	
+        	}
+        }
+        //si le document appartient à une série
+        else {
+        	//si le document est identifiable
+        	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
+        		//on commence par gerer sa serie
+        		Serie serie = new Serie(seriesTitle);
+        		
+        		if((reseau.getListeSerie()).containsKey(seriesTitle)) {
+        			serie = (reseau.getListeSerie()).get(seriesTitle);//on pointe sur la série déja dans le réseau si elle existe
+        		}
+        		else {
+        			reseau.addSerie(serie);
+        		}
+            	//si le doc a un ean et pas d'isbn
+                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
+                	//si le doc est un vinyle
+            		if(type.matches("Vinyle(.*)")) {
+            			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
+            		}
+            		//si le doc est un CD
+            		else if(type.matches("Disque compact(.*)")) {
+            			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
+            		}
+            		//si le doc est un Jeu de societe
+            		else if(type.matches("Jeux de societe(.*)")) {
+            			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
+            		}
+            		//si le doc est un Jeu video
+            		else if(type.matches("Jeux Videos(.*)")) {
+            			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
+            		}
+            		//sinon on le met dans autre
+            		else {
+            			document = new AutreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
+            		}
+                }
+                //si le doc a un ISBN
+                else{
+                	//si le doc est une partition
+            		if(type.matches("Partition(.*)")) {
+            			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
+            		}
+            		//si le doc est une carte
+            		else if(type.matches("Carte(.*)")) {
+            			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
+            		}
+            		//si le doc est une revue
+            		else if(type.matches("Revue(.*)")) {
+            			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
+            		}
+            		//si le doc est une Bande Dessinee
+            		else if(type.matches("Bande dessinee(.*)")) {
+            			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
+            		}
+            		//sinon c'est juste un livre
+            		else {
+            			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
+            		}
+                }
+                //Integer numeroSerie = new Integer(seriesNumber);
+                serie.addDocument(document,seriesNumber,date);
+        	}
+        }
+        return document;
+	}
+	
+	
+	
+	
 	public static void getDataFromCSVFile(String csvFilePath, Reseau reseau)
 	{
         String line = "";
@@ -200,126 +327,8 @@ public class FileReader
                  */
                
                 
+                Document document = createDoc(reseau, isbn, ean, title, publisher, seriesTitle, seriesNumber, authorName, authorSurname, type, date, totalCopies);
                 
-                
-                Document document = null;
-                
-                //si le document n'appartient pas à une série
-                if(seriesTitle.isEmpty()) {
-                	//si le document est identifiable
-                	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
-	                	//si le doc a un ean et pas d'isbn
-		                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
-		                		//si le doc est un vinyle
-		                		if(type.matches("Vinyle(.*)")) {
-		                			document = new Vinyle(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
-		                		}
-		                		//si le doc est un CD
-		                		else if(type.matches("Disque compact(.*)")) {
-		                			document = new CD(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
-		                		}
-		                		//si le doc est un Jeu de societe
-		                		else if(type.matches("Jeux de(.*)")) {
-		                			document = new JeuDeSociete(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
-		                		}
-		                		//si le doc est un Jeu video
-		                		else if(type.matches("Jeux Videos(.*)")) {
-		                			document = new JeuVideo(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
-		                		}
-		                		//sinon on le met dans autre
-		                		else {
-		                			document = new Autre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies);	
-		                		}
-		                		
-		                }
-		                //si le doc a un ISBN
-		                else{
-		                	//si le doc est une partition
-	                		if(type.matches("Partition(.*)")) {
-	                			document = new Partition(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
-	                		}
-	                		//si le doc est une carte
-	                		else if(type.matches("Carte(.*)")) {
-	                			document = new Carte(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
-	                		}
-	                		//si le doc est une revue
-	                		else if(type.matches("Revue(.*)")) {
-	                			document = new Revue(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
-	                		}
-	                		//si le doc est une Bande Dessinee
-	                		else if(type.matches("Bande dessinee(.*)")) {
-	                			document = new BandeDessinee(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
-	                		}
-	                		//sinon c'est juste un livre
-	                		else {
-	                			document = new Livre(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn);	
-	                		}
-		                }	
-                	}
-	            }
-                //si le document appartient à une série
-                else {
-                	//si le document est identifiable
-                	if((!ean.isEmpty()) || (!isbn.isEmpty())) {
-                		//on commence par gerer sa serie
-                		Serie serie = new Serie(seriesTitle);
-                		
-                		if((reseau.getListeSerie()).containsKey(seriesTitle)) {
-                			serie = (reseau.getListeSerie()).get(seriesTitle);//on pointe sur la série déja dans le réseau si elle existe
-                		}
-                		else {
-                			reseau.addSerie(serie);
-                		}
-	                	//si le doc a un ean et pas d'isbn
-		                if( (!ean.isEmpty()) && (isbn.isEmpty())) {
-		                	//si le doc est un vinyle
-	                		if(type.matches("Vinyle(.*)")) {
-	                			document = new VinyleInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
-	                		}
-	                		//si le doc est un CD
-	                		else if(type.matches("Disque compact(.*)")) {
-	                			document = new CDInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
-	                		}
-	                		//si le doc est un Jeu de societe
-	                		else if(type.matches("Jeux de societe(.*)")) {
-	                			document = new JeuDeSocieteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
-	                		}
-	                		//si le doc est un Jeu video
-	                		else if(type.matches("Jeux Videos(.*)")) {
-	                			document = new JeuVideoInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
-	                		}
-	                		//sinon on le met dans autre
-	                		else {
-	                			document = new AutreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,serie,seriesNumber);	
-	                		}
-		                }
-		                //si le doc a un ISBN
-		                else{
-		                	//si le doc est une partition
-	                		if(type.matches("Partition(.*)")) {
-	                			document = new PartitionInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
-	                		}
-	                		//si le doc est une carte
-	                		else if(type.matches("Carte(.*)")) {
-	                			document = new CarteInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
-	                		}
-	                		//si le doc est une revue
-	                		else if(type.matches("Revue(.*)")) {
-	                			document = new RevueInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
-	                		}
-	                		//si le doc est une Bande Dessinee
-	                		else if(type.matches("Bande dessinee(.*)")) {
-	                			document = new BandeDessineeInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
-	                		}
-	                		//sinon c'est juste un livre
-	                		else {
-	                			document = new LivreInSerie(ean,title,publisher,date,authorName,authorSurname,type, totalCopies,isbn,serie,seriesNumber);	
-	                		}
-		                }
-		                //Integer numeroSerie = new Integer(seriesNumber);
-		                serie.addDocument(document,seriesNumber,date);
-                	}
-                }
                 //on ajoute le document au reseau
                 reseau.addDocument(document);
                 //on ajoute le document au bibliotheque

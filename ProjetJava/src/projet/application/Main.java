@@ -850,8 +850,8 @@ public class Main
 		Utilisateur user4= new Utilisateur("M Bouillaguet", 5);
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
-		//menu(parisBiblios);
-		
+		menu(parisBiblios);
+		/*
 		try {
 			Document docu1 = parisBiblios.searchEAN("9782355041587");
 			Livre livre1 =(Livre) docu1;
@@ -879,7 +879,7 @@ public class Main
 			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
 			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
 		
-		/*
+		
 		Utilisateur jean = new Utilisateur("jean", 3); 
 		try {
 		Document docu1 = parisBiblios.searchEAN("9782355041587");
@@ -928,12 +928,6 @@ public class Main
 		}
 		*/
 		
-
-		
-		
-		//TODO Project :)
-	}catch(formatEANException e) {
-		e.printStackTrace();
 	}
-	}
+	
 }

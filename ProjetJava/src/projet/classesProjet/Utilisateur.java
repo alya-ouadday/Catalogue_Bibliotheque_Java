@@ -46,6 +46,18 @@ public class Utilisateur{
 		return listeDocument;
 	}
 	
+	@Override
+	public String toString(){
+		String s = "utilisateur: id = "+id+" , nom = "+name+" , quota = "+quota+"\n";
+		s+="inscrit dans les bibliotheque : "+listeBibliotheque+"\n";
+		s+="possède les documents suivants : "+listeDocument+"\n";
+		return s;
+	}
+	
+	
+	
+	
+	
 	public void sInscrire(Bibliotheque bibli) throws inscriptionException {
 		if(bibli.getListeUtilisateur().containsKey(id)) {
 			throw new inscriptionException("deja");

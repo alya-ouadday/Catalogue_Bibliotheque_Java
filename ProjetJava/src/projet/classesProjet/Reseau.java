@@ -62,6 +62,10 @@ public class Reseau implements Consultable {
 		return listeUtilisateur; 
 	}
 	
+	public void afficherUtilisateur() {
+		System.out.println(listeUtilisateur);
+	}
+	
 	
 	public void addBiblio(Bibliotheque bibliotheque) {
 		listeBiblio.put(bibliotheque.getName(), bibliotheque); 
