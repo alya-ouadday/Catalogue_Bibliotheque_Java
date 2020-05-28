@@ -11,17 +11,46 @@ import java.util.Map;
 import projet.exceptions.formatEANException;
 import projet.exceptions.formatISBNException;
 import projet.exceptions.nonDispoException;
+
 /**
- * @author fande
+ * 
+ * represente une bibliotheque
+ * @author BEN OUADDAY et LEJEUNE
  *
  */
 public class Bibliotheque implements Consultable{
+	/**
+	 * nom de la bibliotheque
+	 */
 	private String name;
+	/**
+	 * reseau auquel la bibliothque appartient
+	 */
 	private Reseau reseau;
+	/**
+	 * represente les document disponible dans la bibliothèque
+	 * HashMap qui associe l'EAN d'un document au nombre de copie restante de ce document dans la bibliotheque
+	 */
 	private HashMap<String,Integer> listeCopieDoc;
+	/**
+	 * represente les livres disponible dans la bibliothèque
+	 * HashMap qui associe l'ISBN d'un livre au nombre de copie restante de ce livre dans la bibliotheque
+	 */
 	private HashMap<String,Integer> listeCopieLivre;
+	/**
+	 * représente la liste des utilisateurs inscrit dans cette biblliotheque
+	 * HashMap qui associe l'id d'un utilisateur à l'instance de cette utilisateur
+	 */
 	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
+	/**
+	 * Constructeur
+	 * @param name
+	 * @param reseau
+	 * @param listeCopieDoc
+	 * @param listeCopieLivre
+	 * @param listeUtilisateur
+	 */
 	public Bibliotheque(String name,Reseau reseau, HashMap<String,Integer> listeCopieDoc,HashMap<String,Integer> listeCopieLivre,HashMap<Integer,Utilisateur> listeUtilisateur) {
 		this.name = name.toLowerCase();
 		this.reseau = reseau;
@@ -29,28 +58,60 @@ public class Bibliotheque implements Consultable{
 		this.listeCopieLivre = listeCopieLivre; 
 		this.listeUtilisateur = listeUtilisateur;
 	}
+	/**
+	 * Constructeur simplifie
+	 * @param nom
+	 * @param reseau
+	 */
 	public Bibliotheque(String nom,Reseau reseau) {
 		this(nom.toLowerCase(), reseau, new HashMap<String,Integer>(), new HashMap<String,Integer>(),new HashMap<Integer,Utilisateur>());
 	}
-	
+	/**
+	 * retourne le nom de la bibliotheque
+	 * @return name
+	 */
 	public String getName() {
 		return name; 
 	}
+	/**
+	 * retourne le reseau auquel la bibliothque appartient
+	 * @return reseau
+	 */
 	public Reseau getReseau() {
 		return reseau; 
 	}
+	/**
+	 * retourne les document disponible dans la bibliothèque
+	 * c'est a dire la HashMap qui associe l'EAN d'un document au nombre de copie restante de ce document dans la bibliotheque
+	 * @return listeCopieDoc
+	 */
 	public HashMap<String,Integer> getListeCopieDoc() {
 		return listeCopieDoc; 
 	}
+	/**
+	 * retourne les livres disponible dans la bibliothèque
+	 * c'est a dire la HashMap qui associe l'ISBN d'un livre au nombre de copie restante de ce livre dans la bibliotheque
+	 * @return listeCopieLivre
+	 */
 	public HashMap<String,Integer> getListeCopieLivre() {
 		return listeCopieLivre; 
 	}
+	/**
+	 * la liste des utilisateurs inscrit dans cette biblliotheque
+	 * c'est à dire la HashMap qui associe l'id d'un utilisateur à l'instance de cette utilisateur
+	 * @return listeUtilisateur
+	 */
 	public HashMap<Integer,Utilisateur> getListeUtilisateur() {
 		return listeUtilisateur; 
 	}
 	
 
-	
+	/**
+	 * ajoute un document à une bibliotheque
+	 * en precisant le nombre de copie qu'on ajoute a cette bibliotheque
+	 * @param document
+	 * @param nBCopie
+	 */
 	public void addDocument(Document document, Integer nBCopie) {
 		if(document != null) {
 			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
@@ -100,12 +161,12 @@ public class Bibliotheque implements Consultable{
 									  if(entry.getKey() instanceof Livre) {
 										  Livre livre = (Livre)entry.getKey();
 										  if(!listeCopieLivre.containsKey(livre.getISBN())) {//si les tomes ne sont pas dan sla bu 
-											  System.out.println("Le tome " + entry.getValue() + "de la serie n'est pas dans cette bibliothèque");
+											  System.out.println("Le tome " + entry.getValue() + " de la serie n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
 										  else {
 											  if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
-												  System.out.println("Atention le tome " + entry.getValue() + "de la serie n'est plus dans cette bibliothèque");
+												  System.out.println("Atention le tome " + entry.getValue() + " de la serie n'est plus dans cette bibliothèque");
 											  return false; }
 											  return true;
 										  }
@@ -117,7 +178,7 @@ public class Bibliotheque implements Consultable{
 										  }
 										  else {
 											  if(listeCopieDoc.get(entry.getKey().getEAN()).equals(0)) {
-												  System.out.println("Atention le numéro " + entry.getValue() + "de la serie n'est plus dans cette bibliothèque");
+												  System.out.println("Atention le numéro " + entry.getValue() + " de la serie n'est plus dans cette bibliothèque");
 												  return false; }
 											  return true;
 										  }
@@ -138,18 +199,18 @@ public class Bibliotheque implements Consultable{
 										  }
 										  else {
 											  if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
-												  System.out.println("Atention le tome " + livre.getTitle() + "de la serie n'est plus dans cette bibliothèque");
+												  System.out.println("Atention le tome " + livre.getTitle() + " de la serie n'est plus dans cette bibliothèque");
 											  return false; }
 											  return true;
 										  }
 									  }else
 										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) { 
-											  System.out.println("Le document "+ entry.getKey().getTitle() +"n'est pas dans cette bibliothèque");
-											  return false; 
+											  System.out.println("Le document "+ entry.getKey().getTitle() +" n'est pas dans cette bibliothèque");
+											  return false;  
 										  }
 										  else {
 											  if(listeCopieDoc.get(entry.getKey().getEAN()).equals(0)) {
-												  System.out.println("Atention le document " + entry.getKey().getTitle() + "de la serie n'est plus dans cette bibliothèque");
+												  System.out.println("Atention le document " + entry.getKey().getTitle() + " de la serie n'est plus dans cette bibliothèque");
 											  return false; }
 											  return true;
 										  }
@@ -303,12 +364,20 @@ public class Bibliotheque implements Consultable{
 	
 	}
 	
-	
+	/**
+	 * ajoute un nouvel utilisateur à la liste des utilisateur inscrit dans la bibliotheque
+	 * @param utilisateur
+	 */
 	public void addUtilisateur(Utilisateur utilisateur) {
 		listeUtilisateur.put(utilisateur.getId(), utilisateur);
 	}
 	
-
+	/**
+	 * remet un document emprunté dans une bibliotheque 
+	 * et décremente le nombre de copie du document dans cette bibliotheque
+	 * @param bibliotheque ou l'on remet
+	 * @param document
+	 */
 	public void remettre(Bibliotheque bibliotheque, Document document){
 		try {
 			bibliotheque.emprunter(this, document);
@@ -317,6 +386,14 @@ public class Bibliotheque implements Consultable{
 		}
 	}
 
+	/**
+	 * Emprunte un document dans une bibliotheque 
+	 * et incremente le nombre de copie du document dans cette bibliotheque
+	 * et l'ajoute s'il n'y etait pas
+	 * @param bibliotheque
+	 * @param document
+	 * @throws nonDispoException
+	 */
 	public void emprunter(Bibliotheque bibliotheque, Document document) throws nonDispoException {
 		
 		Integer nbCopieDoc = 0;

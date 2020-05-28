@@ -128,7 +128,7 @@ public class Utilisateur{
 	
 
 	/**
-	 * remet un document emprunter dans une bibliotheque et le retire de la liste des document de l'utilisateur
+	 * remet un document emprunté dans une bibliotheque et le retire de la liste des document de l'utilisateur
 	 * @param bibliotheque dans laquelle on rend
 	 * @param document que l'on rend
 	 * @throws inscriptionException
