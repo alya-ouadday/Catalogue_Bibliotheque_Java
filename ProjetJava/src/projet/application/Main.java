@@ -488,7 +488,7 @@ public class Main
 			
 			//si commande 10
 			else if(commande ==10) {
-				System.out.println("Entrer 0 pour faire emprunter un utilisateur ou 1 pour faire emprunter un utilisateur une bibliotheque");
+				System.out.println("Entrer 0 pour faire emprunter un utilisateur ou 1 pour faire emprunter une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
@@ -619,10 +619,9 @@ public class Main
 					commande=0;
 				}	
 			}
-			//si commande 11 a faire
-			//si commande 10
-			else if(commande ==10) {
-				System.out.println("Entrer 0 pour faire emprunter un utilisateur ou 1 pour faire emprunter un utilisateur une bibliotheque");
+			//si commande 11
+			else if(commande ==11) {
+				System.out.println("Entrer 0 pour faire remettre un utilisateur ou 1 pour faire remettre une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
@@ -648,11 +647,11 @@ public class Main
 						Integer id = Integer.parseInt(str);
 						if(reseau.getListeUtilisateur().containsKey(id)){
 							Utilisateur user = reseau.getListeUtilisateur().get(id);
-							System.out.println("Entrer le nom d'une bibliotheque dans laquelle emprunter");
+							System.out.println("Entrer le nom d'une bibliotheque dans laquelle remettre");
 							str = sc.nextLine().toLowerCase();
 							if(reseau.getListeBiblio().containsKey(str)) {
 								Bibliotheque bibli = reseau.getListeBiblio().get(str);
-								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez emprunter");
+								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez remettre");
 								str = sc.nextLine();
 								Document docu = null;
 								try {
@@ -663,9 +662,9 @@ public class Main
 								}
 								if(docu!=null) {
 									try {
-										user.emprunter(bibli, docu);
-										System.out.println("emprunt reussi");
-									} catch (quotaException | nonDispoException | inscriptionException e) {
+										user.remettre(bibli, docu);
+										System.out.println("remise reussi");
+									} catch (inscriptionException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
@@ -679,9 +678,9 @@ public class Main
 									}
 									if(livre!=null) {
 										try {
-											user.emprunter(bibli, livre);
-											System.out.println("emprunt reussi");
-										} catch (quotaException | nonDispoException | inscriptionException e) {
+											user.remettre(bibli, livre);
+											System.out.println("remise reussi");
+										} catch (inscriptionException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
@@ -696,15 +695,15 @@ public class Main
 							System.out.println("cet utilisateur n'est pas dans le réseau");
 						}
 					}else if(typeAction == 1) {
-						System.out.println("Entrer le nom de la bibliotheque qui veut emprunter");
+						System.out.println("Entrer le nom de la bibliotheque qui veut remettre");
 						str = sc.nextLine().toLowerCase();
 						if(reseau.getListeBiblio().containsKey(str)){
 							Bibliotheque bibliA = reseau.getListeBiblio().get(str);
-							System.out.println("Entrer le nom d'une bibliotheque dans laquelle emprunter");
+							System.out.println("Entrer le nom d'une bibliotheque dans laquelle remettre");
 							str = sc.nextLine().toLowerCase();
 							if(reseau.getListeBiblio().containsKey(str)) {
 								Bibliotheque bibliB = reseau.getListeBiblio().get(str);
-								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez emprunter");
+								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez remettre");
 								str = sc.nextLine();
 								Document docu = null;
 								try {
@@ -714,13 +713,8 @@ public class Main
 									e.printStackTrace();
 								}
 								if(docu!=null) {
-									try {
-										bibliA.emprunter(bibliB, docu);
-										System.out.println("emprunt reussi");
-									} catch (nonDispoException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
+									bibliA.remettre(bibliB, docu);
+									System.out.println("remise reussi");
 								}else {
 									Livre livre = null;
 									try {
@@ -730,13 +724,8 @@ public class Main
 										e.printStackTrace();
 									}
 									if(livre!=null) {
-										try {
-											bibliA.emprunter(bibliB, livre);
-											System.out.println("emprunt reussi");
-										} catch (nonDispoException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
+										bibliA.remettre(bibliB, livre);
+										System.out.println("remise reussi");
 									}else {
 										System.out.println("ce document n'as pas été trouver");
 									}
@@ -784,6 +773,10 @@ public class Main
 					}
 				commande=0;
 				}	
+			}
+			else if(commande == 13) {
+				marche=false;
+				System.out.println("merci d'avoir utilisé le menu du réseau ! à bientot pour de nouvelles lectures !");
 			}
 			
 		}
@@ -847,9 +840,19 @@ public class Main
 		//edmondRostand.searchSerie("Calamity Mamie");
 		Utilisateur user= new Utilisateur("Alya", 5);
 		parisBiblios.getListeUtilisateur().put(user.getId(), user);
+		
 		Utilisateur user2= new Utilisateur("Clem", 5);
 		parisBiblios.getListeUtilisateur().put(user2.getId(), user2);
+		
+		Utilisateur user3= new Utilisateur("Mme Brasier", 5);
+		parisBiblios.getListeUtilisateur().put(user3.getId(), user3);
+		
+		Utilisateur user4= new Utilisateur("M Bouillaguet", 5);
+		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
+		
 		menu(parisBiblios);
+		
+		
 		
 		/*
 		Utilisateur jean = new Utilisateur("jean", 3); 
