@@ -100,10 +100,10 @@ public class Utilisateur{
 			throw new inscriptionException("non");
 		}
 		else {
-			for(Document doc : listeDocument) {
-				if(doc.equals(document))
+			//for(Document doc : listeDocument) {
+				//if(doc.equals(document))
 					listeDocument.remove(document);
-			}
+			//}
 			if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())) {
 				nbCopieDoc++;
 				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 

@@ -52,9 +52,9 @@ public abstract class Document {
 		return s; 
 	}
 	
-	public boolean equals(Document document) {
-		return false; 
-	}
+	//public boolean equals(Document document) {
+		//return false; 
+	//}
 	
 
 }

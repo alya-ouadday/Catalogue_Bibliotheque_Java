@@ -850,9 +850,34 @@ public class Main
 		Utilisateur user4= new Utilisateur("M Bouillaguet", 5);
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
-		menu(parisBiblios);
+		//menu(parisBiblios);
 		
-		
+		try {
+			Document docu1 = parisBiblios.searchEAN("9782355041587");
+			Livre livre1 =(Livre) docu1;
+			try {
+				System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+				System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
+				
+				System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
+				System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
+			edmondRostand.emprunter(aimeCesaire, docu1);
+			}catch(nonDispoException e) {
+				e.printStackTrace();
+			}
+			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
+			
+			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
+			System.out.println("copie restante ow : "+oscardWilde.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre ow : "+oscardWilde.getListeCopieLivre().get(livre1.getISBN()));
+			edmondRostand.remettre(oscardWilde, docu1);
+			System.out.println("copie restante ow : "+oscardWilde.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre ow : "+oscardWilde.getListeCopieLivre().get(livre1.getISBN()));
+			
+			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
 		
 		/*
 		Utilisateur jean = new Utilisateur("jean", 3); 
@@ -869,16 +894,25 @@ public class Main
 		}
 		System.out.println("liste jean"+jean.getListeDocument());
 		System.out.println("copie restante : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-		System.out.println("copie restante livre : "+aimeCesaire.getListeCopieDoc().get(livre1.getISBN()));
+		System.out.println("copie restante livre : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
 		try{
 			jean.emprunter(aimeCesaire, docu1);
-		//	jean.emprunter(edmondRostand, docu2);
-		//	jean.emprunter(edmondRostand, docu3);
-		//	jean.emprunter(edmondRostand, docu4);
-			System.out.println("liste jean"+jean.getListeDocument());
-			System.out.println("copie restante : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre : "+aimeCesaire.getListeCopieDoc().get(livre1.getISBN()));
 			
+			System.out.println("liste jean"+jean.getListeDocument());
+			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
+			
+			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
+			
+			jean.remettre(edmondRostand, docu1);
+			
+			System.out.println("liste jean"+jean.getListeDocument());
+			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre ac: "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
+
+			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
+			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
 		}catch(quotaException e){
 			e.printStackTrace();
 		} catch (nonDispoException e) {
@@ -892,10 +926,14 @@ public class Main
 		catch(formatEANException e) {
 			e.printStackTrace();
 		}
-		
 		*/
+		
+
 		
 		
 		//TODO Project :)
+	}catch(formatEANException e) {
+		e.printStackTrace();
+	}
 	}
 }
