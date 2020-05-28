@@ -140,7 +140,7 @@ public class Main
 					
 					Document document = FileReader.createDoc(reseau, isbn, ean, title, publisher, seriesTitle, seriesNumber, authorName, authorSurname, type, date, totalCopies);
 					try {
-						if(reseau.addNewDocument(document)) {
+						if(reseau.verifNewDocument(document)) {
 							reseau.addDocument(document);
 							System.out.println("le document suivant a ete ajoute au reseau : \n"+document);
 						}

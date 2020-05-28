@@ -161,29 +161,29 @@ public class Reseau implements Consultable {
 	}
 	/**
 	 * test pour savoir si on peut ajouter un nouveau document au reseau
-	 * retourne faux si le document est deja dans le reseau ou si il ne respecte pas ù
-	 * certaine conditions et retourne vrai si on peut l'ajouter
+	 * retourne faux si le document est deja dans le reseau ou si il ne respecte pas 
+	 * certaines conditions et retourne vrai si on peut l'ajouter
 	 * @param document
 	 * @return boolean
 	 * @throws formatISBNException
 	 * @throws formatEANException
 	 */
-	public boolean addNewDocument(Document document) throws formatISBNException, formatEANException{
-		if(listeDocument.containsKey(document.getEAN())) {
+	public boolean verifNewDocument(Document document) throws formatISBNException, formatEANException{
+		if(listeDocument.containsKey(document.getEAN())) { // si l'ean du nouveau document est deja dans la liste de documents du reseau 
 			System.out.println("EAN déjà attribué");
-			return false; 
+			return false; // ce n'est pas bon 
 		}else if(!(document.getEAN().isEmpty()) && !(document.getEAN().matches("\\d{13}"))) {
-			throw(new formatEANException ());
+			throw(new formatEANException ()); // non plus s'il ne respecte pas le format d'un ean 
 		}
 		else if(document instanceof Livre) {
 			Livre livre = (Livre)document; 
 			String isbnVerif = livre.getISBN().replaceAll("-", ""); 
-			if(listeLivre.containsKey(livre.getISBN())) {
+			if(listeLivre.containsKey(livre.getISBN())) { // si isbn deja dans la liste de livre du reseau ce n'est pas bon
 				System.out.println("ISBN déjà attribué");
 				return false; 
 			}
 			else if((isbnVerif.matches("\\d{13}") || isbnVerif.matches("\\d{10}") || isbnVerif.matches("\\d{9}"+"X"))!= true) {
-				throw(new formatISBNException()); 
+				throw(new formatISBNException()); // idem s'il ne respecte pas le format de l'isbn 
 			}
 			
 		}

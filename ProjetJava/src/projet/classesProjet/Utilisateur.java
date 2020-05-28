@@ -41,15 +41,15 @@ public class Utilisateur{
 	 * Constructeur
 	 * @param name
 	 * @param quota
-	 * @param listeBibliothèque
+	 * @param listeBibliotheque
 	 * @param listeDocument
 	 */
-	public Utilisateur(String name, int quota, ArrayList<Bibliotheque> listeBibliothèque, ArrayList<Document> listeDocument) {
+	public Utilisateur(String name, int quota, ArrayList<Bibliotheque> listeBibliotheque, ArrayList<Document> listeDocument) {
 		this.id = cpt;
 		cpt++;
 		this.name = name;
 		this.quota = quota;
-		this.listeBibliotheque =listeBibliothèque;
+		this.listeBibliotheque =listeBibliotheque;
 		this.listeDocument = listeDocument;
 	}
 	/**
@@ -86,7 +86,7 @@ public class Utilisateur{
 	 * retourne la liste des bibliotheques dans lesquelles l'utilisateur est inscrit
 	 * @return liste de bibliotheque
 	 */
-	public ArrayList<Bibliotheque> getListeBibliothèque() {
+	public ArrayList<Bibliotheque> getListeBibliotheque() {
 		return listeBibliotheque;
 	}
 	/**
@@ -117,60 +117,17 @@ public class Utilisateur{
 	 * @throws inscriptionException
 	 */
 	public void sInscrire(Bibliotheque bibli) throws inscriptionException {
-		if(bibli.getListeUtilisateur().containsKey(id)) {
+		if(bibli.getListeUtilisateur().containsKey(id)) { // s'il est deja inscrit 
 			throw new inscriptionException("deja");
 		}
-		else {
+		else {// sinon on l'ajoute à la liste de la biblio et on ajoute la biblio à sa liste 
 		listeBibliotheque.add(bibli);
 		bibli.addUtilisateur(this);
 		}
 	}
 	
 
-	/**
-	 * remet un document emprunté dans une bibliotheque et le retire de la liste des document de l'utilisateur
-	 * @param bibliotheque dans laquelle on rend
-	 * @param document que l'on rend
-	 * @throws inscriptionException
-	 */
-	public void remettre(Bibliotheque bibliotheque, Document document) throws inscriptionException {
-		Integer nbCopieDoc = 0;
-		Integer nbCopieLivre = 0;
-		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
-			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());		 
-		}else {
-			bibliotheque.getListeCopieDoc().put(document.getEAN(), 0);
-			//nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
-		}
-		if(document instanceof Livre) {
-			Livre livre = (Livre)document;
-			if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())){
-				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
-			}else {
-				bibliotheque.getListeCopieLivre().put(livre.getISBN(), 0);
-				//nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
-			}
-		}
-		if(!bibliotheque.getListeUtilisateur().containsKey(id)) {
-			throw new inscriptionException("non");
-		}
-		else {
-			//for(Document doc : listeDocument) {
-				//if(doc.equals(document))
-					listeDocument.remove(document);
-			//}
-			if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())) {
-				nbCopieDoc++;
-				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
-			}
-			if(document instanceof Livre) {
-				Livre livre = (Livre)document; 
-				nbCopieLivre++;
-				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
-			}
-		}
-			
-	}
+	
 
 	/**
 	 * Emprunte un document dans une bibliotheque et l'ajoute à la liste des document de l'utilisateur
@@ -181,41 +138,85 @@ public class Utilisateur{
 	 * @throws inscriptionException
 	 */
 	public void emprunter(Bibliotheque bibliotheque, Document document) throws quotaException, nonDispoException, inscriptionException {
-		// dans le main: vérifier que le document est au moins dans le réseau et pas null 
-		Integer nbCopieDoc = 0;//null;
-		Integer nbCopieLivre = 0; // null;
-		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
-			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());		 
+	
+		Integer nbCopieDoc = 0;
+		Integer nbCopieLivre = 0; 
+		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){ // si la biblio a bien le document souhaité 
+			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());	// on recupere son nb de copie  
 		}
-		if(document instanceof Livre) {
+		if(document instanceof Livre) { // pareil si c'est un livre 
 			Livre livre = (Livre)document;
 			if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())){
 				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
 			}
 		}
-		if((nbCopieDoc==0 && nbCopieLivre==0)   ) { // || (nbCopieDoc==null && nbCopieLivre==null) 
-			//|| (nbCopieDoc<=0 && nbCopieLivre==null) || (nbCopieDoc==null && nbCopieLivre<=0)
+		if((nbCopieDoc==0 && nbCopieLivre==0)   ) { // s'il n'est pas dispo on leve un exception 
 			throw new nonDispoException();
 		}
-		else if(this.listeDocument.size() >= quota) {
+		else if(this.listeDocument.size() >= quota) { // si on depasse notre quota on leve une excpetion 
 			throw new quotaException();
 		}
-		else if(!bibliotheque.getListeUtilisateur().containsKey(id)) {
+		else if(!bibliotheque.getListeUtilisateur().containsKey(id)) { // si l'utilisateur n'est pas inscrit dans la bibliotheque 
 			throw new inscriptionException("non");
 		}
-		else {
-			listeDocument.add(document);
-			if(nbCopieDoc>0) {
-				nbCopieDoc--;// nbCopieDoc != null && 
+		else { // si tout est ok
+			listeDocument.add(document); // on ajoute le document à la liste d'emprunt de l'utilisateur 
+			if(nbCopieDoc>0) { // si le document etait bien dispo 
+				nbCopieDoc--; // on decremente son nb de copie et on l'actualise dans la liste de documents de la bibliotheque
 				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
 			}
-			if(nbCopieLivre > 0) {
+			if(nbCopieLivre > 0) { // pareil si c'est un livre 
 				Livre livre = (Livre)document; 
 				nbCopieLivre--;
 				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
 			}
 		}
 		
+	}
+	
+	/**
+	 * remet un document emprunté dans une bibliotheque et le retire de la liste des document de l'utilisateur
+	 * @param bibliotheque dans laquelle on rend
+	 * @param document que l'on rend
+	 * @throws inscriptionException
+	 */
+	public void remettre(Bibliotheque bibliotheque, Document document) throws inscriptionException {
+		Integer nbCopieDoc = 0;
+		Integer nbCopieLivre = 0;
+		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){// si la bibliotheque a qui on remet le livre l'a deja dans sa liste	 
+			
+			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN()); // on recupere son nombre de copie 
+		}else {// si elle ne l'a jamais eu 
+			bibliotheque.getListeCopieDoc().put(document.getEAN(), 0); // on l'ajoute à sa liste 
+		
+		}
+		if(document instanceof Livre) {// pareil si c'est un livre 
+			Livre livre = (Livre)document;
+			if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())){
+				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+			}else {
+				bibliotheque.getListeCopieLivre().put(livre.getISBN(), 0);
+	
+			}
+		}
+		if(!bibliotheque.getListeUtilisateur().containsKey(id)) { // si l'utilisateur n'est pas inscrit dans la bibliotheque 
+			//a qui il souhaite rendre
+			throw new inscriptionException("non");
+		}
+		else {		// si tout est bon 
+					listeDocument.remove(document);// on enleve le document de la liste d'emprunt de l'utilisateur 
+		
+			if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())) { // si c'est un document contenu dans la biblio
+				nbCopieDoc++; // on incremente son nb de copie et on met a jour sa liste de document 
+				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
+			}
+			if(document instanceof Livre) {// pareil si c'est un livre 
+				Livre livre = (Livre)document; 
+				nbCopieLivre++;
+				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
+			}
+		}
+			
 	}
 	
 }
