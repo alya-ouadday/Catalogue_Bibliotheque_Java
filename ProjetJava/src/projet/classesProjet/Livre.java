@@ -5,7 +5,7 @@ package projet.classesProjet;
 
 /**
  * 
- * represente les document qui sont des Livres
+ * represente les documents qui sont des Livres
  * @author BEN OUADDAY et LEJEUNE
  *
  */
@@ -33,19 +33,25 @@ public class Livre extends Document {
 		
 	}
 	/**
-	 * 
-	 * @return
+	 * retourne l'ISBN du livre
+	 * @return l'isbn
 	 */
 	public String getISBN() {
 		return isbn;
 	}
 	
 	@Override
+	/**
+	 * renvoie le type
+	 */
 	public String getType(){
 		return("Livre");
 	}
 	
 	@Override
+	/**
+	 * renvoie le document sous forme de String
+	 */
 	public String toString() {
 		return super.toString() + " ISBN: " + this.isbn;  
 	}

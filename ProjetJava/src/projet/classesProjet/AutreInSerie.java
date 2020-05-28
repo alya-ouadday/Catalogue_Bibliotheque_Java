@@ -5,7 +5,7 @@ package projet.classesProjet;
 
 /**
  * 
- * AutreinSerie représente les autres types de document qui apptiennent à une série
+ * AutreinSerie représente les autres types de documents qui apptiennent à une série
  * @author BEN OUADDAY et LEJEUNE
  *
  */

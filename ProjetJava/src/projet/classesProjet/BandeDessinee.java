@@ -5,7 +5,7 @@ package projet.classesProjet;
 
 /**
  * 
- * represente les document qui sont des bandes-dessinees
+ * represente les documents qui sont des bandes-dessinees
  * @author BEN OUADDAY et LEJEUNE
  *
  */

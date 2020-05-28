@@ -5,7 +5,7 @@ package projet.classesProjet;
 
 /**
  * 
- * represente les document qui sont des Cartes
+ * represente les documents qui sont des Cartes
  * @author BEN OUADDAY et LEJEUNE
  *
  */

@@ -4,7 +4,7 @@
 package projet.classesProjet;
 
 /**
- * represente les document qui sont des jeux video
+ * represente les documents qui sont des jeux video
  * @author BEN OUADDAY et LEJEUNE
  *
  */

@@ -2,7 +2,7 @@ package projet.classesProjet;
 
 /**
  * 
- * represente les document qui sont des Jeu de société
+ * represente les documents qui sont des Jeu de société
  * @author BEN OUADDAY et LEJEUNE
  *
  */

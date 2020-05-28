@@ -4,13 +4,35 @@
 package projet.classesProjet;
 
 /**
- * @author alyab
+ * 
+ * represente les documents qui sont des revues qui appartiennent à une serie
+ * @author BEN OUADDAY et LEJEUNE
  *
  */
 public class RevueInSerie extends Revue implements InSerie{
-
-	private Serie serie; 
-	private Integer seriesNumber;
+	
+		/**
+		 * Serie à laquelle appartient ce document
+		 */
+		private Serie serie; 
+		/**
+		 * Numero dans la série à laquelle appartient ce document
+		 */
+		private Integer seriesNumber;
+		/**
+		 * Constructeur
+		 * @param ean
+		 * @param title
+		 * @param publisher
+		 * @param date
+		 * @param authorName
+		 * @param authorSurname
+		 * @param type
+		 * @param nbCopies
+		 * @param isbn
+		 * @param serie
+		 * @param seriesNumber
+		 */
 		public RevueInSerie(String ean,String title, String publisher, int date,
 				String authorName, String authorSurname, String type, int nbCopies, String isbn, Serie serie,Integer seriesNumber) {
 			super(ean,title,publisher,date,authorName, authorSurname, type,nbCopies,isbn); 
@@ -19,16 +41,23 @@ public class RevueInSerie extends Revue implements InSerie{
 			
 		}
 		@Override
+		/**
+		 * retourne la serie
+		 */
 		public Serie getSerie() {
-			// TODO Auto-generated method stub
 			return serie;
 		}
 		@Override
+		/**
+		 * retourne le numero dans la serie
+		 */
 		public Integer getSeriesNumber() {
-			// TODO Auto-generated method stub
 			return seriesNumber;
 		}
 		@Override
+		/**
+		 * renvoie le document sous forme de String
+		 */
 		public String toString() {
 			return super.toString() + " Serie: "+serie.getName()+" Numéro dans la serie:"+seriesNumber.toString();
 		}

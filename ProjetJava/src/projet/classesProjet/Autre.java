@@ -12,7 +12,7 @@ package projet.classesProjet;
 public class Autre extends Document{
 
 	/**
-	 * 
+	 * Constructeur
 	 * @param ean
 	 * @param title
 	 * @param publisher
