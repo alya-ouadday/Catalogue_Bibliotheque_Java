@@ -269,40 +269,7 @@ public class Bibliotheque implements Consultable{
 	}
 
 	public void emprunter(Bibliotheque bibliotheque, Document document) throws nonDispoException {
-		// TODO Auto-generated method stub
-		/*
-		Integer nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
-		Integer nbCopieLivre = null;
-		if(document instanceof Livre) {
-			Livre livre = (Livre)document;
-			nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
-		}
-		if(!listeCopieDoc.containsKey(document.getEAN())) {
-			
-		}
-			Integer nbCopieDocHome = listeCopieDoc.get(document.getEAN());
-			Integer nbCopieLivreHome = null;
-			if(document instanceof Livre) {
-				Livre livre = (Livre)document;
-				nbCopieLivreHome = bibliotheque.listeCopieLivre.get(livre.getISBN());
-			}
-		if(nbCopieDoc<=0&& nbCopieDoc!=null || (nbCopieLivre<=0 && nbCopieLivre!=null)) {
-			throw new nonDispoException();
-		}
-		else {
-			if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())) {
-				nbCopieDoc--;
-				nbCopieDocHome++;
-				if(document instanceof Livre) {
-					Livre livre = (Livre)document;
-					if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())) {
-						nbCopieLivre--;
-						nbCopieLivreHome++;
-					}	
-				}
-			}
-		}
-			*/
+		
 		Integer nbCopieDoc = null;
 		Integer nbCopieLivre = null;
 		Integer nbCopieDocHome = null;
