@@ -13,17 +13,52 @@ import java.util.stream.Stream;
 import projet.exceptions.*;
 
 /**
- * @author fande
+ * 
+ * represente le reseau
+ * @author BEN OUADDAY et LEJEUNE
  *
  */
 public class Reseau implements Consultable {
+	/**
+	 * represente les bibliotheque du reseau
+	 * Hashmap qui associe le nom des bibliotheque du réseau aux instances de ces bibliotheque
+	 */
 	private HashMap<String, Bibliotheque> listeBiblio;
+	/**
+	 * représente les document du reseau
+	 * Hashmap qui associe les EAN à leur document
+	 */
 	private HashMap<String, Document> listeDocument;
+	/**
+	 * représente les livres du reseau
+	 * Hashmap qui associe les ISBN à leur livre
+	 */
 	private HashMap<String, Livre> listeLivre;
+	/**
+	 * représente les document ecrit par un auteur
+	 * Hashmap qui associe le nom d'un auteur à une liste des documents qu'il a realise
+	 */
 	private HashMap<String, ArrayList<Document>> listeAuthor;
+	/**
+	 * représente les serie du reseau
+	 * Hashmap qui associe les noms des serie à leur instance de serie
+	 */
 	private HashMap<String, Serie> listeSerie;
+	/**
+	 * représente la liste des utilisateur du reseau
+	 * Hashmap qui associe les id des utilisateur à leur instance d'utilisateur
+	 */
 	private HashMap<Integer,Utilisateur> listeUtilisateur;
 	
+	/**
+	 * Constructeur
+	 * @param listeBiblio
+	 * @param listeDocument
+	 * @param listeLivre
+	 * @param listeAuthor
+	 * @param listeSerie
+	 * @param listeUtilisateur
+	 */
 	public Reseau(HashMap<String, Bibliotheque> listeBiblio, HashMap<String, Document> listeDocument, 
 				   HashMap<String, Livre> listeLivre, HashMap<String, ArrayList<Document>> listeAuthor, HashMap<String, Serie> listeSerie,HashMap<Integer,Utilisateur> listeUtilisateur) {
 		this.listeBiblio = listeBiblio;
@@ -33,35 +68,60 @@ public class Reseau implements Consultable {
 		this.listeSerie = listeSerie;	
 		this.listeUtilisateur = listeUtilisateur;
 	}
-	
+	/**
+	 * Constructeur simplifie
+	 */
 	public Reseau() {
 		
 		this(new HashMap<String, Bibliotheque>(), new HashMap<String,Document>(), new HashMap<String, Livre>(),
 				new HashMap<String,ArrayList<Document>>(), new HashMap<String, Serie>(),new HashMap<Integer,Utilisateur>()) ;
 	}
 	
-	
+	/**
+	 * retourne la hashmap des serie du reseau
+	 * @return listeSerie
+	 */
 	public  HashMap<String, Serie>  getListeSerie(){
 		return listeSerie; 
 	}
-	
+	/**
+	 * retourne la hashmap de la liste des bibliotheque du reseau
+	 * @return listeBiblio
+	 */
 	public  HashMap<String, Bibliotheque> getListeBiblio(){
 		return listeBiblio; 
 	}
-	
+	/**
+	 * retourne la Hashmap qui associe les EAN à leur document
+	 * @return listeDocument
+	 */
 	public  HashMap<String, Document> getListeDocument(){
 		return listeDocument; 
 	}
+	/**
+	 * retourne la Hashmap qui associe les ISBN à leur livre
+	 * @return listeLivre
+	 */
 	public HashMap<String, Livre> getListeLivre(){
 		return listeLivre; 
 	}
+	/**
+	 * retourne la Hashmap qui associe le nom d'un auteur à une liste des documents qu'il a realise
+	 * @return listeAuthor
+	 */
 	public HashMap<String, ArrayList<Document>> getListeAuthor(){
 		return listeAuthor; 
 	}
+	/**
+	 * retourne la Hashmap qui associe les id des utilisateur à leur instance d'utilisateur
+	 * @return listeUtilisateur
+	 */
 	public HashMap<Integer,Utilisateur> getListeUtilisateur() {
 		return listeUtilisateur; 
 	}
-	
+	/**
+	 * affiche tous les utilisateur du reseau
+	 */
 	public void afficherUtilisateur() {
 		System.out.println(listeUtilisateur);
 	}
