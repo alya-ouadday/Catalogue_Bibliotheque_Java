@@ -12,8 +12,29 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui permet d'extraire les données du CSV et de traiter les données
+ * @author BEN OUADDAY et LEJEUNE
+ *
+ */
 public class FileReader 
 {
+	/**
+	 * retourne un nouveau document creer à partir des parametre
+	 * @param reseau
+	 * @param isbn
+	 * @param ean
+	 * @param title
+	 * @param publisher
+	 * @param seriesTitle
+	 * @param seriesNumber
+	 * @param authorName
+	 * @param authorSurname
+	 * @param type
+	 * @param date
+	 * @param totalCopies
+	 * @return document
+	 */
 	public static Document createDoc(Reseau reseau,String isbn, String ean, String title, String publisher, String seriesTitle, 
 										Integer seriesNumber, String authorName, String authorSurname, String type, int date, int totalCopies) {
 
@@ -140,7 +161,11 @@ public class FileReader
 	
 	
 	
-	
+	/**
+	 * extrait les données du .CSV
+	 * @param csvFilePath
+	 * @param reseau
+	 */
 	public static void getDataFromCSVFile(String csvFilePath, Reseau reseau)
 	{
         String line = "";
@@ -324,13 +349,7 @@ public class FileReader
                 		numberCopyOscarWilde + ";" +
                 		numberCopySaintSimon);
                 */
-                /*
-                 * methode à rajouter 
-                 * addDocument dans Serie
-                 * addDocument dans bibliotheque
-                 * 
-                 */
-               
+             
                 
                 Document document = createDoc(reseau, isbn, ean, title, publisher, seriesTitle, seriesNumber, authorName, authorSurname, type, date, totalCopies);
                 
