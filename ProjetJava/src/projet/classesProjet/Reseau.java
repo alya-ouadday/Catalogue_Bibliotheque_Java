@@ -126,11 +126,17 @@ public class Reseau implements Consultable {
 		System.out.println(listeUtilisateur);
 	}
 	
-	
+	/**
+	 * ajoute une bibliotheque au reseau
+	 * @param bibliotheque
+	 */
 	public void addBiblio(Bibliotheque bibliotheque) {
 		listeBiblio.put(bibliotheque.getName(), bibliotheque); 
-		
 	}
+	/**
+	 * ajoute un document au reseau 
+	 * @param document
+	 */
 	public void addDocument(Document document) {
 		if(document != null) {
 			if(!document.getEAN().isEmpty()) { //si le document a bien un EAN (ça pourrait être un livre 
@@ -153,7 +159,15 @@ public class Reseau implements Consultable {
 			
 		}
 	}
-	
+	/**
+	 * test pour savoir si on peut ajouter un nouveau document au reseau
+	 * retourne faux si le document est deja dans le reseau ou si il ne respecte pas ù
+	 * certaine conditions et retourne vrai si on peut l'ajouter
+	 * @param document
+	 * @return boolean
+	 * @throws formatISBNException
+	 * @throws formatEANException
+	 */
 	public boolean addNewDocument(Document document) throws formatISBNException, formatEANException{
 		if(listeDocument.containsKey(document.getEAN())) {
 			System.out.println("EAN déjà attribué");
@@ -316,6 +330,10 @@ public class Reseau implements Consultable {
 	
 	}
 	
+	/**
+	 * ajoute une série au reseau
+	 * @param serie
+	 */
 	public void addSerie(Serie serie) {
 		listeSerie.put(serie.getName(), serie); 
 	}
