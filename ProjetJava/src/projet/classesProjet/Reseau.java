@@ -107,6 +107,7 @@ public class Reseau implements Consultable {
 
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
+		serieName = serieName.toLowerCase(); 
 		HashMap<Document, Integer> serie = null;
 		if(listeSerie.containsKey(serieName)) {
 			serie = listeSerie.get(serieName).getListeDoc();
@@ -131,12 +132,12 @@ public class Reseau implements Consultable {
 
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
-		isbn = isbn.replace("-", "");
-		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
+		String isbnVerif = isbn.replace("-", "");
+		if ((isbnVerif.matches("\\d{13}") || isbnVerif.matches("\\d{10}") || isbnVerif.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
 	
-		if (listeLivre.get(isbn) ==null) {
+		if (!listeLivre.containsKey(isbn)) {
 			System.out.println("Cet ISBN ne correspond à aucun livre du réseau");
 		}
 		else {
@@ -163,6 +164,7 @@ public class Reseau implements Consultable {
 	
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname) {
+		authorNameSurname = authorNameSurname.toLowerCase(); 
 		if(listeAuthor.containsKey(authorNameSurname)) {
 			System.out.println(authorNameSurname + " : ");
 			for(Document document :listeAuthor.get(authorNameSurname) ) {
@@ -175,8 +177,6 @@ public class Reseau implements Consultable {
 		return listeAuthor.get(authorNameSurname); 
 	}
 	
-
-
 	
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
@@ -184,7 +184,7 @@ public class Reseau implements Consultable {
 		  listeAuthor
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
+	      .filter(entry -> entry.getKey().matches(authorName.toLowerCase() + "(.*)"))
 	      .forEach(entry -> {
 	      					searchDocumentsAuthor(entry.getKey());
 	      					
@@ -197,7 +197,7 @@ public class Reseau implements Consultable {
 		  listeAuthor
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
+	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname.toLowerCase()))
 	      .forEach(entry -> {
 	    	  				searchDocumentsAuthor(entry.getKey());
 	    		  
@@ -205,7 +205,6 @@ public class Reseau implements Consultable {
 	}
 	
 	
-
 
 	@Override
 	public int searchNumberPeriod(int beginDate, int endDate) {
