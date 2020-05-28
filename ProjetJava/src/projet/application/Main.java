@@ -821,7 +821,7 @@ public class Main
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
 		menu(parisBiblios);
-		
+		/*
 		try {
 			Document docu1 = parisBiblios.searchEAN("9782355041587");
 			Livre livre1 =(Livre) docu1;
@@ -901,9 +901,6 @@ public class Main
 
 		
 		
-		//TODO Project :)
-	}catch(formatEANException e) {
-		e.printStackTrace();
-	}
-	}
+
+}
 }
