@@ -4,13 +4,33 @@
 package projet.classesProjet;
 
 /**
- * @author fande
+ * 
+ * represente les document qui sont des bandes-dessinees qui appartiennent à une serie
+ * @author BEN OUADDAY et LEJEUNE
  *
  */
 public class CDInSerie extends CD implements InSerie{
-
+	/**
+	 * Serie à laquelle appartient ce document
+	 */
 	private Serie serie; 
+	/**
+	 * Numero dans la série à laquelle appartient ce document
+	 */
 	private Integer seriesNumber;
+	/**
+	 * Constructeur
+	 * @param ean
+	 * @param title
+	 * @param publisher
+	 * @param date
+	 * @param authorName
+	 * @param authorSurname
+	 * @param type
+	 * @param nbCopies
+	 * @param serie
+	 * @param seriesNumber
+	 */
 	public CDInSerie(String ean, String title, String publisher, int date, String authorName,
 														String authorSurname, String type, int nbCopies, Serie serie, Integer seriesNumber) {
 		
@@ -20,16 +40,24 @@ public class CDInSerie extends CD implements InSerie{
 	}
 
 	@Override
+	/**
+	 * retourne la serie
+	 */
 	public Serie getSerie() {
-		// TODO Auto-generated method stub
 		return serie;
 	}
 	@Override
+	/**
+	 * retourne le numero dans la serie
+	 */
 	public Integer getSeriesNumber() {
-		// TODO Auto-generated method stub
+
 		return seriesNumber;
 	}
 	@Override
+	/**
+	 * renvoie le document sous forme de String
+	 */
 	public String toString() {
 		return super.toString() + " Serie: "+serie.getName()+" Numéro dans la serie:"+seriesNumber.toString();
 	}
