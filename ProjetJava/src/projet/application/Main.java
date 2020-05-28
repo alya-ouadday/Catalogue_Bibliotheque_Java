@@ -12,8 +12,17 @@ import projet.exceptions.nonDispoException;
 import projet.exceptions.quotaException;
 import projet.classesProjet.*;
 
+/**
+ * 
+ * Main dans le quel on lance l'application
+ * @author BEN OUADDAY et LEJEUNE
+ *
+ */
 public class Main 
 {
+	/**
+	 * affiche le menu de l'application
+	 */
 	public static void afficheMenu() {
 		System.out.println("Choisissez le numéro de votre commande : ");
 		System.out.println("1 - ajouter une nouvelle bibliothèque au reseau ");
@@ -33,6 +42,10 @@ public class Main
 		System.out.println("15 - Quitter");
 
 	}
+	/**
+	 * méthode qui gere le fonctionnement de l'application
+	 * @param reseau de l'application
+	 */
 	public static void menu(Reseau reseau) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -637,7 +650,6 @@ public class Main
 												
 											}
 										} catch (quotaException | nonDispoException | inscriptionException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 									}else {
@@ -896,10 +908,10 @@ public class Main
 		Utilisateur user2= new Utilisateur("Clem", 5);
 		parisBiblios.getListeUtilisateur().put(user2.getId(), user2);
 		
-		Utilisateur user3= new Utilisateur("Mme Brasier", 5);
+		Utilisateur user3= new Utilisateur("Mme Brasier", 10);
 		parisBiblios.getListeUtilisateur().put(user3.getId(), user3);
 		
-		Utilisateur user4= new Utilisateur("M Bouillaguet", 5);
+		Utilisateur user4= new Utilisateur("M Bouillaguet", 10);
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
 		menu(parisBiblios);
