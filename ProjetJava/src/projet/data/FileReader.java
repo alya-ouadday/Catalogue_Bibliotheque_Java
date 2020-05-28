@@ -193,7 +193,12 @@ public class FileReader
             		isbn = data[0];
             		
             		//Get the EAN number
-            		ean = data[1];
+            		if(data[1].length() > 13) {
+            		ean = data[1].substring(0, 13);}
+            		else {
+            			ean= data[1]; 
+            		}
+           
             		
             		//Get the title of the document
             		title = data[2];

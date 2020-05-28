@@ -337,11 +337,12 @@ public class Bibliotheque implements Consultable{
 			Livre livre = (Livre)document;
 			if(bibliotheque.getListeCopieLivre().containsKey(livre.getISBN())){
 				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+			
 				 if(!listeCopieLivre.containsKey(livre.getISBN())) {
 					 listeCopieLivre.put(livre.getISBN(), 0);
 				 }
 				 else {
-					 nbCopieLivreHome = listeCopieDoc.get(livre.getISBN());
+					 nbCopieLivreHome = listeCopieLivre.get(livre.getISBN());
 				 }
 			}
 		}

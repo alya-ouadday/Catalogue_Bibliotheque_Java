@@ -85,6 +85,7 @@ public class Main
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
+					try {
 					String ean =str;
 					System.out.println("Entrer l'ISBN de votre document ou faites entre s'il n'en a pas:");
 					String isbn = sc.nextLine();
@@ -95,7 +96,13 @@ public class Main
 					System.out.println("Entrer le titre de serie de votre document :");
 					String seriesTitle= sc.nextLine();
 					System.out.println("Entrer le numero dans sa serie de votre document :");
-					Integer seriesNumber= Integer.parseInt(sc.nextLine());
+					Integer seriesNumber= 0; 
+					try {
+					seriesNumber= Integer.parseInt(sc.nextLine());
+					}catch(NumberFormatException e) {
+						seriesNumber = 0; 
+					}
+					
 					System.out.println("Entrer le nom de l'auteur de votre document :");
 					String authorName= sc.nextLine();
 					System.out.println("Entrer le prenom de l'auteur de votre document :");
@@ -103,15 +110,27 @@ public class Main
 					System.out.println("Entrer le type de votre document :");
 					String type= sc.nextLine();
 					System.out.println("Entrer la date de votre document :");
+					
 					int date= Integer.parseInt(sc.nextLine());
 					System.out.println("Entrer le nombre total de copies de votre document :");
 					int totalCopies= Integer.parseInt(sc.nextLine());
+					
 					Document document = FileReader.createDoc(reseau, isbn, ean, title, publisher, seriesTitle, seriesNumber, authorName, authorSurname, type, date, totalCopies);
-					reseau.addDocument(document);
-					System.out.println("le document suivant a ete ajoute au reseau : \n"+document);
+					try {
+						reseau.addNewDocument(document);
+						System.out.println("le document suivant a ete ajoute au reseau : \n"+document);
+					} catch (formatISBNException | formatEANException e) {
+						e.printStackTrace();
+					}
+					}catch(NumberFormatException e) {
+						e.printStackTrace();
+					}
+					
+					
 					System.out.println("Taper sur entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
+					
 				}	
 			}
 			//si commande 3
@@ -128,26 +147,22 @@ public class Main
 					str = sc.nextLine();
 					try {
 						quota = Integer.parseInt(str);
+						Utilisateur user= new Utilisateur(name, quota);
+						reseau.getListeUtilisateur().put(user.getId(), user);
+						System.out.println(name+" a ete ajouté au reseau avec l'id :"+user.getId()+" et un quota de "+quota);
+						System.out.println("Taper sur entrer pour revenir au menu");
+						str = sc.nextLine();	
+						commande=0;
 					}catch(NumberFormatException e1) {
-						System.out.println("Veuillez entrer un numéro de commande entre 1 et 10 \n "
+						System.out.println("Veuillez entrer un nombre pour quota  \n "
 								+ " Appuyer sur entrer pour revenir au menu");
 						str = sc.nextLine();
-						try {
-							quota = Integer.parseInt(str);
-						}catch(NumberFormatException e2) {
-							
-						}
 						commande = 0; 
 					}
-					Utilisateur user= new Utilisateur(name, quota);
-					reseau.getListeUtilisateur().put(user.getId(), user);
-					System.out.println(name+" a ete ajouté au reseau avec l'id :"+user.getId()+" et un quota de "+quota);
-					System.out.println("Taper sur entrer pour revenir au menu");
-					str = sc.nextLine();	
-				commande=0;
+				
 				}	
 			}
-			//si commande 4
+			//si commande 4: afficher l'ensemble des documents 
 			else if(commande ==4) {
 				System.out.println("Saisir 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -169,9 +184,9 @@ public class Main
 						str = sc.nextLine();
 						commande = 0; 
 					}
-					if(typeAction == 0) {
+					if(typeAction == 0 && commande != 0) {
 						reseau.ShowAllDocuments();
-					}else if(typeAction == 1) {
+					}else if(typeAction == 1 && commande != 0 ) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
@@ -183,14 +198,15 @@ public class Main
 						}
 						else{
 							reseau.getListeBiblio().get(str).ShowAllDocuments();
+							System.out.println("Taper sur entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande=0;
 						}
 					}
-					System.out.println("Taper sur entrer pour revenir au menu");
-					str = sc.nextLine();
-					commande=0;
+					
 				}	
 			}
-			//si commande 5
+			//si commande 5: afficher les documents d'une serie 
 			else if(commande ==5) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -212,11 +228,12 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					
+					if(typeAction == 0 && commande != 0 ) {
 						System.out.println("Entrer le nom d'une serie");
 						str = sc.nextLine();
 						reseau.searchSerie(str);
-					}else if(typeAction == 1) {
+					}else if(typeAction == 1 && commande !=0 ) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
@@ -232,17 +249,19 @@ public class Main
 							System.out.println("Entrer le nom d'une serie");
 							str = sc.nextLine();
 							bibli.searchSerie(str);
+							System.out.println("Taper entrée pour retourner au menu "); 
+							str = sc.nextLine(); 
+							commande = 0;
 						}
-						System.out.println("Taper entrée pour retourner au menu "); 
-						str = sc.nextLine(); 
-						commande = 0;
+						
+						
 						
 						
 					}
 					 
 				}	
 			}
-			//si commande 6
+			//si commande 6: afficher les documents d'un auteur 
 			else if(commande ==6) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -264,7 +283,7 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					if(typeAction == 0 && commande != 0) {
 						System.out.println("Nous allons vous demander le nom et le prenom de l'auteur");
 						System.out.println("d'abord entrer le nom de l'auteur :");
 						System.out.println("Taper sur entrée si vous ne connaissez pas le nom");
@@ -278,7 +297,7 @@ public class Main
 							reseau.searchDocumentsAuthorName(nom);
 						}else if (nom.isEmpty() && !prenom.isEmpty()) {
 								reseau.searchDocumentsAuthorSurname(prenom);}
-					}else if(typeAction == 1) {
+					}else if(typeAction == 1 && commande != 0) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
@@ -302,14 +321,15 @@ public class Main
 							}else if(!nom.isEmpty() && prenom.isEmpty()) {
 								bibli.searchDocumentsAuthorName(nom);
 							}else bibli.searchDocumentsAuthorSurname(prenom);
+							System.out.println("Taper sur entrée pour revenir au menu");
+							str = sc.nextLine();
+							commande=0;
 						}
-						System.out.println("Taper sur entrée pour revenir au menu");
-						str = sc.nextLine();
-						commande=0;
+						
 					}	
 				}
 			}
-			//si commande 7
+			//si commande 7: afficher un livre par isbn 
 			else if(commande ==7) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -331,16 +351,15 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					if(typeAction == 0 && commande != 0) {
 						System.out.println("Entrer l'ISBN du livre que vous cherchez :");
 						str = sc.nextLine();
 						try {
 							reseau.searchISBN(str);
 						} catch (formatISBNException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}else if(typeAction == 1) {
+					}else if(typeAction == 1 && commande != 0) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
@@ -357,17 +376,17 @@ public class Main
 							try {
 								bibli.searchISBN(str);
 							} catch (formatISBNException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							System.out.println("Taper sur entrée pour retourner au menu");
+							str = sc.nextLine();
+							commande=0;
 						}
 					}
-					System.out.println("Taper sur entrée pour retourner au menu");
-					str = sc.nextLine();
-					commande=0;
+				
 				}	
 			}
-			//si commande 8
+			//si commande 8: afficher un doc par ean 
 			else if(commande ==8) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -389,16 +408,15 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					if(typeAction == 0 && commande != 0) {
 						System.out.println("Entrer l'EAN du document que vous cherchez :");
 						str = sc.nextLine();
 						try {
 							reseau.searchEAN(str);
 						} catch (formatEANException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					}else if(typeAction == 1) {
+					}else if(typeAction == 1 && commande != 0) {
 						System.out.println("Entrer le nom d'une bibliotheque");
 						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
@@ -415,17 +433,18 @@ public class Main
 							try {
 								bibli.searchEAN(str);
 							} catch (formatEANException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							System.out.println("Taper sur entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande=0;
 						}
 					}
-					System.out.println("Taper sur entrer pour revenir au menu");
-					str = sc.nextLine();
-					commande=0;
+					
+					
 				}	
 			}
-			//si commande 9
+			//si commande 9: afficher le nombre de doc entre deux dates 
 			else if(commande ==9) {
 				System.out.println("Entrer 0 pour afficher sur le reseau ou 1 pour afficher pour une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -447,7 +466,7 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					
+						if(commande != 0) {
 						System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
 						System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
 						String debut = sc.nextLine();
@@ -493,11 +512,12 @@ public class Main
 						System.out.println("Taper sur entrer pour revenir au menu");
 						str = sc.nextLine();
 						commande=0;
+						}
 						
 				}
 			}
 			
-			//si commande 10
+			//si commande 10: emprunter un document 
 			else if(commande ==10) {
 				System.out.println("Entrer 0 pour faire emprunter un utilisateur ou 1 pour faire emprunter une bibliotheque");
 				System.out.println("Taper sur entrée pour revenir au menu");
@@ -519,31 +539,71 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					Utilisateur user = null; 
+					Bibliotheque biblioH = null; 
+					if(typeAction == 0 && commande != 0) {
 						System.out.println("Entrer l'id de l'utilisateur :");
 						str = sc.nextLine();
-						Integer id = Integer.parseInt(str);
-						if(reseau.getListeUtilisateur().containsKey(id)){
-							Utilisateur user = reseau.getListeUtilisateur().get(id);
+						try {
+							Integer id = Integer.parseInt(str);
+							if(reseau.getListeUtilisateur().containsKey(id)){
+								 user = reseau.getListeUtilisateur().get(id);
+							}else {
+								System.out.println("cet utilisateur n'est pas dans le réseau \n Taper entrer pour revenir au menu ");
+								str = sc.nextLine();
+								commande = 0; 
+							}
+						}catch(NumberFormatException e) {
+							System.out.println("Veuillez entrer un nombre pour l'id de l'utilisateur \n Taper entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+				
+					}
+					else if(typeAction == 1 && commande != 0) {
+						System.out.println("Entrer le nom de la bibliotheque qui veut emprunter");
+						str = sc.nextLine().toLowerCase();
+						if(reseau.getListeBiblio().containsKey(str)){
+							biblioH = reseau.getListeBiblio().get(str);
+						}else {
+							System.out.println("cette bibliotheque n'est pas valide \n Taper entrer pour revenir au menu ");
+									str = sc.nextLine();
+									commande = 0; 
+							}
+					}
+						if(commande != 0) {
+									
 							System.out.println("Entrer le nom d'une bibliotheque dans laquelle emprunter");
 							str = sc.nextLine().toLowerCase();
 							if(reseau.getListeBiblio().containsKey(str)) {
 								Bibliotheque bibli = reseau.getListeBiblio().get(str);
+								
 								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez emprunter");
 								str = sc.nextLine();
 								Document docu = null;
 								try {
 									docu = bibli.searchEAN(str);
 								} catch (formatEANException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								if(docu!=null) {
 									try {
+										if(typeAction == 0) {
 										user.emprunter(bibli, docu);
-										System.out.println("emprunt reussi");
+										System.out.println("emprunt reussi \n" + user.toString());
+										}
+										else {
+											System.out.println("Avant: nombre de copie " + bibli.getName()+ ": "+
+													bibli.getListeCopieDoc().get(docu.getEAN()) + " nombre de copie " + biblioH.getName()
+													+" : "+ biblioH.getListeCopieDoc().get(docu.getEAN()));
+													
+											biblioH.emprunter(bibli, docu); 
+											System.out.println("Après: nombre de copie " + bibli.getName()+ ": "+
+											bibli.getListeCopieDoc().get(docu.getEAN()) + " nombre de copie " + biblioH.getName()
+											+" : "+ biblioH.getListeCopieDoc().get(docu.getEAN()) + "\n emprunt reussi");
+											
+										}
 									} catch (quotaException | nonDispoException | inscriptionException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 								}else {
@@ -551,13 +611,20 @@ public class Main
 									try {
 										livre = bibli.searchISBN(str);
 									} catch (formatISBNException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									if(livre!=null) {
 										try {
+											if(typeAction == 0) {
 											user.emprunter(bibli, livre);
-											System.out.println("emprunt reussi");
+											System.out.println("emprunt reussi \n" + user.toString());
+											
+											}
+											else {
+												biblioH.emprunter(bibli, docu);
+												System.out.println("emprunt reussi");
+												
+											}
 										} catch (quotaException | nonDispoException | inscriptionException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
@@ -569,95 +636,40 @@ public class Main
 							}else {
 								System.out.println("cette bibliotheque n'est pas valide");
 							}
-						}else {
-							System.out.println("cet utilisateur n'est pas dans le réseau");
-						}
-					}else if(typeAction == 1) {
-						System.out.println("Entrer le nom de la bibliotheque qui veut emprunter");
-						str = sc.nextLine().toLowerCase();
-						if(reseau.getListeBiblio().containsKey(str)){
-							Bibliotheque bibliA = reseau.getListeBiblio().get(str);
-							System.out.println("Entrer le nom d'une bibliotheque dans laquelle emprunter");
-							str = sc.nextLine().toLowerCase();
-							if(reseau.getListeBiblio().containsKey(str)) {
-								Bibliotheque bibliB = reseau.getListeBiblio().get(str);
-								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez emprunter");
-								str = sc.nextLine();
-								Document docu = null;
-								try {
-									docu = bibliB.searchEAN(str);
-								} catch (formatEANException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								if(docu!=null) {
-									try {
-										bibliA.emprunter(bibliB, docu);
-										System.out.println("emprunt reussi");
-									} catch (nonDispoException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								}else {
-									Livre livre = null;
-									try {
-										livre = bibliB.searchISBN(str);
-									} catch (formatISBNException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									if(livre!=null) {
-										try {
-											bibliA.emprunter(bibliB, livre);
-											System.out.println("emprunt reussi");
-										} catch (nonDispoException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-									}else {
-										System.out.println("ce document n'as pas été trouvé");
-									}
-								}
-							}else {
-								System.out.println("cette bibliotheque n'est pas valide");
-							}
-						}else {
-							System.out.println("cette bibliotheque n'est pas valide");
-						}
-					}
+					
+				
 					System.out.println("Entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
-				}	
+				}
+				}
 			}
-			//si commande 11
+			//si commande 11: rendre un document 
 			else if(commande ==11) {
-				System.out.println("Entrer 0 pour faire remettre un utilisateur ou 1 pour faire remettre une bibliotheque");
-				System.out.println("Taper sur entrée pour revenir au menu");
+				System.out.println("Entrer 0 pour faire remettre un utilisateur ou 1 pour faire remettre une bibliotheque \n"
+						+ "Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
 					try {
-	
 						typeAction = Integer.parseInt(str);
 						if(typeAction != 1 && typeAction != 0) {
-							System.out.println("Erreur. Il faut saisir 0 ou 1");
-							System.out.println("Taper sur entrée pour revenir au menu");
+							System.out.println("Erreur. Il faut saisir 0 ou 1 \n Taper sur entrée pour revenir au menu");
 							str = sc.nextLine();
 							commande = 0; 
 						}
 						}catch(NumberFormatException e) {
-							System.out.println("Erreur. Il faut saisir 0 ou 1");
-							System.out.println("Taper sur entrée pour revenir au menu");
+							System.out.println("Erreur. Il faut saisir 0 ou 1 \n Taper sur entrée pour revenir au menu");
 							str = sc.nextLine();
 							commande = 0; 
 						}
 					Utilisateur user = null; 
 					Bibliotheque biblioH = null; 
-					if(typeAction == 0) {
+					if(typeAction == 0 && commande != 0) {
 						System.out.println("Entrer l'id de l'utilisateur :");
 						str = sc.nextLine();
+						try {
 						Integer id = Integer.parseInt(str);
 						if(reseau.getListeUtilisateur().containsKey(id)){
 							user = reseau.getListeUtilisateur().get(id);
@@ -667,47 +679,52 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
+						}catch(NumberFormatException e) {
+							System.out.println("Veuillez entrer un nombre pour l'identifiant \n Taper entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0;
+						}
 					}
 					
-					else if(typeAction == 1) {
-						System.out.println("Entrer le nom d'une bibliotheque qui remet");
+					else if(typeAction == 1 && commande != 0) {
+						System.out.println("Entrer le nom de la bibliotheque qui remet");
 						str = sc.nextLine().toLowerCase();
 						if(reseau.getListeBiblio().containsKey(str)) {
 							biblioH = reseau.getListeBiblio().get(str);
 						}
 						else {
-							System.out.println("Cette bibliothèque n'est pas dans le reseau \\n Taper entrer pour revenir au menu");
+							System.out.println("Cette bibliothèque n'est pas dans le reseau \n Taper entrer pour revenir au menu");
 							str = sc.nextLine();
 							commande = 0;
+							
 						}
 							
 					}
+					if(commande != 0) {
 							System.out.println("Entrer le nom d'une bibliotheque dans laquelle remettre");
 							str = sc.nextLine().toLowerCase();
 							if(reseau.getListeBiblio().containsKey(str)) {
 								Bibliotheque bibli = reseau.getListeBiblio().get(str);
 								
-								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez remettre");
+								System.out.println("Entrer l'EAN ou l'ISBN du document que vous voulez remettre");
 								str = sc.nextLine();
 								Document docu = null;
 								try {
 									docu = reseau.searchEAN(str);
 								} catch (formatEANException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								if(docu!=null) {
 									try {
 										if(typeAction == 0) {
 										user.remettre(bibli, docu);
-										System.out.println("remise reussi");
+										System.out.println("remise reussie");
 										}
 										else {
 											biblioH.remettre(bibli, docu);
-											System.out.println("remise reussi");
+											System.out.println("remise reussie");
 										}
 									} catch (inscriptionException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 								}else {
@@ -715,20 +732,18 @@ public class Main
 									try {
 										livre = reseau.searchISBN(str);
 									} catch (formatISBNException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									if(livre!=null) {
 										try {
 											if(typeAction == 0) {
 											user.remettre(bibli, livre);
-											System.out.println("remise reussi");
+											System.out.println("remise reussie");
 											} else {
 												biblioH.remettre(bibli, livre);
-												System.out.println("remise reussi");
+												System.out.println("remise reussie");
 											}
 										} catch (inscriptionException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 									}else {
@@ -738,12 +753,13 @@ public class Main
 							}else {
 								System.out.println("cette bibliotheque n'est pas valide");
 							}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					System.out.println("Taper sur entree pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
+				}
 				}	
 			}
-			//si commande 12
+			//si commande 12: inscrire un utilisateur 
 			else if(commande ==12) {
 				System.out.println("Entrée l'id de l'utilisateur à inscrire dans une bibliotheque:");
 				System.out.println("Taper sur entreée pour revenir au menu");
@@ -762,7 +778,6 @@ public class Main
 								user.sInscrire(bibli);
 								System.out.println(user.getName()+" a ete inscrit dans :"+ bibli.getName());
 							} catch (inscriptionException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							
@@ -772,12 +787,13 @@ public class Main
 					}else {
 						System.out.println("cet identifiant ne correspond à aucun utilisateur du reseau");
 					}
-				System.out.println("Entrer pour revenir au menu");
-				str = sc.nextLine();	
-				commande=0;
+					System.out.println("Taper sur entree pour revenir au menu");
+					str = sc.nextLine();	
+					commande=0;
+			
 				}	
 			}
-			//si commande 13
+			//si commande 13: afficher un utilisateur 
 			else if(commande ==13) {
 				System.out.println("Entrée l'id de l'utilisateur à afficher:");
 				System.out.println("Taper sur entreée pour revenir au menu");
@@ -785,26 +801,35 @@ public class Main
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
+					try {
 					Integer id = Integer.parseInt(str);
 					if(reseau.getListeUtilisateur().containsKey(id)){
 						Utilisateur user = reseau.getListeUtilisateur().get(id);
 						System.out.println(user);
-					}else {
+					}
+					else {
 						System.out.println("cet identifiant ne correspond à aucun utilisateur du reseau");
 					}
-				System.out.println("Entrer pour revenir au menu");
-				str = sc.nextLine();
-				commande=0;
-				}	
-			}
+					}catch(NumberFormatException e ) {
+						System.out.println("Veuillez entrer un nombre pour l'identifiant");
+					}
+					
+					System.out.println("Taper sur entree pour revenir au menu");
+					str = sc.nextLine();
+					commande=0;
+				}
+				
+			
+			}	
+			
 			else if(commande ==14) {
 				reseau.afficherUtilisateur();
-				System.out.println("Entrer pour revenir au menu");
+				System.out.println("Taper sur entree pour revenir au menu");
 				String str = sc.nextLine();
 				commande=0;
 				
 			}
-			//si commande 15
+			//si commande 15: quitter 
 			else if(commande == 15) {
 				marche=false;
 				System.out.println("merci d'avoir utilisé le menu du réseau ! à bientot pour de nouvelles lectures !");
@@ -854,21 +879,6 @@ public class Main
 			System.out.println("[Main] You should enter the CSV file path as a parameter.");
 		}
 		
-		/*
-		//parisBiblios.searchDocumentsAuthorSurname("Boris"); 
-		parisBiblios.searchNumberPeriod(2008, 2010);
-		
-		//aimeCesaire.searchSerie("Calamity Mamie");
-		//edmondRostand.searchSerie("Calamity Mamie");
-		aimeCesaire.searchNumberPeriod(2008, 2010);
-		edmondRostand.searchNumberPeriod(2008, 2010);
-		jeanPierreMelville.searchNumberPeriod(2008, 2010);
-		oscardWilde.searchNumberPeriod(2008, 2010);
-		saintSimon.searchNumberPeriod(2008, 2010);
-		*/
-		//parisBiblios.searchSerie("Calamity Mamie");
-		//aimeCesaire.searchSerie("Calamity Mamie");
-		//edmondRostand.searchSerie("Calamity Mamie");
 		Utilisateur user= new Utilisateur("Alya", 5);
 		parisBiblios.getListeUtilisateur().put(user.getId(), user);
 		
@@ -882,84 +892,6 @@ public class Main
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
 		menu(parisBiblios);
-		/*
-		try {
-			Document docu1 = parisBiblios.searchEAN("9782355041587");
-			Livre livre1 =(Livre) docu1;
-			try {
-				System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-				System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
-				
-				System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
-				System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
-			edmondRostand.emprunter(aimeCesaire, docu1);
-			}catch(nonDispoException e) {
-				e.printStackTrace();
-			}
-			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
-			
-			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
-			System.out.println("copie restante ow : "+oscardWilde.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre ow : "+oscardWilde.getListeCopieLivre().get(livre1.getISBN()));
-			edmondRostand.remettre(oscardWilde, docu1);
-			System.out.println("copie restante ow : "+oscardWilde.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre ow : "+oscardWilde.getListeCopieLivre().get(livre1.getISBN()));
-			
-			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
-		
-		/*
-		Utilisateur jean = new Utilisateur("jean", 3); 
-		try {
-		Document docu1 = parisBiblios.searchEAN("9782355041587");
-		Livre livre1 =(Livre) docu1;
-		try {
-			jean.sInscrire(edmondRostand);
-			jean.sInscrire(aimeCesaire);
-		}
-		
-		catch(inscriptionException e){
-			System.out.println("inscrption");
-		}
-		System.out.println("liste jean"+jean.getListeDocument());
-		System.out.println("copie restante : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-		System.out.println("copie restante livre : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
-		try{
-			jean.emprunter(aimeCesaire, docu1);
-			
-			System.out.println("liste jean"+jean.getListeDocument());
-			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre ac : "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
-			
-			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
-			
-			jean.remettre(edmondRostand, docu1);
-			
-			System.out.println("liste jean"+jean.getListeDocument());
-			System.out.println("copie restante ac : "+aimeCesaire.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre ac: "+aimeCesaire.getListeCopieLivre().get(livre1.getISBN()));
-
-			System.out.println("copie restante er: "+edmondRostand.getListeCopieDoc().get(docu1.getEAN()));
-			System.out.println("copie restante livre er: "+edmondRostand.getListeCopieLivre().get(livre1.getISBN()));
-		}catch(quotaException e){
-			e.printStackTrace();
-		} catch (nonDispoException e) {
-			
-			e.printStackTrace();
-		} catch (inscriptionException e) {
-			
-			e.printStackTrace();
-		}
-		}
-		catch(formatEANException e) {
-			e.printStackTrace();
-		}
-		*/
-		
-
 		
 		
 

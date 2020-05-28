@@ -94,6 +94,29 @@ public class Reseau implements Consultable {
 		}
 	}
 	
+	public boolean addNewDocument(Document document) throws formatISBNException, formatEANException{
+		if(listeDocument.containsKey(document.getEAN())) {
+			System.out.println("EAN déjà attribué");
+			return false; 
+		}else if(!(document.getEAN().isEmpty()) && !(document.getEAN().matches("\\d{13}"))) {
+			throw(new formatEANException ());
+		}
+		else if(document instanceof Livre) {
+			Livre livre = (Livre)document; 
+			String isbnVerif = livre.getISBN().replaceAll("-", ""); 
+			if(listeLivre.containsKey(livre.getISBN())) {
+				System.out.println("ISBN déjà attribué");
+				return false; 
+			}
+			else if((isbnVerif.matches("\\d{13}") || isbnVerif.matches("\\d{10}") || isbnVerif.matches("\\d{9}"+"X"))!= true) {
+				throw(new formatISBNException()); 
+			}
+			
+		}
+		return true; 
+		
+	}
+	
 
 	@Override
 	public void ShowAllDocuments() {
