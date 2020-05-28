@@ -79,13 +79,13 @@ public class Utilisateur{
 			}
 		}
 		*/
-		Integer nbCopieDoc = null;
-		Integer nbCopieLivre = null;
+		Integer nbCopieDoc = 0;
+		Integer nbCopieLivre = 0;
 		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
 			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());		 
 		}else {
 			bibliotheque.getListeCopieDoc().put(document.getEAN(), 0);
-			nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
+			//nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
 		}
 		if(document instanceof Livre) {
 			Livre livre = (Livre)document;
@@ -93,7 +93,7 @@ public class Utilisateur{
 				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
 			}else {
 				bibliotheque.getListeCopieLivre().put(livre.getISBN(), 0);
-				nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
+				//nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
 			}
 		}
 		if(!bibliotheque.getListeUtilisateur().containsKey(id)) {
@@ -104,18 +104,23 @@ public class Utilisateur{
 				if(doc.equals(document))
 					listeDocument.remove(document);
 			}
-			if(nbCopieDoc != null) nbCopieDoc++;
+			if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())) {
+				nbCopieDoc++;
+				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
+			}
 			if(document instanceof Livre) {
+				Livre livre = (Livre)document; 
 				nbCopieLivre++;
+				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
 			}
 		}
 			
 	}
 
 	public void emprunter(Bibliotheque bibliotheque, Document document) throws quotaException, nonDispoException, inscriptionException {
-		
-		Integer nbCopieDoc = null;
-		Integer nbCopieLivre = null;
+		// dans le main: vérifier que le document est au moins dans le réseau et pas null 
+		Integer nbCopieDoc = 0;//null;
+		Integer nbCopieLivre = 0; // null;
 		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
 			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());		 
 		}
@@ -125,8 +130,8 @@ public class Utilisateur{
 				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
 			}
 		}
-		if((nbCopieDoc<=0 && nbCopieLivre<=0) || (nbCopieDoc==null && nbCopieLivre==null) 
-				|| (nbCopieDoc<=0 && nbCopieLivre==null) || (nbCopieDoc==null && nbCopieLivre<=0)  ) {
+		if((nbCopieDoc==0 && nbCopieLivre==0)   ) { // || (nbCopieDoc==null && nbCopieLivre==null) 
+			//|| (nbCopieDoc<=0 && nbCopieLivre==null) || (nbCopieDoc==null && nbCopieLivre<=0)
 			throw new nonDispoException();
 		}
 		else if(this.listeDocument.size() >= quota) {
@@ -137,9 +142,14 @@ public class Utilisateur{
 		}
 		else {
 			listeDocument.add(document);
-			if(nbCopieDoc != null && nbCopieDoc>0) nbCopieDoc--;
-			if(document instanceof Livre) {
+			if(nbCopieDoc>0) {
+				nbCopieDoc--;// nbCopieDoc != null && 
+				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
+			}
+			if(nbCopieLivre > 0) {
+				Livre livre = (Livre)document; 
 				nbCopieLivre--;
+				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
 			}
 		}
 		

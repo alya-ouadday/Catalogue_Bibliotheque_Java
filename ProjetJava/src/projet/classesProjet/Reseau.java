@@ -151,11 +151,11 @@ public class Reseau implements Consultable {
 			throw new formatEANException(); 
 		}
 		
-		if (listeLivre.get(ean) ==null) {
+		if (!listeDocument.containsKey(ean)) {
 			System.out.println("Cet EAN ne correspond à aucun document du réseau");
 		}
 		else {
-			System.out.println(listeLivre.get(ean));
+			System.out.println(listeDocument.get(ean));
 		}
 
 		return listeDocument.get(ean); 

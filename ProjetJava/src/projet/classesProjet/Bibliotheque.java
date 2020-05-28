@@ -49,6 +49,7 @@ public class Bibliotheque implements Consultable{
 		return listeUtilisateur; 
 	}
 	
+
 	
 	public void addDocument(Document document, Integer nBCopie) {
 		if(document != null) {
@@ -318,18 +319,17 @@ public class Bibliotheque implements Consultable{
 
 	public void emprunter(Bibliotheque bibliotheque, Document document) throws nonDispoException {
 		
-		Integer nbCopieDoc = null;
-		Integer nbCopieLivre = null;
-		Integer nbCopieDocHome = null;
-		Integer nbCopieLivreHome = null;
-		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){
-			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN());
-			 if(!listeCopieDoc.containsKey(document.getEAN())) {
-				 listeCopieDoc.put(document.getEAN(), 0);
-				 nbCopieDocHome = listeCopieDoc.get(document.getEAN());
+		Integer nbCopieDoc = 0;
+		Integer nbCopieLivre = 0;
+		Integer nbCopieDocHome = 0;
+		Integer nbCopieLivreHome = 0;
+		if(bibliotheque.getListeCopieDoc().containsKey(document.getEAN())){ // si notre biblio a ce doc 
+			 nbCopieDoc = bibliotheque.getListeCopieDoc().get(document.getEAN()); // on prends le nb de copie du doc 
+			 if(!listeCopieDoc.containsKey(document.getEAN())) { // si nous on l'a pas
+				 listeCopieDoc.put(document.getEAN(), 0); //on ajoute le titre à notre liste 
 			 }
 			 else {
-				 nbCopieDocHome = listeCopieDoc.get(document.getEAN());
+				 nbCopieDocHome = listeCopieDoc.get(document.getEAN());// sinon on recupere le nb dans notre liste 
 			 }
 			 
 		}
@@ -339,25 +339,30 @@ public class Bibliotheque implements Consultable{
 				 nbCopieLivre = bibliotheque.getListeCopieLivre().get(livre.getISBN());
 				 if(!listeCopieLivre.containsKey(livre.getISBN())) {
 					 listeCopieLivre.put(livre.getISBN(), 0);
-					 nbCopieLivreHome = listeCopieDoc.get(livre.getISBN());
 				 }
 				 else {
 					 nbCopieLivreHome = listeCopieDoc.get(livre.getISBN());
 				 }
 			}
 		}
-		if((nbCopieDoc<=0 && nbCopieLivre<=0) || (nbCopieDoc==null && nbCopieLivre==null) 
-				|| (nbCopieDoc<=0 && nbCopieLivre==null) || (nbCopieDoc==null && nbCopieLivre<=0)  ) {
+		if((nbCopieDoc==0 && nbCopieLivre==0)   ) {
 			throw new nonDispoException();
 		}
 		else {
-			if((nbCopieDoc!=null && nbCopieDocHome!=null)) {
-				nbCopieDoc--;
+			if(nbCopieDoc!=0 ) {
+				nbCopieDoc--;	
 				nbCopieDocHome++;
+				
+				bibliotheque.getListeCopieDoc().replace(document.getEAN(), nbCopieDoc); 
+				listeCopieDoc.replace(document.getEAN(), nbCopieDocHome);
 			}
-			if((nbCopieLivre!=null && nbCopieLivreHome!=null)) {
+			if(nbCopieLivre != 0) {
+				Livre livre = (Livre)document; 
+				 
 				nbCopieLivre--;
 				nbCopieLivreHome++;
+				bibliotheque.getListeCopieLivre().replace(livre.getISBN(), nbCopieLivre); 
+				listeCopieLivre.replace(livre.getISBN(), nbCopieLivreHome);
 			}	
 		}
 
