@@ -70,17 +70,24 @@ public class Bibliotheque implements Consultable{
 			if(listeCopieDoc.containsKey(document.getEAN())) {
 				// test si value != 0 
 				System.out.println(document.toString() + "  Nombre de copie disponible dans cette bibliothèque :" + listeCopieDoc.get(document.getEAN()));
+				if(listeCopieDoc.get(document.getEAN()).equals(0)) {
+					System.out.println("Attention, ce document n'est plus disponible dans cette bibliothèque !");
+				} 
 			}
 		}
 		for(Livre livre: reseau.getListeLivre().values()) {	
 				if(listeCopieLivre.containsKey(livre.getISBN()) && !(listeCopieDoc.containsKey(livre.getEAN()))) {	
 					System.out.println(livre.toString() + "  Nombre de copie disponible dans cette bibliothèque :" + listeCopieLivre.get(livre.getISBN()));
+					if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
+						System.out.println("Attention, ce livre n'est plus disponible dans cette bibliothèque !");
+					}
 				}
 		}
 	}
 	
 	@Override
 	public HashMap<Document, Integer> searchSerie(String serieName) {
+		serieName = serieName.toLowerCase(); 
 		HashMap<Document, Integer> serie = null;
 		if(reseau.getListeSerie().containsKey(serieName)) {
 			serie = reseau.getListeSerie().get(serieName).getListeDoc();
@@ -95,13 +102,24 @@ public class Bibliotheque implements Consultable{
 											  System.out.println("Le tome " + entry.getValue() + "de la serie n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
-										  return true;
+										  else {
+											  if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
+												  System.out.println("Atention le tome " + entry.getValue() + "de la serie n'est plus dans cette bibliothèque");
+											  return false; }
+											  return true;
+										  }
+										  
 									  }else {
 										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) { 
 											  System.out.println("Le numéro " + entry.getValue() + " n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
-										  return true;
+										  else {
+											  if(listeCopieDoc.get(entry.getKey().getEAN()).equals(0)) {
+												  System.out.println("Atention le numéro " + entry.getValue() + "de la serie n'est plus dans cette bibliothèque");
+												  return false; }
+											  return true;
+										  }
 									  }
 								  	} )
 				  .forEach(entry -> System.out.println(entry.getKey()));
@@ -117,13 +135,23 @@ public class Bibliotheque implements Consultable{
 											  System.out.println("Le livre : " + livre.getTitle()+"  de la serie n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
-										  return true;
+										  else {
+											  if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
+												  System.out.println("Atention le tome " + livre.getTitle() + "de la serie n'est plus dans cette bibliothèque");
+											  return false; }
+											  return true;
+										  }
 									  }else
 										  if(!listeCopieDoc.containsKey(entry.getKey().getEAN())) { 
 											  System.out.println("Le document "+ entry.getKey().getTitle() +"n'est pas dans cette bibliothèque");
 											  return false; 
 										  }
-										  return true;
+										  else {
+											  if(listeCopieDoc.get(entry.getKey().getEAN()).equals(0)) {
+												  System.out.println("Atention le document " + entry.getKey().getTitle() + "de la serie n'est plus dans cette bibliothèque");
+											  return false; }
+											  return true;
+										  }
 								  	} )
 				  .forEach(entry -> System.out.println(entry.getKey()));
 			}		
@@ -135,14 +163,17 @@ public class Bibliotheque implements Consultable{
 	}
 	@Override
 	public Livre searchISBN(String isbn) throws formatISBNException{
-		isbn = isbn.replace("-", "");
-		if ((isbn.matches("\\d{13}") || isbn.matches("\\d{10}") || isbn.matches("\\d{9}"+"X"))!= true){
+		String isbnVerif = isbn.replace("-", "");
+		if ((isbnVerif.matches("\\d{13}") || isbnVerif.matches("\\d{10}") || isbnVerif.matches("\\d{9}"+"X"))!= true){
 			throw new formatISBNException(); 
 		}
 		Livre livre = null; 
 		if(listeCopieLivre.containsKey(isbn)) {
 			livre = reseau.getListeLivre().get(isbn); 
 			System.out.println(livre+ " nombre de copie dans la bilbiothèque: " + listeCopieLivre.get(isbn)); 
+			if(listeCopieLivre.get(isbn).equals(0)) {
+				System.out.println("Ce livre n'est plus disponible dans cette bibliothèque !");
+			}
 		}
 		else {
 			if(reseau.getListeLivre().containsKey(isbn)) {
@@ -163,9 +194,12 @@ public class Bibliotheque implements Consultable{
 		if(listeCopieDoc.containsKey(ean)) {
 			document = reseau.getListeDocument().get(ean); 
 			System.out.println(document+ " nombre de copies dans la bilbiothèque:  " + listeCopieDoc.get(ean)); 
+			if(listeCopieDoc.get(ean).equals(0)) {
+				System.out.println("Ce document n'est plus disponible dans cette bibliothèque !");
+			}
 		}
 		else {
-			if(reseau.getListeLivre().containsKey(ean)) {
+			if(reseau.getListeDocument().containsKey(ean)) {
 				System.out.println("Ce document n'est pas dans cette bibliothèque. Consultez le réseau");
 			}
 			else {
@@ -178,22 +212,29 @@ public class Bibliotheque implements Consultable{
 	@Override
 	public ArrayList<Document> searchDocumentsAuthor(String authorNameSurname) {
 		
+		authorNameSurname = authorNameSurname.toLowerCase(); 
 		ArrayList<Document> listeDoc = new ArrayList<Document>(); 
 		if(reseau.getListeAuthor().containsKey(authorNameSurname)){
 			System.out.println(authorNameSurname + " : "); 
 			for(Document document :reseau.getListeAuthor().get(authorNameSurname) ) {
 				if(listeCopieDoc.containsKey(document.getEAN())) {
 					listeDoc.add(document);
-					System.out.println(document.toString()); 
+					System.out.println(document.toString()+ " nombre de copies dans la bilbiothèque:  " + listeCopieDoc.get(document.getEAN())); 
+					if(listeCopieDoc.get(document.getEAN()).equals(0)) {
+						System.out.println("Ce document n'est plus disponible dans cette bibliothèque !");
+					} 
 				}
 				else if(document instanceof Livre) {
 					Livre livre = (Livre)document; 
-					if(listeCopieLivre.containsKey(livre.getISBN())) {
+					if(listeCopieLivre.containsKey(livre.getISBN()) && !listeCopieDoc.containsKey(livre.getEAN())) {
 						listeDoc.add(livre); 
-						System.out.println(livre.toString());
+						System.out.println(livre.toString()+ " nombre de copies dans la bilbiothèque:  " + listeCopieDoc.get(livre.getISBN())); 
+						if(listeCopieLivre.get(livre.getISBN()).equals(0)) {
+							System.out.println("Ce livre n'est plus disponible dans cette bibliothèque !");
+						} 
 					}
 					else {
-						System.out.println("So n livre à l'ISBN " + livre.getISBN() + " n'est pas dans la bibliothèque. Consulter le réseau");
+						System.out.println("Son livre à l'ISBN " + livre.getISBN() + " n'est pas dans la bibliothèque. Consulter le réseau");
 					}
 				}
 				else {
@@ -208,10 +249,11 @@ public class Bibliotheque implements Consultable{
 	}
 	@Override
 	public void searchDocumentsAuthorName(String authorName) {
+		 
 		  reseau.getListeAuthor()
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches(authorName + "(.*)"))
+	      .filter(entry -> entry.getKey().matches(authorName.toLowerCase() + "(.*)"))
 	      .forEach(entry -> {
 	    	  				searchDocumentsAuthor(entry.getKey()); 
 	      					});      
@@ -222,7 +264,7 @@ public class Bibliotheque implements Consultable{
 		  reseau.getListeAuthor()
 	      .entrySet()
 	      .stream()
-	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname))
+	      .filter(entry -> entry.getKey().matches("(.*)"+authorSurname.toLowerCase()))
 	      .forEach(entry -> {
 	    	  	searchDocumentsAuthor(entry.getKey()); 
 	      					});      
@@ -237,16 +279,21 @@ public class Bibliotheque implements Consultable{
 		for(Document document: reseau.getListeDocument().values()) {
 			if(listeCopieDoc.containsKey(document.getEAN())) {
 				int date = document.getDate(); 
-				if(date >= beginDate && date <= endDate) {
-					compteur ++; 
+				if(!listeCopieDoc.get(document.getEAN()).equals(0)) {
+					if(date >= beginDate && date <= endDate) {
+						compteur ++; 
+					}
 				}
+			
 			}
 		}
 		for(Livre livre: reseau.getListeLivre().values()) {	
 				if(listeCopieLivre.containsKey(livre.getISBN()) && !(listeCopieDoc.containsKey(livre.getEAN()))) {	
 					int date = livre.getDate(); 
-					if(date >= beginDate && date <= endDate) {
-						compteur ++; 
+					if(!listeCopieLivre.get(livre.getISBN()).equals(0)) {
+						if(date >= beginDate && date <= endDate) {
+							compteur ++; 
+						}
 					}
 				}
 		}

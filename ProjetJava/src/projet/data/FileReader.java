@@ -63,7 +63,7 @@ public class FileReader
             	//Sort data
             		
             		//Get the ISBN number
-            		isbn = data[0].replace("-", "");//On remplace les tirets par rien 
+            		isbn = data[0];
             		
             		//Get the EAN number
             		ean = data[1];
@@ -91,7 +91,7 @@ public class FileReader
             		}
             		
             		//Get the title of the series
-            		seriesTitle = data[5];
+            		seriesTitle = data[5].toLowerCase();
             		
             		//Get the number of this document in the series
             		try
@@ -104,10 +104,10 @@ public class FileReader
             		}
             		
             		//Get the name of the author
-            		authorName = data[7];
+            		authorName = data[7].toLowerCase();
             		
             		//Get the surname of the author
-            		authorSurname = data[8];
+            		authorSurname = data[8].toLowerCase();
             		
             		//Get the type of the document
             		type = data[9];
