@@ -28,7 +28,9 @@ public class Main
 		System.out.println("10 - emprunter un document");
 		System.out.println("11 - rendre un document");
 		System.out.println("12 - inscrire un utilisateur");
-		System.out.println("13 - Quitter");
+		System.out.println("13 - afficher un utilisateur");
+		System.out.println("14 - afficher les utilisateur du reseau");
+		System.out.println("15 - Quitter");
 
 	}
 	public static void menu(Reseau reseau) {
@@ -46,14 +48,14 @@ public class Main
 				System.out.println("Vous avez choisis : " + str);
 				try {
 					commande = Integer.parseInt(str);
-					if(commande < 0 || commande > 14) {
-						System.out.println("Veuillez entrer un numéro de commande entre 1 et 13 \n "
+					if(commande < 0 || commande > 16) {
+						System.out.println("Veuillez entrer un numéro de commande entre 1 et 15 \n "
 								+ " Appuyer sur entrer pour revenir au menu");
 						str = sc.nextLine();
 						commande = 0; 
 					}
 				}catch(NumberFormatException e) {
-					System.out.println("Veuillez entrer un numéro de commande entre 1 et 10 \n "
+					System.out.println("Veuillez entrer un numéro de commande entre 1 et 15 \n "
 							+ " Appuyer sur entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande = 0; 
@@ -70,17 +72,45 @@ public class Main
 				}else {
 				reseau.addBiblio(new Bibliotheque(str,reseau));
 				System.out.println("La nouvelle bibliothèque " + str + " a ete ajoutee au reseau.");
+				System.out.println("Taper sur entrer pour revenir au menu");
+				str = sc.nextLine();
 				commande=0;
 				}	
 			}
 			//si commande 2
 			else if(commande ==2) {
+				System.out.println("Entrer l'ean de votre document:");
 				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
-					
+					String ean =str;
+					System.out.println("Entrer l'ISBN de votre document ou faites entre s'il n'en a pas:");
+					String isbn = sc.nextLine();
+					System.out.println("Entrer le titre de votre document :");
+					String title = sc.nextLine();
+					System.out.println("Entrer l'editeur de votre document :");
+					String publisher= sc.nextLine();
+					System.out.println("Entrer le titre de serie de votre document :");
+					String seriesTitle= sc.nextLine();
+					System.out.println("Entrer le numero dans sa serie de votre document :");
+					Integer seriesNumber= Integer.parseInt(sc.nextLine());
+					System.out.println("Entrer le nom de l'auteur de votre document :");
+					String authorName= sc.nextLine();
+					System.out.println("Entrer le prenom de l'auteur de votre document :");
+					String authorSurname= sc.nextLine();
+					System.out.println("Entrer le type de votre document :");
+					String type= sc.nextLine();
+					System.out.println("Entrer la date de votre document :");
+					int date= Integer.parseInt(sc.nextLine());
+					System.out.println("Entrer le nombre total de copies de votre document :");
+					int totalCopies= Integer.parseInt(sc.nextLine());
+					Document document = FileReader.createDoc(reseau, isbn, ean, title, publisher, seriesTitle, seriesNumber, authorName, authorSurname, type, date, totalCopies);
+					reseau.addDocument(document);
+					System.out.println("le document suivant a ete ajoute au reseau : \n"+document);
+					System.out.println("Taper sur entrer pour revenir au menu");
+					str = sc.nextLine();
 					commande=0;
 				}	
 			}
@@ -112,7 +142,8 @@ public class Main
 					Utilisateur user= new Utilisateur(name, quota);
 					reseau.getListeUtilisateur().put(user.getId(), user);
 					System.out.println(name+" a ete ajouté au reseau avec l'id :"+user.getId()+" et un quota de "+quota);
-					
+					System.out.println("Taper sur entrer pour revenir au menu");
+					str = sc.nextLine();	
 				commande=0;
 				}	
 			}
@@ -389,7 +420,7 @@ public class Main
 							}
 						}
 					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					System.out.println("Taper sur entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
 				}	
@@ -594,7 +625,7 @@ public class Main
 							System.out.println("cette bibliotheque n'est pas valide");
 						}
 					}
-					System.out.println("Entrer une chaine quelconque pour revenir au menu");
+					System.out.println("Entrer pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
 				}	
@@ -741,10 +772,40 @@ public class Main
 					}else {
 						System.out.println("cet identifiant ne correspond à aucun utilisateur du reseau");
 					}
+				System.out.println("Entrer pour revenir au menu");
+				str = sc.nextLine();	
 				commande=0;
 				}	
 			}
-			else if(commande == 13) {
+			//si commande 13
+			else if(commande ==13) {
+				System.out.println("Entrée l'id de l'utilisateur à afficher:");
+				System.out.println("Taper sur entreée pour revenir au menu");
+				String str = sc.nextLine();
+				if(str.isEmpty()) {
+					commande = 0;
+				}else {
+					Integer id = Integer.parseInt(str);
+					if(reseau.getListeUtilisateur().containsKey(id)){
+						Utilisateur user = reseau.getListeUtilisateur().get(id);
+						System.out.println(user);
+					}else {
+						System.out.println("cet identifiant ne correspond à aucun utilisateur du reseau");
+					}
+				System.out.println("Entrer pour revenir au menu");
+				str = sc.nextLine();
+				commande=0;
+				}	
+			}
+			else if(commande ==14) {
+				reseau.afficherUtilisateur();
+				System.out.println("Entrer pour revenir au menu");
+				String str = sc.nextLine();
+				commande=0;
+				
+			}
+			//si commande 15
+			else if(commande == 15) {
 				marche=false;
 				System.out.println("merci d'avoir utilisé le menu du réseau ! à bientot pour de nouvelles lectures !");
 			}
