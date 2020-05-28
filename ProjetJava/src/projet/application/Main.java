@@ -64,7 +64,7 @@ public class Main
 				
 				System.out.println("Veuillez saisir le nom de la nouvelle bibliotheque :");
 				System.out.println("Taper sur entrée pour revenir au menu");
-				String str = sc.nextLine();
+				String str = sc.nextLine().toLowerCase();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
@@ -86,14 +86,14 @@ public class Main
 			}
 			//si commande 3
 			else if(commande ==3) {
-				System.out.println("Entrée le nom du nouvel utilisateur :");
-				System.out.println("Taper sur entreée pour revenir au menu");
+				System.out.println("Entrer le nom du nouvel utilisateur :");
+				System.out.println("Taper sur entrée pour revenir au menu");
 				String str = sc.nextLine();
 				if(str.isEmpty()) {
 					commande = 0;
 				}else {
 					String name = str;
-					System.out.println("Entrée son quota :");
+					System.out.println("Entrer son quota :");
 					int quota = 5;//quota par defaut
 					str = sc.nextLine();
 					try {
@@ -111,7 +111,7 @@ public class Main
 					}
 					Utilisateur user= new Utilisateur(name, quota);
 					reseau.getListeUtilisateur().put(user.getId(), user);
-					System.out.println(name+" a ete ajouter au reseau avec l'id :"+user.getId()+" et un quota de "+quota);
+					System.out.println(name+" a ete ajouté au reseau avec l'id :"+user.getId()+" et un quota de "+quota);
 					
 				commande=0;
 				}	
@@ -142,7 +142,7 @@ public class Main
 						reseau.ShowAllDocuments();
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
+						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
@@ -187,7 +187,7 @@ public class Main
 						reseau.searchSerie(str);
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
+						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
@@ -249,7 +249,7 @@ public class Main
 								reseau.searchDocumentsAuthorSurname(prenom);}
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
+						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
@@ -311,7 +311,7 @@ public class Main
 						}
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
+						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
@@ -369,7 +369,7 @@ public class Main
 						}
 					}else if(typeAction == 1) {
 						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
+						str = sc.nextLine().toLowerCase();
 						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
 							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
 							str = sc.nextLine();
@@ -416,7 +416,7 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
-					if(typeAction == 0) {
+					
 						System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
 						System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
 						String debut = sc.nextLine();
@@ -433,52 +433,32 @@ public class Main
 								System.out.println("Vos dates sont erronees");
 							}
 							else {
-								reseau.searchNumberPeriod(debutNumber, endNumber);
+								if(typeAction == 0) {
+									reseau.searchNumberPeriod(debutNumber, endNumber);
+								}
+								else {
+									System.out.println("Entrer le nom d'une bibliotheque");
+									str = sc.nextLine().toLowerCase();
+									while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
+										System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
+										str = sc.nextLine();
+									}
+									if (str.isEmpty()) {
+										commande = 0;
+									}
+									else{
+										Bibliotheque bibli = reseau.getListeBiblio().get(str);
+									
+										bibli.searchNumberPeriod(debutNumber, endNumber);
+									}
+								}
 							}
 						}catch(NumberFormatException e ){
 							System.out.println("Vos dates sont erronees");
 							debutNumber = 0; 
 							endNumber = 0; 
 						}
-						
-						
-					}else if(typeAction == 1) {
-						System.out.println("Entrer le nom d'une bibliotheque");
-						str = sc.nextLine();
-						while((!reseau.getListeBiblio().containsKey(str)) && !str.isEmpty()) {
-							System.out.println("Cette bibliothèque n'existe pas dans le reseau, réessayer ou taper entrer pour quitter : "); 
-							str = sc.nextLine();
-						}
-						if (str.isEmpty()) {
-							commande = 0;
-						}
-						else{
-							Bibliotheque bibli = reseau.getListeBiblio().get(str);
-							System.out.println("Nous allons vous demander la période sur laquelle vous souhaiter connaitre le nombre de document");
-							System.out.println("d'abord l'annee à partir de laquelle vous voulez compter :");
-							String debut = sc.nextLine();
-							System.out.println("maintenant l'annee jusqu'à laquelle vous voulez compter :");
-							String end = sc.nextLine();
-							int debutNumber = 0;
-							int endNumber = 0;
-							try {
-								debutNumber = Integer.parseInt(debut);
-								endNumber = Integer.parseInt(end);
-								if(debutNumber < 0 || endNumber > 2020 || debutNumber > 2020 || endNumber < 0) {
-									debutNumber = 0; 
-									endNumber = 0; 
-									System.out.println("vos dates sont erronees");
-								}
-								else {
-									reseau.searchNumberPeriod(debutNumber, endNumber);
-								}
-							}catch(NumberFormatException e ){
-								System.out.println("vos dates sont erronees");
-								debutNumber = 0; 
-								endNumber = 0; 
-							}
-						}
-					}
+
 						System.out.println("Taper sur entrer pour revenir au menu");
 						str = sc.nextLine();
 						commande=0;
@@ -604,7 +584,7 @@ public class Main
 											e.printStackTrace();
 										}
 									}else {
-										System.out.println("ce document n'as pas été trouver");
+										System.out.println("ce document n'as pas été trouvé");
 									}
 								}
 							}else {
@@ -628,6 +608,7 @@ public class Main
 					commande = 0;
 				}else {
 					try {
+	
 						typeAction = Integer.parseInt(str);
 						if(typeAction != 1 && typeAction != 0) {
 							System.out.println("Erreur. Il faut saisir 0 ou 1");
@@ -641,29 +622,59 @@ public class Main
 							str = sc.nextLine();
 							commande = 0; 
 						}
+					Utilisateur user = null; 
+					Bibliotheque biblioH = null; 
 					if(typeAction == 0) {
 						System.out.println("Entrer l'id de l'utilisateur :");
 						str = sc.nextLine();
 						Integer id = Integer.parseInt(str);
 						if(reseau.getListeUtilisateur().containsKey(id)){
-							Utilisateur user = reseau.getListeUtilisateur().get(id);
+							user = reseau.getListeUtilisateur().get(id);
+						}
+						else {
+							System.out.println("Cet utilisteur n'est pas enregistré dans le reseau \n Taper entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0; 
+						}
+					}
+					
+					else if(typeAction == 1) {
+						System.out.println("Entrer le nom d'une bibliotheque qui remet");
+						str = sc.nextLine().toLowerCase();
+						if(reseau.getListeBiblio().containsKey(str)) {
+							biblioH = reseau.getListeBiblio().get(str);
+						}
+						else {
+							System.out.println("Cette bibliothèque n'est pas dans le reseau \\n Taper entrer pour revenir au menu");
+							str = sc.nextLine();
+							commande = 0;
+						}
+							
+					}
 							System.out.println("Entrer le nom d'une bibliotheque dans laquelle remettre");
 							str = sc.nextLine().toLowerCase();
 							if(reseau.getListeBiblio().containsKey(str)) {
 								Bibliotheque bibli = reseau.getListeBiblio().get(str);
+								
 								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez remettre");
 								str = sc.nextLine();
 								Document docu = null;
 								try {
-									docu = bibli.searchEAN(str);
+									docu = reseau.searchEAN(str);
 								} catch (formatEANException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								if(docu!=null) {
 									try {
+										if(typeAction == 0) {
 										user.remettre(bibli, docu);
 										System.out.println("remise reussi");
+										}
+										else {
+											biblioH.remettre(bibli, docu);
+											System.out.println("remise reussi");
+										}
 									} catch (inscriptionException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -671,72 +682,31 @@ public class Main
 								}else {
 									Livre livre = null;
 									try {
-										livre = bibli.searchISBN(str);
+										livre = reseau.searchISBN(str);
 									} catch (formatISBNException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									if(livre!=null) {
 										try {
+											if(typeAction == 0) {
 											user.remettre(bibli, livre);
 											System.out.println("remise reussi");
+											} else {
+												biblioH.remettre(bibli, livre);
+												System.out.println("remise reussi");
+											}
 										} catch (inscriptionException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 									}else {
-										System.out.println("ce document n'as pas été trouver");
+										System.out.println("ce document n'as pas été trouvé");
 									}
 								}
 							}else {
 								System.out.println("cette bibliotheque n'est pas valide");
 							}
-						}else {
-							System.out.println("cet utilisateur n'est pas dans le réseau");
-						}
-					}else if(typeAction == 1) {
-						System.out.println("Entrer le nom de la bibliotheque qui veut remettre");
-						str = sc.nextLine().toLowerCase();
-						if(reseau.getListeBiblio().containsKey(str)){
-							Bibliotheque bibliA = reseau.getListeBiblio().get(str);
-							System.out.println("Entrer le nom d'une bibliotheque dans laquelle remettre");
-							str = sc.nextLine().toLowerCase();
-							if(reseau.getListeBiblio().containsKey(str)) {
-								Bibliotheque bibliB = reseau.getListeBiblio().get(str);
-								System.out.println("Entrer le EAN ou l'ISBN du document que vous voulez remettre");
-								str = sc.nextLine();
-								Document docu = null;
-								try {
-									docu = bibliB.searchEAN(str);
-								} catch (formatEANException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								if(docu!=null) {
-									bibliA.remettre(bibliB, docu);
-									System.out.println("remise reussi");
-								}else {
-									Livre livre = null;
-									try {
-										livre = bibliB.searchISBN(str);
-									} catch (formatISBNException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									if(livre!=null) {
-										bibliA.remettre(bibliB, livre);
-										System.out.println("remise reussi");
-									}else {
-										System.out.println("ce document n'as pas été trouver");
-									}
-								}
-							}else {
-								System.out.println("cette bibliotheque n'est pas valide");
-							}
-						}else {
-							System.out.println("cette bibliotheque n'est pas valide");
-						}
-					}
 					System.out.println("Entrer une chaine quelconque pour revenir au menu");
 					str = sc.nextLine();
 					commande=0;
@@ -753,7 +723,7 @@ public class Main
 					Integer id = Integer.parseInt(str);
 					if(reseau.getListeUtilisateur().containsKey(id)){
 						Utilisateur user = reseau.getListeUtilisateur().get(id);
-						System.out.println("Entrer le nom d'une bibliotheque dans laquelle emprunter");
+						System.out.println("Entrer le nom dans laquelle l'inscrire");
 						str = sc.nextLine().toLowerCase();
 						if(reseau.getListeBiblio().containsKey(str)) {
 							Bibliotheque bibli = reseau.getListeBiblio().get(str);
@@ -769,7 +739,7 @@ public class Main
 							System.out.println("cette bibliotheque n'est pas valide");
 						}
 					}else {
-						System.out.println("cette identifiant ne correspond à aucun utilisateur du reseau");
+						System.out.println("cet identifiant ne correspond à aucun utilisateur du reseau");
 					}
 				commande=0;
 				}	
@@ -850,7 +820,7 @@ public class Main
 		Utilisateur user4= new Utilisateur("M Bouillaguet", 5);
 		parisBiblios.getListeUtilisateur().put(user4.getId(), user4);
 		
-		//menu(parisBiblios);
+		menu(parisBiblios);
 		
 		try {
 			Document docu1 = parisBiblios.searchEAN("9782355041587");
